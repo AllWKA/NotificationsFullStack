@@ -1,5 +1,7 @@
 {
-  "name": "AllNews",
-  "integrations": {},
+  "name": "NewsWithPushNotification",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

@@ -1,0 +1,115 @@
+<ion-header class="header center">
+  <ion-navbar>
+    <ion-title>
+      <ion-icon name="ios-leaf-outline" class="toolbarText">News</ion-icon>
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="Parts" color="dark">
+      <ion-segment-button value="allNew" class="tabs">
+        All News
+      </ion-segment-button>
+      <ion-segment-button value="alerts" class="tabs">
+        Alerts
+      </ion-segment-button>
+      <ion-segment-button value="events" class="tabs">
+        Events
+      </ion-segment-button>
+      <ion-segment-button value="others" class="tabs">
+        Others
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="bar">
+  <div [ngSwitch]="Parts">
+    <ion-list *ngSwitchCase="'allNew'">
+      <ion-item class="bar2">
+        <ion-card>
+          <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/03/03103805/big-concert-audience-listening-to-music-at-festival-picture-id485343244.jpg" />
+          <ion-card-content>
+            <ion-card-title>
+              Nine Inch Nails Live
+            </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+            </p>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <img src="https://c.wallhere.com/photos/fc/3d/video_games_Assassin's_Creed_Syndicate_Assassin's_Creed-31992.jpg!d" />
+          <ion-card-content>
+            <ion-card-title>
+              Nine Inch Nails Live
+            </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+            </p>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <img src="http://www.eldiarioalerta.com/media//diarioalerta/sections/logo%20(1)-1%20copia.jpg" />
+          <ion-card-content>
+            <ion-card-title>
+              Nine Inch Nails Live
+            </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'alerts'">
+      <ion-item class="bar2">
+        <ion-card>
+          <img src="http://www.eldiarioalerta.com/media//diarioalerta/sections/logo%20(1)-1%20copia.jpg" />
+          <ion-card-content>
+            <ion-card-title>
+              Nine Inch Nails Live
+            </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'events'">
+      <ion-item class="bar2">
+        <ion-card>
+          <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/03/03103805/big-concert-audience-listening-to-music-at-festival-picture-id485343244.jpg" />
+          <ion-card-content>
+            <ion-card-title>
+              Nine Inch Nails Live
+            </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'others'">
+      <ion-item class="bar2">
+        <ion-card>
+          <img src="https://c.wallhere.com/photos/fc/3d/video_games_Assassin's_Creed_Syndicate_Assassin's_Creed-31992.jpg!d" />
+          <ion-card-content>
+            <ion-card-title>
+              Nine Inch Nails Live
+            </ion-card-title>
+            <p>
+              The most popular industrial group ever, and largely
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+</ion-content>
