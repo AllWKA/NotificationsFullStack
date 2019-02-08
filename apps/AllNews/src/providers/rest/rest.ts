@@ -19,10 +19,10 @@ export class RestProvider {
 
   public getUser(name:string,pwd:string): Observable<User> {
     
-    return this.http.get(this.baseUrl + '/logUser/' + name + "/" + pwd).pipe(
-      map(this.extractData),
-      catchError(this.handleError)
-    );
+    // return this.http.get(this.baseUrl + '/logUser/' + name + "/" + pwd).pipe(
+    //   map(this.extractData),
+    //   catchError(this.handleError)
+    // );
   }
 
   private extractData(res: Response) {
