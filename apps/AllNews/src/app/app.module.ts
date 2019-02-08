@@ -11,6 +11,8 @@ import { HomePage } from '../pages/home/home';
 import { NewsPage } from "../pages/news/news";
 import { RestProvider } from '../providers/rest/rest';
 
+import { FCM } from '@ionic-native/fcm/ngx';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -31,6 +33,7 @@ import { RestProvider } from '../providers/rest/rest';
   providers: [
     StatusBar,
     SplashScreen,
+    FCM,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider
   ]
