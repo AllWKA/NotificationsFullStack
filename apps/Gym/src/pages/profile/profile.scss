@@ -1,0 +1,38 @@
+page-profile {
+    // .form-structor {
+    //     background-color: #222;
+    //     border-radius: 15px;
+    //     height: auto;
+    //     width: auto;
+    //     position: relative;
+    //     overflow: hidden;
+    // }
+    //     &::after {
+    //         content: '';
+    //         opacity: 4;
+    //         position: absolute;
+    //         top: 0;right:0;bottom:0;left:0;
+    //         background-repeat: no-repeat;
+    //         // background-position: left bottom;
+    //         background-size: 115%;
+    //         background-image: url('https://static1.squarespace.com/static/56155699e4b0f1ea73aea6dc/t/5bb51b93eef1a1ffa8046ac6/1538595762775/female-fitness-showing-abs.jpg');
+    //     }
+    .background{
+        opacity: 4;
+        position: absolute;
+        top: 0;right:0;bottom:0;left:0;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        background-size: 130%;
+        // background-image: url('https://static1.squarespace.com/static/55b1a39ee4b04a781e934c02/5707329660b5e990b70ca744/59fa8b606c3194b1f3efede0/1541714819806/spencer+black+and+white_.jpg?format=1000w');
+        // background-image: url('https://static1.squarespace.com/static/5409b4c1e4b077e6324b17ed/5409c680e4b0b3642fed860d/58794aba15d5dba96cf28086/1526344188951/%C2%A9andre%CC%81ajernmark_cornelia1.jpg');
+        background-image: url('https://static1.squarespace.com/static/56155699e4b0f1ea73aea6dc/t/5bb51b93eef1a1ffa8046ac6/1538595762775/female-fitness-showing-abs.jpg');
+    }
+
+    page-home {
+        .error{
+         white-space: normal;
+         color:red
+        }
+       }
+}

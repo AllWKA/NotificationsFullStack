@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "526595182800",
+    "firebase_url": "https://notification-inventia.firebaseio.com",
+    "project_id": "notification-inventia",
+    "storage_bucket": "notification-inventia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526595182800:android:72c222f92831e8f0",
+        "android_client_info": {
+          "package_name": "io.ionic.all.news.full.stack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526595182800-3qq5ob8hrcsp1uqu15d02fh3a8af85sa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJuMzHqmm8bBdq3TG9k2WQgujz2RXg4lE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526595182800:android:ab07b029a6ddc1f2",
+        "android_client_info": {
+          "package_name": "io.ionic.gym.full.stack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526595182800-3qq5ob8hrcsp1uqu15d02fh3a8af85sa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJuMzHqmm8bBdq3TG9k2WQgujz2RXg4lE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

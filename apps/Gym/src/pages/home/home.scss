@@ -1,0 +1,59 @@
+page-home {
+    // .background{
+    //     width: 100%;
+    //     height: 100%;
+    //     background: linear-gradient(5deg,#040404,#FC7A00 )// ==> Para que el fondo vaya de un color a otro.
+    // }
+    .background{
+        opacity: 4;
+        position: absolute;
+        top: 0;right:0;bottom:0;left:0;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        background-size: 130%;
+        background-image: url('https://static1.squarespace.com/static/55b1a39ee4b04a781e934c02/5707329660b5e990b70ca744/59fa8b606c3194b1f3efede0/1541714819806/spencer+black+and+white_.jpg?format=1000w');
+    }
+    .scroll-content{
+        text-align: center;
+    }
+    ion-card.card{//==> hacemos que el ion-card sea transparente
+        background: rgba(232, 230,230, 0.4px);
+        border-radius: 10px;
+    }
+
+    .item{//==> hacemos que el item sea transparente
+        background: rgba(232, 230,230, 0px);
+    }
+
+    ion-input{
+        border-bottom: #5499C7 solid 1px;
+    }
+    h1{
+        color: #fff;
+        font-size: 3em;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: lighter;
+    }
+    // .form-structor {
+    //     background-color: #222;
+    //     border-radius: 15px;
+    //     height: auto;
+    //     width: auto;
+    //     position: relative;
+    //     overflow: hidden;
+    // }
+    //     &::after {
+    //         // content: '';
+    //         opacity: 4;
+    //         position: absolute;
+    //         top: 0;right:0;bottom:0;left:0;
+    //         background-repeat: no-repeat;
+    //         background-position: left bottom;
+    //         background-size: 130%;
+    //         background-image: url('https://static1.squarespace.com/static/55b1a39ee4b04a781e934c02/5707329660b5e990b70ca744/59fa8b606c3194b1f3efede0/1541714819806/spencer+black+and+white_.jpg?format=1000w');
+    //     }
+    // .negro{
+    //     color: #222
+        
+    // }
+}
