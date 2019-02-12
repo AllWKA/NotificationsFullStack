@@ -1,0 +1,12 @@
+/* --------- LÍNEA ---------- */
+/* para crear una línea */
+#lineaF{
+    border-top: 1px solid lightgray
+    
+    
+}
+/* para darle separación a la línea con otros div */
+.prueba-footer{
+    padding: 2px 16px;
+}
+
