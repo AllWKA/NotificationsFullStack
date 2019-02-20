@@ -33,6 +33,8 @@ module.exports = app => {
             const modelDir = path.join(dir, filename);
             const model = sequelize.import(modelDir);
             db.models[model.name] = model;
+            console.log("done:");
+
         });
         console.log("All Models charged:", db.models);
 

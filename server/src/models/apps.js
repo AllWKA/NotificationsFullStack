@@ -1,8 +1,12 @@
 module.exports = (sequelize, DataType) => {
 
     const Apps = sequelize.define(
-        'aplication',
+        'aplications',
         {
+            idAplication: {
+                type: DataType.INTEGER,
+                primaryKey: true
+            },
             aplicationName: {
                 type: DataType.STRING,
                 allowNull: false,
@@ -19,5 +23,10 @@ module.exports = (sequelize, DataType) => {
             }
         }
     );
+
+    Apps.associate = (models) => {
+        console.log("buenas desde app");
+
+    }
     return Apps;
 }

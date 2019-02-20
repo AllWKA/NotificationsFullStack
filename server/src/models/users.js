@@ -2,32 +2,26 @@ module.exports = (sequelize, DataType) => {
 
     const User = sequelize.define(
         'user', {
+            idUser: {
+                type: DataType.INTEGER,
+                primaryKey: true
+            },
             userName: {
-                type: DataType.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true
-                }
+                type: DataType.STRING
             },
             email: {
-                type: DataType.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true
-                }
+                type: DataType.STRING
             },
             password: {
-                type: DataType.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true
-                }
-            },
-            discriminator: {
-                type: DataType.INTEGER,
-                allowNull: false
+                type: DataType.STRING
             }
         }
     );
-    return Apps
+
+    User.associate = (models) => {
+
+        console.log("buenasTardes desde User");
+
+    }
+    return User
 }

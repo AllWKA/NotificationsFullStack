@@ -1,7 +1,15 @@
 module.exports = (sequelize, DataType) => {
 
-    const User = sequelize.define(
-        'user', {
+    const userApp = sequelize.define(
+        'useraplication', {
+            userID: {
+                type: DataType.INTEGER,
+                primaryKey: true
+            },
+            aplicationID: {
+                type: DataType.INTEGER,
+                primaryKey: true
+            },
             deviceToken: {
                 type: DataType.STRING,
                 allowNull: false,
@@ -10,13 +18,18 @@ module.exports = (sequelize, DataType) => {
                 }
             },
             so: {
-                type: DataType.ENUM('android', 'ios', 'web')
+                type: DataType.ENUM('android', 'ios', 'web'),
+                allowNull: false,
+                validate: {
+                    notEmpty: true
+                }
             }
         }
     );
 
-    User.associate = (models) => {
+    userApp.associate = (models) => {
+        console.log("buenas tardes desde userapp");
 
     };
-    return Apps
+    return userApp;
 }

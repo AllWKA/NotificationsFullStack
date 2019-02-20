@@ -1,5 +1,5 @@
 module.exports = {
-    database: 'fullstack',
+    database: 'db_notifications_inventia',
     username: 'root',
     password: 'Admin123',
     params: {

@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const Apps = app.db.models.app;
+    const Apps = app.db.models.aplications;
 
     app.get('/appsAndUsers', (req, res) => {
 
