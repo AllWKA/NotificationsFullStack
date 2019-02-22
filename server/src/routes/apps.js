@@ -38,14 +38,13 @@ module.exports = app => {
 
     app.post('/app', (req, res) => {
 
-        const name = req.body.name;
-        const productOwnerId = req.body.productOwnerId;
+        const aplicationName = req.body.aplicationName;
+        const tokenAplication = req.body.tokenAplication;
 
-        Apps.create({
+        console.log(req.body);
 
-            name: name,
-            productOwnerId: productOwnerId
-        })
+
+        Apps.create(req.body)
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
@@ -57,7 +56,7 @@ module.exports = app => {
 
         Apps.find({
 
-            where: { id: id }
+            where: { idAplication: id }
         })
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }); });
@@ -66,12 +65,19 @@ module.exports = app => {
     app.put("/app/:id", (req, res, next) => {
 
         const id = req.params.id;
-        const name = req.body.name;
+        const aplicationName = req.body.aplicationName;
+        const tokenAplication = req.body.tokenAplication;
+
+        console.log(req.body);
+
 
         Apps.update(
-            { name: name },
+            {
+                nameAplication: aplicationName,
+                tokenAplication: tokenAplication
+            },
 
-            { where: { id: id } })
+            { where: { idAplication: id } })
 
             .then(rowsUpdated => { res.json(rowsUpdated); })
 
@@ -80,11 +86,11 @@ module.exports = app => {
 
     app.delete('/app/:id', (req, res) => {
 
-        const id = req.params.id;
+        const idAplication = req.params.id;
 
         Apps.destroy(
 
-            { where: { id: id } })
+            { where: { idAplication: idAplication } })
 
             .then(app => { res.json(app); })
 
