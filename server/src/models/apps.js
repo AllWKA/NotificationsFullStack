@@ -26,6 +26,7 @@ module.exports = (sequelize, DataType) => {
 
     Apps.associate = (models) => {
         Apps.belongsToMany(models.admins, {through: 'adminaplications', foreignKey: 'aplicationID'});
+        Apps.belongsToMany(models.users, {through: 'useraplications', foreignKey: 'aplicationID'})
     }
     return Apps;
 }

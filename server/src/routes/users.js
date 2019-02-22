@@ -7,7 +7,7 @@ module.exports = app => {
     app.get('/users', (req, res) => {
 
         User.findAll({
-            // include: [{ model: app.db.models.app }]
+            include: [{ model: app.db.models.aplications, as: 'devices' }]
         })
             .then(result => { res.json(result); })
 
@@ -19,7 +19,10 @@ module.exports = app => {
 
         const idUser = req.params.idUser;
 
-        User.find({ where: { idUser: idUser } })
+        User.find({ 
+            include: [{ model: app.db.models.aplications, as: 'devices' }],
+            where: { idUser: idUser } 
+        })
 
             .then(owner => { res.json(owner); });
     });
