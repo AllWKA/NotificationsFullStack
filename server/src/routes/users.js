@@ -1,12 +1,13 @@
 var bcrypt = require('bcryptjs');
 
 module.exports = app => {
-    const User = app.db.models.user;
+
+    const User = app.db.models.users;
 
     app.get('/users', (req, res) => {
 
         User.findAll({
-            include: [{ model: app.db.models.app }]
+            // include: [{ model: app.db.models.app }]
         })
             .then(result => { res.json(result); })
 
@@ -14,40 +15,42 @@ module.exports = app => {
 
     });
 
-    app.get('/user/:id', (req, res) => {
+    app.get('/user/:idUser', (req, res) => {
 
-        const id = req.params.id;
+        const idUser = req.params.idUser;
 
-        User.find({ where: { id: id } })
+        User.find({ where: { idUser: idUser } })
 
             .then(owner => { res.json(owner); });
     });
 
     app.get('/logUser/:name/:pwd', (req, res) => {
 
-        const name = req.params.name;
-        const pwd = req.params.pwd;
+        const userName = req.params.name;
+        const password = req.params.pwd;
         const nextRes = res;
 
         User.find({
-            include: [{
+            // include: [{
 
-                model: app.db.models.app,
-                attributes: ['id', 'name']
-            }],
+            //     model: app.db.models.app,
+            //     attributes: ['id', 'name']
+            // }],
 
-            where: { name: name }
+            where: {
+                userName: userName
+            }
         })
             .then(user => {
-                bcrypt.compare(pwd, user.pwd, (err, res) => {
+                // bcrypt.compare(password, user.password, (err, res) => {
 
-                    if (res) {
-                        nextRes.json(user);
-                    } else {
-                        nextRes.json(err);
-                    }
-                });
-
+                //     if (res) {
+                //         nextRes.json(user);
+                //     } else {
+                //         nextRes.json(err);
+                //     }
+                // });
+                console.log(user);
 
 
             }).catch(error => {
@@ -60,18 +63,16 @@ module.exports = app => {
 
         bcrypt.genSalt(10, (err, salt) => {
 
-            bcrypt.hash(req.body.pwd, salt, (err, hash) => {
-                const name = req.body.name;
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+                const userName = req.body.userName;
                 const email = req.body.email;
-                const pwd = hash;
-                const appId = req.body.appId;
+                const password = hash;
 
                 User.create({
 
-                    name: name,
+                    userName: userName,
                     email: email,
-                    appId: appId,
-                    pwd: pwd
+                    password: password
                 })
                     .then(user => { res.json(user); })
 
