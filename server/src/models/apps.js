@@ -25,8 +25,7 @@ module.exports = (sequelize, DataType) => {
     );
 
     Apps.associate = (models) => {
-        console.log("buenas desde app");
-
+        Apps.belongsToMany(models.admins, {through: 'adminaplications', foreignKey: 'aplicationID'});
     }
     return Apps;
 }

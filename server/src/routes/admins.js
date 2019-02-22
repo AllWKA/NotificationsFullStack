@@ -4,11 +4,21 @@ module.exports = app => {
 
     const Admin = app.db.models.admins;
 
+    app.get('/admin/:id', (req, res) => {
+
+        const idAdmin = req.params.id;
+
+        Admin.find({
+            include: [{ model: app.db.models.aplications}],
+            where: { idAdmin: idAdmin }
+        })
+            .then(admin => { res.json(admin); })
+            .catch(error => { res.status(412).json({ msg: error.message }) });;
+    });
     app.get('/admins', (req, res) => {
 
-        Admin.findAll({
-            // include: [{ model: app.db.models.app }]
-        })
+        Admin.findAll({include: [{ model: app.db.models.aplications }]})
+
             .then(result => { res.json(result); })
 
             .catch(error => { res.status(412).json({ msg: error.message }); });
@@ -50,7 +60,8 @@ module.exports = app => {
                 const password = hash;
                 const discriminator = req.body.discriminator;
 
-                Admin.update({
+                Admin.update(
+                    {
 
                     userName: userName,
                     email: email,
@@ -76,40 +87,4 @@ module.exports = app => {
 
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
-    app.get('/logAdmin/:name/:pwd', (req, res) => {
-
-        const userName = req.params.name;
-        const password = req.params.pwd;
-        const nextRes = res;
-
-        User.find({
-            // include: [{
-
-            //     model: app.db.models.app,
-            //     attributes: ['id', 'name']
-            // }],
-
-            where: {
-                userName: userName
-            }
-        })
-            .then(user => {
-                // bcrypt.compare(password, user.password, (err, res) => {
-
-                //     if (res) {
-                //         nextRes.json(user);
-                //     } else {
-                //         nextRes.json(err);
-                //     }
-                // });
-                console.log(user);
-
-
-            }).catch(error => {
-
-                res.status(412).json({ msg: error.message })
-            });
-    });
-
-
 }
