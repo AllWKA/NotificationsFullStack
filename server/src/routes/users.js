@@ -24,41 +24,6 @@ module.exports = app => {
             .then(owner => { res.json(owner); });
     });
 
-    app.get('/logUser/:name/:pwd', (req, res) => {
-
-        const userName = req.params.name;
-        const password = req.params.pwd;
-        const nextRes = res;
-
-        User.find({
-            // include: [{
-
-            //     model: app.db.models.app,
-            //     attributes: ['id', 'name']
-            // }],
-
-            where: {
-                userName: userName
-            }
-        })
-            .then(user => {
-                // bcrypt.compare(password, user.password, (err, res) => {
-
-                //     if (res) {
-                //         nextRes.json(user);
-                //     } else {
-                //         nextRes.json(err);
-                //     }
-                // });
-                console.log(user);
-
-
-            }).catch(error => {
-
-                res.status(412).json({ msg: error.message })
-            });
-    });
-
     app.post('/user', (req, res) => {
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -79,29 +44,25 @@ module.exports = app => {
                     .catch(error => { res.status(412).json({ msg: error.message }); });
             });
         });
-
-
     });
 
     app.put("/user/:id", (req, res, next) => {
         bcrypt.genSalt(10, (err, salt) => {
 
-            bcrypt.hash(req.body.pwd, salt, (err, hash) => {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
 
-                const id = req.params.id;
-                const name = req.body.name;
+                const idUser = req.params.id;
+                const userName = req.body.userName;
                 const email = req.body.email;
-                const pwd = hash;
-                const status = req.body.status;
+                const password = hash;
 
                 User.update({
 
-                    name: name,
+                    userName: userName,
                     email: email,
-                    status: status,
-                    pwd: pwd
+                    password: password
 
-                }, { where: { id: id } })
+                }, { where: { idUser: idUser } })
 
                     .then(rowsUpdated => { res.json(rowsUpdated); })
 
@@ -113,9 +74,9 @@ module.exports = app => {
 
     app.delete('/user/:id', (req, res) => {
 
-        const id = req.params.id;
+        const idUser = req.params.id;
 
-        User.destroy({ where: { id: id } })
+        User.destroy({ where: { idUser: idUser } })
 
             .then(deletedOwner => { res.json(deletedOwner); })
 
