@@ -14,7 +14,8 @@ module.exports = (sequelize, DataType) => {
     )
     adminAplication.associate = (models) => {
 
-        console.log("buenasTardes desde User");
+        // adminAplication.hasMany(models.admins, { foreignKey: 'aplicationID' });
+        // adminAplication.hasMany(models.aplications, { foreignKey: 'adminID' });
 
     };
     return adminAplication;
