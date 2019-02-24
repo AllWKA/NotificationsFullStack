@@ -11,7 +11,9 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
 
     });
+    //Devuelve todas las aplicaiones dado un administrador
     app.get('/adminAplications/:adminID', (req, res) => {
+
 
         const adminID = req.params.adminID;
 

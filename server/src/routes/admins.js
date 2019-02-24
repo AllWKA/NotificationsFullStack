@@ -9,7 +9,8 @@ module.exports = app => {
         const idAdmin = req.params.id;
 
         Admin.find({
-            include: [{ model: app.db.models.aplications}],
+            //incluye en el json que se devuelve las aplicaciones que controla ese administrador
+            include: [{ model: app.db.models.aplications }],
             where: { idAdmin: idAdmin }
         })
             .then(admin => { res.json(admin); })
@@ -17,7 +18,7 @@ module.exports = app => {
     });
     app.get('/admins', (req, res) => {
 
-        Admin.findAll({include: [{ model: app.db.models.aplications }]})
+        Admin.findAll({ include: [{ model: app.db.models.aplications }] })
 
             .then(result => { res.json(result); })
 
@@ -25,12 +26,14 @@ module.exports = app => {
 
     });
     app.post('/admin', (req, res) => {
-
+        //genera la "sal" que se añade a la contraseña para encriptarla
         bcrypt.genSalt(10, (err, salt) => {
-
+            //encriptacion de la informacion
             bcrypt.hash(req.body.password, salt, (err, hash) => {
+
                 const userName = req.body.userName;
                 const email = req.body.email;
+                //hash es la clave ya encriptada
                 const password = hash;
                 const discriminator = req.body.discriminator;
 
@@ -63,12 +66,12 @@ module.exports = app => {
                 Admin.update(
                     {
 
-                    userName: userName,
-                    email: email,
-                    discriminator: discriminator,
-                    password: password
+                        userName: userName,
+                        email: email,
+                        discriminator: discriminator,
+                        password: password
 
-                }, { where: { idAdmin: idAdmin } })
+                    }, { where: { idAdmin: idAdmin } })
 
                     .then(rowsUpdated => { res.json(rowsUpdated); })
 
