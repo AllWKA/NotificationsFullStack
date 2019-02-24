@@ -30,7 +30,6 @@ module.exports = (sequelize, DataType) => {
     userApp.associate = (models) => {
         userApp.belongsTo(models.aplications, { foreignKey: 'aplicationID' });
         userApp.belongsTo(models.users, { foreignKey: 'userID' });
-
     };
     return userApp;
 }

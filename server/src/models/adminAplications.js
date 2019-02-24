@@ -13,10 +13,8 @@ module.exports = (sequelize, DataType) => {
         }
     )
     adminAplication.associate = (models) => {
-
-        // adminAplication.hasMany(models.admins, { foreignKey: 'aplicationID' });
-        // adminAplication.hasMany(models.aplications, { foreignKey: 'adminID' });
-
+        adminAplication.belongsTo(models.admins, { foreignKey: 'aplicationID' });
+        adminAplication.belongsTo(models.aplications, { foreignKey: 'adminID' });
     };
     return adminAplication;
 };
