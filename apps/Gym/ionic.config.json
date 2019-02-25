@@ -1,0 +1,7 @@
+{
+  "name": "gym",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

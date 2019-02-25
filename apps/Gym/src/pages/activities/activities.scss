@@ -1,0 +1,20 @@
+page-activities {
+    .form-structor {
+        background-color: #222;
+        border-radius: 15px;
+        height: auto;
+        width: auto;
+        position: relative;
+        overflow: hidden;
+    }
+        &::after {
+            content: '';
+            opacity: 4;
+            position: absolute;
+            top: 0;right:0;bottom:0;left:0;
+            background-repeat: no-repeat;
+            // background-position: left bottom;
+            background-size: 115%;
+            background-image: url('http://www.bestsuggestor.com/wp-content/uploads/2014/12/weight-loss.jpg');
+        }
+}
