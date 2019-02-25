@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 
-import { FCM, NotificationData } from '@ionic-native/fcm/ngx';
+import { FCM, NotificationData } from "@ionic-native/fcm/ngx";
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,7 +19,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
       this.fcm.getToken().then(token => {
         // Your best bet is to here store the token on the user's profile on the
         // Firebase database, so that when you want to send notifications to this 

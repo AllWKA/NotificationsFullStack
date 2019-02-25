@@ -1,0 +1,111 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Validaciones formulario
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <h1>Registro de datos</h1>
+  </div>
+  <div>
+    <form [formGroup]="formularioUsuario" (ngSubmit)="saveData()" novalidate>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="person" item-left></ion-icon>
+          <ion-label stacked>Nombre:</ion-label>
+          <ion-input formControlName="nombre" type="text" placeholder="Nombre" name="nombre">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="formularioUsuario.get('nombre').errors && formularioUsuario.get('nombre').dirty">
+          <p *ngIf="formularioUsuario.get('nombre').hasError('required')" class="error">
+            El nombre es requerido.
+          </p>
+          <p *ngIf="formularioUsuario.get('nombre').hasError('maxlength')" class="error">
+            El máximo de caracteres permitidos es 30.
+          </p>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="pin" item-left></ion-icon>
+          <ion-label stacked>Dirección:</ion-label>
+          <ion-input formControlName="direccion" type="text" placeholder="Dirección" name="direccion">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="formularioUsuario.get('direccion').errors && formularioUsuario.get('direccion').dirty">
+          <p *ngIf="formularioUsuario.get('direccion').hasError('required')" class="error">
+            La dirección es requerida.
+          </p>
+          <p *ngIf="formularioUsuario.get('direccion').hasError('minlength')" class="error">
+            El mínimo de caracteres permitidos es 5.
+          </p>
+          <p *ngIf="formularioUsuario.get('direccion').hasError('maxlength')" class="error">
+            El máximo de caracteres permitidos es 100.
+          </p>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="at" item-left></ion-icon>
+          <ion-label stacked>Correo Electrónico:</ion-label>
+          <ion-input formControlName="correo" type="email" placeholder="correo" name="correo">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="formularioUsuario.get('correo').errors && formularioUsuario.get('correo').dirty">
+          <p *ngIf="formularioUsuario.get('correo').hasError('required')" class="error">
+            El correo es requerido.
+          </p>
+          <p *ngIf="formularioUsuario.get('correo').hasError('email')" class="error">
+            El correo electrónico indicado no es válido.
+          </p>
+        </ion-item>
+        <ion-row radio-group formControlName="tipo_contacto">
+          <ion-col col-6>
+            <ion-item>
+              <ion-icon name="call" item-left></ion-icon>
+              <ion-label>Teléfono</ion-label>
+              <ion-radio value="Telefono"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item>
+              <ion-icon name="phone-portrait" item-left></ion-icon>
+              <ion-label>Móvil</ion-label>
+              <ion-radio value="Celular"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-item *ngIf="formularioUsuario.get('tipo_contacto').errors && formularioUsuario.get('tipo_contacto').dirty">
+          <p *ngIf="formularioUsuario.get('tipo_contacto').hasError('required')" class="error">
+            El tipo de contacto es requerido.
+          </p>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call" item-left></ion-icon>
+          <ion-label stacked>Numero de contacto:</ion-label>
+          <ion-input formControlName="numero_contacto" type="text" placeholder="Numero de contacto" name="numero_contacto">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="formularioUsuario.get('numero_contacto').errors && formularioUsuario.get('numero_contacto').dirty">
+          <p *ngIf="formularioUsuario.get('numero_contacto').hasError('required')" class="error">
+            El numero es requerido.
+          </p>
+          <p *ngIf="formularioUsuario.get('numero_contacto').hasError('phoneSize')" class="error">
+            El numero de telefono no puede contener más de 7 caracteres
+          </p>
+          <p *ngIf="formularioUsuario.get('numero_contacto').hasError('cellPhoneSize')" class="error">
+            El numero de celular no puede contener más de 10 caracteres
+          </p>
+        </ion-item>
+      </ion-list>
+      <div class="padding">
+        <button ion-button block type="submit" [disabled]="!formularioUsuario.valid">Enviar</button>
+      </div>
+    </form>
+  </div>
+</ion-content>
