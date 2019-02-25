@@ -55,10 +55,10 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.put("/app/:id", (req, res, next) => {
+    app.put("/app/:aplicationName", (req, res, next) => {
 
-        const id = req.params.id;
-        const aplicationName = req.body.aplicationName;
+        const aplicationName = req.params.aplicationName;
+        const aplicationNameNew = req.body.aplicationName;
         const tokenAplication = req.body.tokenAplication;
 
         console.log(req.body);
@@ -66,24 +66,24 @@ module.exports = app => {
 
         Apps.update(
             {
-                nameAplication: aplicationName,
+                nameAplication: aplicationNameNew,
                 tokenAplication: tokenAplication
             },
 
-            { where: { idAplication: id } })
+            { where: { aplicationName: aplicationName } })
 
             .then(rowsUpdated => { res.json(rowsUpdated); })
 
             .catch(next);
     });
 
-    app.delete('/app/:id', (req, res) => {
+    app.delete('/app/:aplicationName', (req, res) => {
 
-        const idAplication = req.params.id;
+        const aplicationName = req.params.aplicationName;
 
         Apps.destroy(
 
-            { where: { idAplication: idAplication } })
+            { where: { aplicationName: aplicationName } })
 
             .then(app => { res.json(app); })
 

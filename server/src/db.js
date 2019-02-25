@@ -36,6 +36,7 @@ module.exports = app => {
             console.log("done:");
 
         });
+        
         console.log("All Models charged:", db.models);
 
         Object.keys(db.models).forEach(key => {

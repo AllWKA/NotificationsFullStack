@@ -13,6 +13,7 @@ module.exports = (sequelize, DataType) => {
             deviceToken: {
                 type: DataType.STRING,
                 allowNull: false,
+                primaryKey: true,
                 validate: {
                     notEmpty: true
                 }
