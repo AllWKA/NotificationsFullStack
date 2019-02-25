@@ -12,7 +12,7 @@ module.exports = app => {
 
     });
     //Devuelve todas las aplicaiones dado un administrador
-    app.get('/adminAplications/:adminID', (req, res) => {
+    app.get('/adminsFromAplications/:adminID', (req, res) => {
 
 
         const adminID = req.params.adminID;
@@ -44,6 +44,7 @@ module.exports = app => {
                 where: {
                     adminID: req.params.adminID,
                     aplicationID: req.params.aplicationID
+
                 }
             }
         )
