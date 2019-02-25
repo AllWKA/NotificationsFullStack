@@ -5,7 +5,7 @@ module.exports = app => {
     app.get('/appsAndUsers', (req, res) => {
 
         Apps.findAll({
-            include: [{ model: app.db.models.user }]
+            include: [{ model: app.db.models.users }]
         })
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
@@ -22,15 +22,11 @@ module.exports = app => {
 
     app.get('/usersFromApp/:id', (req, res) => {
 
-        const id = req.params.id;
+        const idAplication = req.params.id;
 
         Apps.find({
-            include: [{
-                model: app.db.models.user,
-                attributes: ['id', 'name']
-
-            }],
-            where: { id: id }
+            include: [{model: app.db.models.users}],
+            where: { idAplication: idAplication }
         })
             .then(app => { app.getUsers().then(users => { res.json(users); }); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
@@ -38,11 +34,8 @@ module.exports = app => {
 
     app.post('/app', (req, res) => {
 
-        const aplicationName = req.body.aplicationName;
-        const tokenAplication = req.body.tokenAplication;
-
-        console.log(req.body);
-
+        // const aplicationName = req.body.aplicationName;
+        // const tokenAplication = req.body.tokenAplication;
 
         Apps.create(req.body)
             .then(app => { res.json(app); })
