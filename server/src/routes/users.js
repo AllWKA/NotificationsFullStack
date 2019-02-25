@@ -19,9 +19,9 @@ module.exports = app => {
 
         const idUser = req.params.idUser;
 
-        User.find({ 
+        User.find({
             include: [{ model: app.db.models.aplications, as: 'devices' }],
-            where: { idUser: idUser } 
+            where: { idUser: idUser }
         })
 
             .then(owner => { res.json(owner); });

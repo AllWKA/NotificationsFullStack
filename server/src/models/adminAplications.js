@@ -13,9 +13,8 @@ module.exports = (sequelize, DataType) => {
         }
     )
     adminAplication.associate = (models) => {
-
-        console.log("buenasTardes desde User");
-
+        adminAplication.belongsTo(models.admins, { foreignKey: 'aplicationID' });
+        adminAplication.belongsTo(models.aplications, { foreignKey: 'adminID' });
     };
     return adminAplication;
 };

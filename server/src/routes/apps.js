@@ -20,6 +20,18 @@ module.exports = app => {
 
     });
 
+    app.get('/app/:id', (req, res) => {
+
+        const id = req.params.id;
+
+        Apps.find({
+
+            where: { idAplication: id }
+        })
+            .then(app => { res.json(app); })
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+
     app.get('/usersFromApp/:id', (req, res) => {
 
         const idAplication = req.params.id;
