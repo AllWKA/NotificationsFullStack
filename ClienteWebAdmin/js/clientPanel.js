@@ -1,6 +1,6 @@
 
 var clientList;
-
+var foto = "/images/working.png";
 
 function inicializar(){
   clientList = document.getElementById("form-clientList");
