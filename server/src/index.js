@@ -5,9 +5,6 @@ import consign from 'consign';
 
 const app = express();
 
-
-
-
 consign({
     cwd: __dirname
 })

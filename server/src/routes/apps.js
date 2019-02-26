@@ -2,19 +2,20 @@ module.exports = app => {
 
     const Apps = app.db.models.aplications;
 
-    app.get('/appsAndUsers', (req, res) => {
+    app.get('/apps', (req, res) => {
 
-        Apps.findAll({
-            include: [{ model: app.db.models.users }]
-        })
+        Apps.findAll()
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
 
     });
 
-    app.get('/apps', (req, res) => {
 
-        Apps.findAll()
+    app.get('/appsAndUsers', (req, res) => {
+
+        Apps.findAll({
+            include: [{ model: app.db.models.users }]
+        })
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
 

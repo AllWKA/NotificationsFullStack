@@ -2,9 +2,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 module.exports = app => {
-
-    //utilidades que usara el servidor
-
     //sirve para que pueda aceptar peticiones con un body
     app.use(bodyParser.json());
 

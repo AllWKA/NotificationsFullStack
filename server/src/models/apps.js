@@ -10,20 +10,15 @@ module.exports = (sequelize, DataType) => {
             aplicationName: {
                 type: DataType.STRING,
                 allowNull: false,
-                validate: {
-                    notEmpty: true
-                }
+                validate: {notEmpty: true}
             },
             tokenAplication: {
                 type: DataType.STRING,
                 allowNull: false,
-                validate: {
-                    notEmpty: true
-                }
+                validate: {notEmpty: true}
             }
         }
     );
-
     Apps.associate = (models) => {
         Apps.belongsToMany(models.admins, {through: 'adminaplications', foreignKey: 'aplicationID'});
         Apps.belongsToMany(models.users, {through: 'useraplications', foreignKey: 'aplicationID'})
