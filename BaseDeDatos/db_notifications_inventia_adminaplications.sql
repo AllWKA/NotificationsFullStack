@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.15, for Win64 (x86_64)
 --
 -- Host: localhost    Database: db_notifications_inventia
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	8.0.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,7 @@ CREATE TABLE `adminaplications` (
 
 LOCK TABLES `adminaplications` WRITE;
 /*!40000 ALTER TABLE `adminaplications` DISABLE KEYS */;
+INSERT INTO `adminaplications` VALUES (2,1,NULL,'2019-02-25 20:43:43');
 /*!40000 ALTER TABLE `adminaplications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-20 18:44:45
+-- Dump completed on 2019-02-26  0:07:28
