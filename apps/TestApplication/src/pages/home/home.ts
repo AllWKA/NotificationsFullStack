@@ -17,9 +17,11 @@ export class HomePage {
     this.token = "getting token";
     console.log("gola");
 
-    this.fcm.getToken()
-      .then(token => { console.log("adew"); this.token = token; })
-      .catch(error => { console.error(error); });
+    this.fcm.onTokenRefresh()
+    .subscribe(
+      (token: string) => alert(token),
+      error => console.error(error)
+    );
   }
 
 }
