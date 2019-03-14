@@ -1,16 +1,33 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Test Application
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    buenas tardes
-    {{token}}
-  </p>
-  <button (click)="getToken()">get Token</button>
+  <ion-grid>
+    <ion-list>
+
+      <p>{{token}}</p>
+
+      <ion-item class="form">
+        <ion-input type="text" placeholder="Username" [(ngModel)]="user"></ion-input>
+      </ion-item>
+
+      <ion-item class="form">
+        <ion-input type="password" placeholder="Password" [(ngModel)]="pwd"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <button ion-button class="fixedButton" (click)="log()">
+      <p>Log In</p>
+    </button>
+    <button ion-button class="fixedButton" (click)="singUp()">
+      <p>Sing In</p>
+    </button>
+
+  </ion-grid>
 </ion-content>

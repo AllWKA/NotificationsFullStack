@@ -1,27 +1,25 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FCM, NotificationData } from '@ionic-native/fcm/ngx';
+import { AlertController } from 'ionic-angular';
 
 import { Statics } from "../../pages/statics/statics";
+import { RestProvider } from "../../providers/rest/rest";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
   token = "-->" + Statics.token;
-  constructor(public navCtrl: NavController, public fcm: FCM) {
+  user = "";
+  pwd = "";
+  constructor(public navCtrl: NavController,private alertCtrl: AlertController, public rest: RestProvider) {
 
   }
 
-  getToken() {
-    this.token = "getting token";
-    console.log("gola");
-
-    this.fcm.onTokenRefresh()
-    .subscribe(
-      (token: string) => alert(token),
-      error => console.error(error)
-    );
+  log(){
+    
+    this.rest.postUser(2,1,"pruebita","pruebatokenNuevo");
+    console.log("ha vorvido");
   }
 
 }

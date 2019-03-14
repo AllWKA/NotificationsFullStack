@@ -9,6 +9,8 @@ import { FCM, NotificationData } from '@ionic-native/fcm/ngx';
 
 import { Statics } from "../pages/statics/statics";
 
+import { RestProvider } from "../providers/rest/rest";
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,7 +18,7 @@ export class MyApp {
   rootPage: any = HomePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    public fcm: FCM) {
+    public fcm: FCM, public rest: RestProvider) {
     platform.ready().then(() => {
 
       statusBar.styleDefault();
@@ -27,7 +29,11 @@ export class MyApp {
         .catch(error => { console.error(error); });
 
       this.fcm.onTokenRefresh().subscribe(
-        (token: string) => alert(token),
+        (token: string) => {
+          console.log("ontokenRefresh: " + token);
+          
+          this.rest.postUser(2,1,"pruebita",token);
+        },
         error => console.error(error)
       );
 
