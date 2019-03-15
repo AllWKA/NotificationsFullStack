@@ -3,8 +3,6 @@ window.onload = inicializar;
 function inicializar() {
     formaplicationRemove = document.getElementById("form-aplicatioRemove");
     formaplicationRemove.addEventListener("submit", remove, false);
-
-
 }
 
 function remove(event) {

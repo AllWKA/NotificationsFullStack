@@ -18,7 +18,7 @@ export class HomePage {
 
   log(){
     
-    this.rest.postUser(2,1,"pruebita","pruebatokenNuevo");
+    
     console.log("ha vorvido");
   }
 

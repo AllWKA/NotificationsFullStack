@@ -9,7 +9,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin - Tables</title>
+  <title>Notification Panel</title>
+
+  <script src="./js/notificationsPanel.js"></script>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -137,13 +139,13 @@
         </ol>
 
         <!-- Notification form -->
-        <form class="grid-container">
+        <form class="grid-container" id="notificationForm">
           <div class="card-header">
 
           </div>
           <div class="form-group grid-item">
             <label for="notificationText">Message text</label>
-            <input type="text" class="form-control" id="notificationText" placeholder="Enter message">
+            <input type="text" class="form-control" id="notificationMessege" placeholder="Enter message">
           </div>
           <div class="form-group">
             <label for="notificationLabel">Message label(optional)</label>
@@ -162,8 +164,8 @@
           <div>
             <h4>Target</h4>
           </div>
-          <div class="d-flex ">
-            <label class="container">User Segment
+          <div class="d-flex">
+            <label class="container">Select Application
               <input type="radio" checked="checked" name="radio">
               <span class="checkmark"></span>
             </label>
@@ -175,6 +177,9 @@
               <input type="radio" name="radio">
               <span class="checkmark"></span>
             </label>
+          </div>
+          <div>
+            <button>Send</button>
           </div>
         </form>
         <!-- /.container-fluid -->
