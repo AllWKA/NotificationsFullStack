@@ -33,13 +33,13 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.get('/usersFromApp/:id', (req, res) => {
+    app.get('/usersFromApp/:aplicationName', (req, res) => {
 
-        const idAplication = req.params.id;
+        const aplicationName = req.params.aplicationName;
 
         Apps.find({
-            include: [{model: app.db.models.users}],
-            where: { idAplication: idAplication }
+            include: [{ model: app.db.models.users }],
+            where: { aplicationName: aplicationName }
         })
             .then(app => { app.getUsers().then(users => { res.json(users); }); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
