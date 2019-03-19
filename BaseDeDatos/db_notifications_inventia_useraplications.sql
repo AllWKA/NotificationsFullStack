@@ -43,7 +43,7 @@ CREATE TABLE `useraplications` (
 
 LOCK TABLES `useraplications` WRITE;
 /*!40000 ALTER TABLE `useraplications` DISABLE KEYS */;
-INSERT INTO `useraplications` VALUES (2,1,'pruebita','android','2019-02-25 23:17:05','2019-02-25 23:17:05'),(2,1,'tokenActualizado','android',NULL,'2019-02-25 23:27:29'),(2,1,'YYYey','android',NULL,'2019-02-25 23:40:22');
+INSERT INTO `useraplications` VALUES (2,1,'newDeviceToken','android','2019-02-25 23:17:05','2019-03-14 15:51:31');
 /*!40000 ALTER TABLE `useraplications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-26  0:07:30
+-- Dump completed on 2019-03-18 16:13:24

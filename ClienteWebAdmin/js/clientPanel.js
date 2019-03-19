@@ -3,7 +3,7 @@ var foto = "/images/working.png";
 
 function inicializar() { clientList = document.getElementById("form-clientList"); }
 
-var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.201.76:3000/users";
+var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/users";
 
 xhttp.onreadystatechange = function () {
 
