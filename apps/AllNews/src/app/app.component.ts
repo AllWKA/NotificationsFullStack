@@ -10,7 +10,7 @@ import { FCM, NotificationData } from '@ionic-native/fcm/ngx';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage: any = HomePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     public fcm: FCM) {
@@ -24,15 +24,15 @@ export class MyApp {
         // Your best bet is to here store the token on the user's profile on the
         // Firebase database, so that when you want to send notifications to this 
         // specific user you can do it from Cloud Functions.
-        console.log("The token to use is: ",token);
-      }).catch(error=>{
+        console.log("The token to use is: ", token);
+      }).catch(error => {
         //ocurrió un error al procesar el token
         console.error(error);
       });
 
       this.fcm.onTokenRefresh().subscribe(
-        (token:string)=>console.log("Nuevo token",token),
-        error=>console.error(error)
+        (token: string) => console.log("Nuevo token", token),
+        error => console.error(error)
       );
 
       // this.fcm.onNotification().subscribe(data => {
@@ -48,19 +48,19 @@ export class MyApp {
       // });
 
       this.fcm.onNotification().subscribe(
-        (data:NotificationData)=>{
-          if(data.wasTapped){
+        (data: NotificationData) => {
+          if (data.wasTapped) {
             //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
-            console.log("Received in background",JSON.stringify(data))
-          }else{
+            console.log("Received in background", JSON.stringify(data))
+          } else {
             //ocurre cuando nuestra aplicación se encuentra en primer plano,
             //puedes mostrar una alerta o un modal con los datos del mensaje
-            console.log("Received in foreground",JSON.stringify(data))
+            console.log("Received in foreground", JSON.stringify(data))
           }
-         },error=>{
-          console.error("Error in notification",error)
-         }
-);
+        }, error => {
+          console.error("Error in notification", error)
+        }
+      );
     });
   }
 }

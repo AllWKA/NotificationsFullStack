@@ -3,8 +3,6 @@ window.onload = inicializar;
 function inicializar() {
     formaplicationRemove = document.getElementById("form-aplicatioRemove");
     formaplicationRemove.addEventListener("submit", remove, false);
-
-
 }
 
 function remove(event) {
@@ -12,7 +10,7 @@ function remove(event) {
     var aplicationName = event.target.inputName.value;
 
 
-    var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.201.76:3000/app/" + aplicationName;
+    var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://localhost:3000/app/" + aplicationName;
     xhttp.onreadystatechange = function () {
 
         if (this.readyState == 4 && this.status == 200) {
@@ -22,8 +20,8 @@ function remove(event) {
 
             if (admin != null) {
 
-                
-                alert("Se han borrado "+ admin + " Registros" );
+
+                alert("Se han borrado " + admin + " Registros");
                 document.getElementById("form-aplicatioRemove").innerHTML = apps;
             }
         }
