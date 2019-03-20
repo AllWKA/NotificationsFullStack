@@ -1,3 +1,32 @@
+/*
+En la siguiente solicitud de envío, se envía un mismo título y contenido de notificación a todas las plataformas, pero también se envían algunas anulaciones específicas de la plataforma. En detalle, la solicitud realiza lo siguiente:
+
+    Configura un tiempo de vida prolongado para Android, junto con un ícono y un color especiales que se mostrarán en dispositivos Android.
+
+    Configura el campo badge exclusivo de iOS en la carga útil de APNS para la entrega a dispositivos iOS.
+
+var message = {
+  notification: {
+    title: '$GOOG up 1.43% on the day',
+    body: '$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day.',
+  },
+  android: {
+    ttl: 3600 * 1000,
+    notification: {
+      icon: 'stock_ticker_update',
+      color: '#f45342',
+    },
+  },
+  apns: {
+    payload: {
+      aps: {
+        badge: 42,
+      },
+    },
+  },
+  topic: 'industry-tech'
+};*/
+
 import * as admin from "firebase-admin";
 
 //ruta al sdk admin
@@ -35,12 +64,14 @@ module.exports = app => {
                     //añado los datos de la respuesta a las estadisticas
                     successCount += response.successCount;
                     failureCount += response.failureCount;
+                    console.log(response);
+
+                    //devuelvo en la respuesta als estadisticas de fallos y exitos
+                    res.json({ 'successCount': successCount, 'failureCount': failureCount });
                 })
                 .catch(function (error) {
                     res.json(error);
                 });
         }
-        //devuelvo en la respuesta als estadisticas de fallos y exitos
-        res.json({ 'successCount': successCount, 'failureCount': failureCount });
     });
 }

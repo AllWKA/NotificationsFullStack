@@ -16,7 +16,29 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAasveqGrHMon5OKuqgvQ8qFEMxrix1qno",
+      authDomain: "proyecto2trimestreiesrincon.firebaseapp.com",
+      databaseURL: "https://proyecto2trimestreiesrincon.firebaseio.com",
+      projectId: "proyecto2trimestreiesrincon",
+      storageBucket: "proyecto2trimestreiesrincon.appspot.com",
+      messagingSenderId: "763431986407"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <!-- Ale core JavaScript -->
+  <script src="js/autenticacion.js"></script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 </head>
 
@@ -26,7 +48,8 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form id="form-autenticacion"> <!-- Ale -->
+        <form id="form-autenticacion">
+          <!-- Ale -->
           <div class="form-group">
             <div class="form-label-group">
               <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required"
@@ -61,52 +84,27 @@
 
 
 
-<!-- Modal -->
-<div id="errorModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <!-- Modal -->
+  <div id="errorModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
           <h4 class="modal-title">Credenciales incorrectas</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <p>Se ha producido un error, por favor compruebe los datos introducidos.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <p>Se ha producido un error, por favor compruebe los datos introducidos.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+
     </div>
-
   </div>
-</div>
-
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAasveqGrHMon5OKuqgvQ8qFEMxrix1qno",
-    authDomain: "proyecto2trimestreiesrincon.firebaseapp.com",
-    databaseURL: "https://proyecto2trimestreiesrincon.firebaseio.com",
-    projectId: "proyecto2trimestreiesrincon",
-    storageBucket: "proyecto2trimestreiesrincon.appspot.com",
-    messagingSenderId: "763431986407"
-  };
-  firebase.initializeApp(config);
-</script>
-  <!-- Ale core JavaScript -->
-  <script src="js/autenticacion.js"></script>
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 </body>
 

@@ -14,7 +14,7 @@ function autentificar(event) {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function (result) {
-            window.location.href = "panel.html";
+            window.location.href = "pages/panel/panel.html";
         })
         .catch(function (error) {
             $("#errorModal").modal();
