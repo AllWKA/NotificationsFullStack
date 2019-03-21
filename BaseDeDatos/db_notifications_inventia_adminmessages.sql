@@ -16,29 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `admins`
+-- Table structure for table `adminmessages`
 --
 
-DROP TABLE IF EXISTS `admins`;
+DROP TABLE IF EXISTS `adminmessages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `admins` (
-  `idAdmin` int(11) NOT NULL,
-  `userName` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `discriminator` int(11) DEFAULT '0',
-  PRIMARY KEY (`idAdmin`)
+CREATE TABLE `adminmessages` (
+  `AdminID` int(11) NOT NULL,
+  `MessageID` int(11) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`AdminID`,`MessageID`),
+  UNIQUE KEY `updatedAt_UNIQUE` (`updatedAt`),
+  KEY `FK_messageID_admin_idx` (`MessageID`),
+  CONSTRAINT `FK_adminID_message` FOREIGN KEY (`AdminID`) REFERENCES `admins` (`idAdmin`),
+  CONSTRAINT `FK_messageID_admin` FOREIGN KEY (`MessageID`) REFERENCES `messages` (`idMessages`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admins`
+-- Dumping data for table `adminmessages`
 --
 
-LOCK TABLES `admins` WRITE;
-/*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admins` ENABLE KEYS */;
+LOCK TABLES `adminmessages` WRITE;
+/*!40000 ALTER TABLE `adminmessages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adminmessages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:40
+-- Dump completed on 2019-03-21 13:49:35

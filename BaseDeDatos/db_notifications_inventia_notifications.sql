@@ -16,35 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `useraplications`
+-- Table structure for table `notifications`
 --
 
-DROP TABLE IF EXISTS `useraplications`;
+DROP TABLE IF EXISTS `notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `useraplications` (
-  `userID` int(10) NOT NULL,
-  `aplicationID` int(10) NOT NULL,
-  `deviceToken` varchar(100) NOT NULL,
-  `so` enum('android','ios','web') NOT NULL,
+CREATE TABLE `notifications` (
+  `idNotifications` int(11) NOT NULL,
+  `messageID` int(11) NOT NULL,
+  `ttl` int(11) DEFAULT NULL,
+  `icon` varchar(45) DEFAULT NULL,
+  `badge` int(11) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`userID`,`aplicationID`,`deviceToken`),
-  KEY `FK_userID` (`userID`),
-  KEY `FK_AplicacionID` (`aplicationID`),
-  CONSTRAINT `FK_AplicacionID` FOREIGN KEY (`aplicationID`) REFERENCES `aplications` (`idAplication`) ON UPDATE RESTRICT,
-  CONSTRAINT `FK_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`idUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idNotifications`,`messageID`),
+  KEY `fk_messag_notification_idx` (`messageID`),
+  CONSTRAINT `fk_messag_notification` FOREIGN KEY (`messageID`) REFERENCES `messages` (`idMessages`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `useraplications`
+-- Dumping data for table `notifications`
 --
 
-LOCK TABLES `useraplications` WRITE;
-/*!40000 ALTER TABLE `useraplications` DISABLE KEYS */;
-INSERT INTO `useraplications` VALUES (2,1,'newDeviceToken','android','2019-02-25 23:17:05','2019-03-14 15:51:31');
-/*!40000 ALTER TABLE `useraplications` ENABLE KEYS */;
+LOCK TABLES `notifications` WRITE;
+/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-18 16:13:24
+-- Dump completed on 2019-03-21 13:49:42

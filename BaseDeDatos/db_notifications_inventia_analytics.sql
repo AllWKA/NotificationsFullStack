@@ -16,29 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `admins`
+-- Table structure for table `analytics`
 --
 
-DROP TABLE IF EXISTS `admins`;
+DROP TABLE IF EXISTS `analytics`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `admins` (
-  `idAdmin` int(11) NOT NULL,
-  `userName` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `discriminator` int(11) DEFAULT '0',
-  PRIMARY KEY (`idAdmin`)
+CREATE TABLE `analytics` (
+  `idanalytics` int(11) NOT NULL,
+  `notificationID` int(11) NOT NULL,
+  `messageID` int(11) NOT NULL,
+  PRIMARY KEY (`idanalytics`,`notificationID`,`messageID`),
+  KEY `fk_analytics_notifications1_idx` (`notificationID`,`messageID`),
+  CONSTRAINT `fk_analytics_notifications1` FOREIGN KEY (`notificationID`, `messageID`) REFERENCES `notifications` (`idNotifications`, `messageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admins`
+-- Dumping data for table `analytics`
 --
 
-LOCK TABLES `admins` WRITE;
-/*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admins` ENABLE KEYS */;
+LOCK TABLES `analytics` WRITE;
+/*!40000 ALTER TABLE `analytics` DISABLE KEYS */;
+/*!40000 ALTER TABLE `analytics` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:40
+-- Dump completed on 2019-03-21 13:49:34

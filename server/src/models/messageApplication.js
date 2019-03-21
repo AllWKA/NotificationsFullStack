@@ -10,11 +10,10 @@ module.exports = (sequelize, DataType) => {
                 type: DataType.INTEGER,
                 primaryKey: true
             }
-
-        })
+        });
     MessegesApplications.associate = (model) => {
-        console.log("jaja saludos");
-
+        MessegesApplications.belongsTo(model.messages, { foreignKey: 'ApplicationID' });
+        MessegesApplications.belongsTo(model.applications, { foreignKey: 'MessegeID' });
     }
     return MessegesApplications;
 };

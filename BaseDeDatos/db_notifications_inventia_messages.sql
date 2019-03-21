@@ -16,32 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `adminaplications`
+-- Table structure for table `messages`
 --
 
-DROP TABLE IF EXISTS `adminaplications`;
+DROP TABLE IF EXISTS `messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `adminaplications` (
-  `adminID` int(10) NOT NULL,
-  `aplicationID` int(10) NOT NULL,
+CREATE TABLE `messages` (
+  `idMessages` int(11) NOT NULL AUTO_INCREMENT,
+  `body` varchar(150) NOT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `label` varchar(45) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`adminID`,`aplicationID`),
-  KEY `FK_AplicationID_Adm_idx` (`aplicationID`),
-  CONSTRAINT `FK_AplicationID_Adm` FOREIGN KEY (`aplicationID`) REFERENCES `aplications` (`idAplication`),
-  CONSTRAINT `FK_adminID` FOREIGN KEY (`adminID`) REFERENCES `admins` (`idAdmin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idMessages`,`body`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `adminaplications`
+-- Dumping data for table `messages`
 --
 
-LOCK TABLES `adminaplications` WRITE;
-/*!40000 ALTER TABLE `adminaplications` DISABLE KEYS */;
-INSERT INTO `adminaplications` VALUES (2,1,NULL,'2019-02-25 20:43:43');
-/*!40000 ALTER TABLE `adminaplications` ENABLE KEYS */;
+LOCK TABLES `messages` WRITE;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-18 16:13:22
+-- Dump completed on 2019-03-21 13:49:37
