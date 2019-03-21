@@ -1,20 +1,20 @@
 module.exports = (sequelize, DataType) => {
 
     const adminAplication = sequelize.define(
-        'adminAplications', {
+        'adminapplications', {
             adminID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
-            aplicationID: {
+            applicationID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             }
         }
     )
     adminAplication.associate = (models) => {
-        adminAplication.belongsTo(models.admins, { foreignKey: 'aplicationID' });
-        adminAplication.belongsTo(models.aplications, { foreignKey: 'adminID' });
+        adminAplication.belongsTo(models.admins, { foreignKey: 'applicationID' });
+        adminAplication.belongsTo(models.applications, { foreignKey: 'adminID' });
     };
     return adminAplication;
 };

@@ -1,22 +1,22 @@
 module.exports = app => {
 
-    const userApps = app.db.models.useraplications;
+    const userApps = app.db.models.userapplications;
 
-    app.get('/userAplications', (req, res) => {
+    app.get('/userApplications', (req, res) => {
 
         userApps.findAll()
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
 
     });
-    app.get('/devicesFromAplications/:aplicationID', (req, res) => {
+    app.get('/devicesFromApplications/:applicationID', (req, res) => {
 
-        const aplicationID = req.params.aplicationID;
+        const applicationID = req.params.applicationID;
 
         userApps.findAll({
-            where: { aplicationID: aplicationID }
+            where: { applicationID: applicationID }
         })
-            .then(app => { res.json(app);})
+            .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
     });
     app.get('/devicesFromUser/:userID', (req, res) => {
@@ -26,30 +26,30 @@ module.exports = app => {
         userApps.findAll({
             where: { userID: userID }
         })
-            .then(app => { res.json(app);})
+            .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
     });
-    app.post('/userAplications', (req, res) => {
+    app.post('/userApplications', (req, res) => {
 
-        // const aplicationName = req.body.aplicationName;
-        // const tokenAplication = req.body.tokenAplication;
+        // const applicationName = req.body.applicationName;
+        // const tokenApplication = req.body.tokenApplication;
 
         userApps.create(req.body)
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
-    app.put('/userAplications/:userID/:aplicationID/:deviceToken', (req, res) => {
+    app.put('/userApplications/:userID/:applicationID/:deviceToken', (req, res) => {
 
         const userID = req.body.userID;
-        const aplicationID = req.body.aplicationID;
-        
+        const applicationID = req.body.applicationID;
+
         userApps.update(
             req.body,
             {
                 where: {
                     userID: req.params.userID,
-                    aplicationID: req.params.aplicationID,
+                    applicationID: req.params.applicationID,
                     deviceToken: req.params.deviceToken
 
                 }
@@ -59,13 +59,13 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
-    app.delete('/userAplications/:userID/:aplicationID/:deviceToken', (req, res) => {
+    app.delete('/userApplications/:userID/:applicationID/:deviceToken', (req, res) => {
 
         userApps.destroy(
             {
                 where: {
                     userID: req.params.userID,
-                    aplicationID: req.params.aplicationID,
+                    applicationID: req.params.applicationID,
                     deviceToken: req.params.deviceToken
                 }
             })

@@ -1,27 +1,27 @@
 module.exports = (sequelize, DataType) => {
 
     const Apps = sequelize.define(
-        'aplications',
+        'applications',
         {
-            idAplication: {
+            idApplication: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
-            aplicationName: {
+            applicationName: {
                 type: DataType.STRING,
                 allowNull: false,
-                validate: {notEmpty: true}
+                validate: { notEmpty: true }
             },
-            tokenAplication: {
+            tokenApplication: {
                 type: DataType.STRING,
                 allowNull: false,
-                validate: {notEmpty: true}
+                validate: { notEmpty: true }
             }
         }
     );
     Apps.associate = (models) => {
-        Apps.belongsToMany(models.admins, {through: 'adminaplications', foreignKey: 'aplicationID'});
-        Apps.belongsToMany(models.users, {through: 'useraplications', foreignKey: 'aplicationID'})
+        Apps.belongsToMany(models.admins, { through: 'adminapplications', foreignKey: 'applicationID' });
+        Apps.belongsToMany(models.users, { through: 'devicetokens', foreignKey: 'applicationID' })
     }
     return Apps;
 }

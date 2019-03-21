@@ -9,8 +9,8 @@ module.exports = app => {
         const idAdmin = req.params.id;
 
         Admin.find({
-            //incluye en el json que se devuelve las aplicaciones que controla ese administrador
-            include: [{ model: app.db.models.aplications }],
+            //incluye en el json que se devuelve las applicaciones que controla ese administrador
+            include: [{ model: app.db.models.applications }],
             where: { idAdmin: idAdmin }
         })
             .then(admin => { res.json(admin); })
@@ -18,7 +18,7 @@ module.exports = app => {
     });
     app.get('/admins', (req, res) => {
 
-        Admin.findAll({ include: [{ model: app.db.models.aplications }] })
+        Admin.findAll({ include: [{ model: app.db.models.applications }] })
 
             .then(result => { res.json(result); })
 

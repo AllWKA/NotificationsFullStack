@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const Apps = app.db.models.aplications;
+    const Apps = app.db.models.applications;
 
     app.get('/apps', (req, res) => {
 
@@ -27,19 +27,19 @@ module.exports = app => {
 
         Apps.find({
 
-            where: { idAplication: id }
+            where: { idapplication: id }
         })
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.get('/usersFromApp/:aplicationName', (req, res) => {
+    app.get('/usersFromApp/:applicationName', (req, res) => {
 
-        const aplicationName = req.params.aplicationName;
+        const applicationName = req.params.applicationName;
 
         Apps.find({
             include: [{ model: app.db.models.users }],
-            where: { aplicationName: aplicationName }
+            where: { applicationName: applicationName }
         })
             .then(app => { app.getUsers().then(users => { res.json(users); }); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
@@ -47,8 +47,8 @@ module.exports = app => {
 
     app.post('/app', (req, res) => {
 
-        // const aplicationName = req.body.aplicationName;
-        // const tokenAplication = req.body.tokenAplication;
+        // const applicationName = req.body.applicationName;
+        // const tokenapplication = req.body.tokenapplication;
 
         Apps.create(req.body)
             .then(app => { res.json(app); })
@@ -62,41 +62,41 @@ module.exports = app => {
 
         Apps.find({
 
-            where: { idAplication: id }
+            where: { idapplication: id }
         })
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.put("/app/:aplicationName", (req, res, next) => {
+    app.put("/app/:applicationName", (req, res, next) => {
 
-        const aplicationName = req.params.aplicationName;
-        const aplicationNameNew = req.body.aplicationName;
-        const tokenAplication = req.body.tokenAplication;
+        const applicationName = req.params.applicationName;
+        const applicationNameNew = req.body.applicationName;
+        const tokenapplication = req.body.tokenapplication;
 
         console.log(req.body);
 
 
         Apps.update(
             {
-                nameAplication: aplicationNameNew,
-                tokenAplication: tokenAplication
+                nameapplication: applicationNameNew,
+                tokenapplication: tokenapplication
             },
 
-            { where: { aplicationName: aplicationName } })
+            { where: { applicationName: applicationName } })
 
             .then(rowsUpdated => { res.json(rowsUpdated); })
 
             .catch(next);
     });
 
-    app.delete('/app/:aplicationName', (req, res) => {
+    app.delete('/app/:applicationName', (req, res) => {
 
-        const aplicationName = req.params.aplicationName;
+        const applicationName = req.params.applicationName;
 
         Apps.destroy(
 
-            { where: { aplicationName: aplicationName } })
+            { where: { applicationName: applicationName } })
 
             .then(app => { res.json(app); })
 

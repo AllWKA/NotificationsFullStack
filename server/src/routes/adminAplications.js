@@ -1,49 +1,49 @@
 module.exports = app => {
 
-    const adminAplications = app.db.models.adminAplications;
+    const adminapplications = app.db.models.adminapplications;
 
-    app.get('/adminAplications', (req, res) => {
+    app.get('/adminApplications', (req, res) => {
 
-        adminAplications.findAll()
+        adminapplications.findAll()
 
             .then(result => { res.json(result); })
 
             .catch(error => { res.status(412).json({ msg: error.message }); });
 
     });
-    //Devuelve todas las aplicaiones dado un administrador
-    app.get('/adminsFromAplications/:adminID', (req, res) => {
+    //Devuelve todas las applicaiones dado un administrador
+    app.get('/adminsFromApplications/:adminID', (req, res) => {
 
 
         const adminID = req.params.adminID;
 
-        adminAplications.findAll({
+        adminapplications.findAll({
             where: { adminID: adminID }
         })
             .then(admin => { res.json(admin); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
     });
-    app.post('/adminAplications', (req, res) => {
+    app.post('/adminApplications', (req, res) => {
 
         const adminID = req.body.adminID;
-        const aplicationID = req.body.aplicationID;
+        const applicationID = req.body.applicationID;
 
-        adminAplications.create(req.body)
+        adminapplications.create(req.body)
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
-    app.put('/adminAplications/:adminID/:aplicationID', (req, res) => {
+    app.put('/adminApplications/:adminID/:applicationID', (req, res) => {
 
         const adminID = req.body.adminID;
-        const aplicationID = req.body.aplicationID;
+        const applicationID = req.body.applicationID;
 
-        adminAplications.update(
+        adminapplications.update(
             req.body,
             {
                 where: {
                     adminID: req.params.adminID,
-                    aplicationID: req.params.aplicationID
+                    applicationID: req.params.applicationID
 
                 }
             }
@@ -52,15 +52,15 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
-    app.delete('/adminAplications/:adminID/:aplicationID', (req, res) => {
+    app.delete('/adminApplications/:adminID/:applicationID', (req, res) => {
 
-        const idAplication = req.params.id;
+        const idapplication = req.params.id;
 
-        adminAplications.destroy(
+        adminapplications.destroy(
             {
                 where: {
                     adminID: req.params.adminID,
-                    aplicationID: req.params.aplicationID
+                    applicationID: req.params.applicationID
                 }
             })
 

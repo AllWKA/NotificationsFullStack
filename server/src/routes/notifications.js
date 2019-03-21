@@ -27,10 +27,10 @@ module.exports = app => {
         var successCount = 0;
         var failureCount = 0;
 
-        //recorro todos los clientes de una aplicacion y les envio la notificacion usando su token en la bd
+        //recorro todos los clientes de una applicacion y les envio la notificacion usando su token en la bd
         for (let index = 0; index < req.body.users.length; index++) {
             //enviando la notificacion
-            admin.messaging().sendToDevice(req.body.users[index].useraplications.deviceToken, payload, options)
+            admin.messaging().sendToDevice(req.body.users[index].userapplications.deviceToken, payload, options)
                 .then(function (response) {
                     //añado los datos de la respuesta a las estadisticas
                     successCount += response.successCount;

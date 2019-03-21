@@ -1,12 +1,12 @@
 module.exports = (sequelize, DataType) => {
 
     const userApp = sequelize.define(
-        'useraplications', {
+        'devicetokens', {
             userID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
-            aplicationID: {
+            applicationID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataType) => {
     );
 
     userApp.associate = (models) => {
-        userApp.belongsTo(models.aplications, { foreignKey: 'aplicationID' });
+        userApp.belongsTo(models.applications, { foreignKey: 'applicationID' });
         userApp.belongsTo(models.users, { foreignKey: 'userID' });
     };
     return userApp;
