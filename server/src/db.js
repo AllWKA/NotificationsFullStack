@@ -38,12 +38,8 @@ module.exports = app => {
 
             console.log("---------------->Adding model: ", filename);
             const modelDir = path.join(dir, filename);
-            console.log("model dir:", modelDir);
-
             const model = sequelize.import(modelDir);
-
             db.models[model.name] = model;
-            console.log("done");
 
         });
 

@@ -14,7 +14,6 @@ module.exports = (sequelize, DataType) => {
     );
 
     adminMessages.associate = (models) => {
-        console.log("jaja aquisde");
         adminMessages.belongsTo(models.admins, { foreignKey: 'MessageID' });
         adminMessages.belongsTo(models.messages, { foreignKey: 'AdminID' });
 
