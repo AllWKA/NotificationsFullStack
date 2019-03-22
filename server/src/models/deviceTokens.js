@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataType) => {
 
-    const userApp = sequelize.define(
+    const DeviceTokens = sequelize.define(
         'devicetokens', {
             userID: {
                 type: DataType.INTEGER,
@@ -28,9 +28,10 @@ module.exports = (sequelize, DataType) => {
         }
     );
 
-    userApp.associate = (models) => {
-        userApp.belongsTo(models.applications, { foreignKey: 'applicationID' });
-        userApp.belongsTo(models.users, { foreignKey: 'userID' });
+    DeviceTokens.associate = (models) => {
+        DeviceTokens.belongsTo(models.applications, { foreignKey: 'applicationID' });
+        DeviceTokens.belongsTo(models.users, { foreignKey: 'userID' });
+        DeviceTokens.belongsToMany(models.notifications, { through: 'tokennotifications', foreignKey: 'userID', otherKey: 'aplicationID', otherKey: 'deviceToken' });
     };
-    return userApp;
+    return DeviceTokens;
 }

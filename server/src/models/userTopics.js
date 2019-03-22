@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataType) => {
 
     const Topics = sequelize.define(
-        'topics', {
+        'usertopics', {
             userID: {
                 type: DataType.INTEGER,
                 primaryKey: true

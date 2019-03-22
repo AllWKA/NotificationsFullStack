@@ -2,7 +2,7 @@ module.exports = (sequelize, DataType) => {
 
     const Message = sequelize.define(
         'messages', {
-            idMessage: {
+            idMessages: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
@@ -17,7 +17,9 @@ module.exports = (sequelize, DataType) => {
             }
         });
     Message.associate = (models) => {
-        Message.belongsToMany(models.applications, { through: 'messageapplications', foreignKey: 'adminID' });
+        Message.belongsToMany(models.applications, { through: 'messagesapplications', foreignKey: 'ApplicationID' });
+        Message.hasMany(models.notifications, { foreignKey: 'messageID', sourceKey: 'idMessages' });
+        Message.belongsToMany(models.topics, { through: 'topicmessages', foreignKey: 'messageID' });
     }
     return Message;
 }

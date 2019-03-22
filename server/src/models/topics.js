@@ -14,7 +14,7 @@ module.exports = (sequelize, DataType) => {
 
     Topics.associate = (models) => {
         Topics.belongsToMany(models.messages, { through: 'topicmessages', foreignKey: 'topicID' });
-        Topics.belongsToMany(models.devicetokens, { through: 'tokentopics', foreignKey: 'topicID' })
+        Topics.belongsToMany(models.devicetokens, { through: 'tokentopics', foreignKey: 'topicID' });
     }
 
     return Topics;

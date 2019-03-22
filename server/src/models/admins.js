@@ -22,7 +22,10 @@ module.exports = (sequelize, DataType) => {
     );
 
     Admin.associate = (models) => {
-        Admin.belongsToMany(models.applications, { through: 'adminapplications', foreignKey: 'adminID' });
+        Admin.belongsToMany(models.applications, {
+            through: 'adminapplications',
+            foreignKey: 'adminID'
+        });
     };
     return Admin;
 }

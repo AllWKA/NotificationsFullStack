@@ -1,10 +1,10 @@
 module.exports = app => {
 
-    const userApps = app.db.models.userapplications;
+    const DeviceTokens = app.db.models.devicetokens;
 
-    app.get('/userApplications', (req, res) => {
+    app.get('/deviceTokens', (req, res) => {
 
-        userApps.findAll()
+        DeviceTokens.findAll()
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
 
@@ -13,7 +13,7 @@ module.exports = app => {
 
         const applicationID = req.params.applicationID;
 
-        userApps.findAll({
+        DeviceTokens.findAll({
             where: { applicationID: applicationID }
         })
             .then(app => { res.json(app); })
@@ -23,28 +23,28 @@ module.exports = app => {
 
         const userID = req.params.userID;
 
-        userApps.findAll({
+        DeviceTokens.findAll({
             where: { userID: userID }
         })
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
     });
-    app.post('/userApplications', (req, res) => {
+    app.post('/deviceTokens', (req, res) => {
 
         // const applicationName = req.body.applicationName;
         // const tokenApplication = req.body.tokenApplication;
 
-        userApps.create(req.body)
+        DeviceTokens.create(req.body)
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
-    app.put('/userApplications/:userID/:applicationID/:deviceToken', (req, res) => {
+    app.put('/deviceTokens/:userID/:applicationID/:deviceToken', (req, res) => {
 
         const userID = req.body.userID;
         const applicationID = req.body.applicationID;
 
-        userApps.update(
+        DeviceTokens.update(
             req.body,
             {
                 where: {
@@ -59,9 +59,9 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
-    app.delete('/userApplications/:userID/:applicationID/:deviceToken', (req, res) => {
+    app.delete('/deviceTokens/:userID/:applicationID/:deviceToken', (req, res) => {
 
-        userApps.destroy(
+        DeviceTokens.destroy(
             {
                 where: {
                     userID: req.params.userID,
