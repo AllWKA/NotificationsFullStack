@@ -1,93 +1,24 @@
-var bcrypt = require('bcryptjs');
+import { getAllAdmins, getAdmin, appsFromAdmin, postAdmin, putAdmin, deleteAdmin, addApplication } from "../controllers/admins";
 
 module.exports = app => {
 
     const Admin = app.db.models.admins;
 
-    app.get('/admin/:id', (req, res) => {
 
-        const idAdmin = req.params.id;
+    app.post('/addApplication/:email', (req, res) => addApplication(app, req, res));
 
-        Admin.find({
-            //incluye en el json que se devuelve las applicaciones que controla ese administrador
-            include: [{ model: app.db.models.applications }],
-            where: { idAdmin: idAdmin }
-        })
-            .then(admin => { res.json(admin); })
-            .catch(error => { res.status(412).json({ msg: error.message }) });;
-    });
-    app.get('/admins', (req, res) => {
+    app.get('/admin/:email', (req, res) => getAdmin(app, req, res));
 
-        Admin.findAll({ include: [{ model: app.db.models.applications }] })
+    app.get('/admins', (req, res) => getAllAdmins(app, req, res));
 
-            .then(result => { res.json(result); })
+    app.get('/appsFromAdmin/:email', (req, res) => appsFromAdmin(app, req, res));
 
-            .catch(error => { res.status(412).json({ msg: error.message }); });
+    app.get('/messagesFromAdmin/:email', (req, res) => messagesFromAdmin(app, req, res));
 
-    });
-    app.post('/admin', (req, res) => {
-        //genera la "sal" que se añade a la contraseña para encriptarla
-        bcrypt.genSalt(10, (err, salt) => {
-            //encriptacion de la informacion
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
+    app.post('/admin', (req, res) => postAdmin(app, req, res));
 
-                const userName = req.body.userName;
-                const email = req.body.email;
-                //hash es la clave ya encriptada
-                const password = hash;
-                const discriminator = req.body.discriminator;
+    app.put("/admin/:email", (req, res, next) => putAdmin(app, req, res));
 
-                Admin.create({
+    app.delete('/admin/:email', (req, res) => deleteAdmin(app, req, res));
 
-                    userName: userName,
-                    email: email,
-                    discriminator: discriminator,
-                    password: password
-                })
-                    .then(user => { res.json(user); })
-
-                    .catch(error => { res.status(412).json({ msg: error.message }); });
-            });
-        });
-
-
-    });
-    app.put("/admin/:id", (req, res, next) => {
-        bcrypt.genSalt(10, (err, salt) => {
-
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
-
-                const idAdmin = req.params.id;
-                const userName = req.body.userName;
-                const email = req.body.email;
-                const password = hash;
-                const discriminator = req.body.discriminator;
-
-                Admin.update(
-                    {
-
-                        userName: userName,
-                        email: email,
-                        discriminator: discriminator,
-                        password: password
-
-                    }, { where: { idAdmin: idAdmin } })
-
-                    .then(rowsUpdated => { res.json(rowsUpdated); })
-
-                    .catch(error => { res.status(412).json({ msg: error.message }); });
-            });
-        });
-
-    });
-    app.delete('/admin/:id', (req, res) => {
-
-        const idAdmin = req.params.id;
-
-        Admin.destroy({ where: { idAdmin: idAdmin } })
-
-            .then(deletedAdmin => { res.json(deletedAdmin); })
-
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
 }

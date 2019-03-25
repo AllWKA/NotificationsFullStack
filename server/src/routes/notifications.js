@@ -30,11 +30,13 @@ module.exports = app => {
         //recorro todos los clientes de una applicacion y les envio la notificacion usando su token en la bd
         for (let index = 0; index < req.body.users.length; index++) {
             //enviando la notificacion
+            //TODO: guardar en la tabla tokenNotification antes de mandar la notificacion
             admin.messaging().sendToDevice(req.body.users[index].userapplications.deviceToken, payload, options)
                 .then(function (response) {
                     //añado los datos de la respuesta a las estadisticas
                     successCount += response.successCount;
                     failureCount += response.failureCount;
+                    //TODO: mandar tokens fallidos y notificationId para modificarlos 
                 })
                 .catch(function (error) {
                     res.json(error);

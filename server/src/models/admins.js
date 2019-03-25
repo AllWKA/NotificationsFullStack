@@ -26,6 +26,10 @@ module.exports = (sequelize, DataType) => {
             through: 'adminapplications',
             foreignKey: 'adminID'
         });
+        Admin.belongsToMany(models.messages, {
+            through: 'adminmessages',
+            foreignKey: 'adminID'
+        });
     };
     return Admin;
 }

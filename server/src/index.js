@@ -11,6 +11,7 @@ consign({
     .include('libs/config.js')//primero se carga la configuracion
     .then('db.js')//segundo se inicia la conexion de sequelize
     .then('libs/middleware.js')//se inician las utilidades de la api
+    .then('controllers')
     .then('routes')// se cargan las rutas
     .then('libs/boot.js')// se arranca el servidor
     .into(app);

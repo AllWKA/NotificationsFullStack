@@ -2,11 +2,11 @@ module.exports = (sequelize, DataType) => {
 
     const adminMessages = sequelize.define(
         'adminmessages', {
-            AdminID: {
+            adminID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
-            MessageID: {
+            messageID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             }
@@ -14,9 +14,8 @@ module.exports = (sequelize, DataType) => {
     );
 
     adminMessages.associate = (models) => {
-        adminMessages.belongsTo(models.admins, { foreignKey: 'MessageID' });
-        adminMessages.belongsTo(models.messages, { foreignKey: 'AdminID' });
-
+        adminMessages.belongsTo(models.admins, { foreignKey: 'adminID' });
+        adminMessages.belongsTo(models.messages, { foreignKey: 'messageID' });
     }
 
     return adminMessages;
