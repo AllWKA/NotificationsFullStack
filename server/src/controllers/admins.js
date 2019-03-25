@@ -83,6 +83,18 @@ module.exports.deleteAdmin = (app, req, res) => {
 
 }
 
+module.exports.addApplication = (app, req, res) => {
+    app.db.models.admins.find({
+        where: { email: req.params.email }
+    })
+        .then(admin => {
+            addApplication(admin, app, req.body.applicationName);
+            res.json(admin);
+        })
+        .catch(error => { res.status(412).json({ msg: error.message }) });
+
+};
+
 //actualiza las apps del usuario (email) pasado por parametros
 function addApplication(admin, app, applicationName) {
     app.db.models.applications.find({
