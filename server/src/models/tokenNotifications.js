@@ -6,7 +6,7 @@ module.exports = (sequelize, DataType) => {
                 type: DataType.INTEGER,
                 primaryKey: true
             },
-            aplicationID: {
+            applicationID: {
                 type: DataType.INTEGER,
                 primaryKey: true
             },

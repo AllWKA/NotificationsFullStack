@@ -1,9 +1,12 @@
+/* Enviar un mensaje a un topico no distinguira entre appliciones,
+las applicaions deberan gestionar solas los topics a los que estan subcritos sus clentes
+si se manda a una applicacion, nodjs se encargara de recopilar los tokens de los clientes de la app especificada y lanzar las notificaciones*/
 module.exports = app => {
 
     const Messages = app.db.models.messages;
 
     app.get('/messages', (req, res) => {
-
+        //Done
         Messages.findAll()
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
@@ -12,7 +15,7 @@ module.exports = app => {
 
 
     app.get('/appsAndMessages', (req, res) => {
-
+        //Done
         Messages.findAll({
             include: [{ model: app.db.models.applications }]
         })
@@ -22,7 +25,7 @@ module.exports = app => {
     });
 
     app.get('/notificationsAndMessages', (req, res) => {
-
+        //Done
         Messages.findAll({
             include: [{ model: app.db.models.notifications }]
         })
@@ -32,7 +35,7 @@ module.exports = app => {
     });
 
     app.get('/topicsAndMessages', (req, res) => {
-
+        //Done
         Messages.findAll({
             include: [{ model: app.db.models.topics }]
         })
@@ -41,85 +44,55 @@ module.exports = app => {
 
     });
 
-    app.get('/app/:id', (req, res) => {
-
-        const id = req.params.id;
-
-        Apps.find({
-
-            where: { idapplication: id }
+    app.get('/message/:id', (req, res) => {
+        //Done
+        Messages.find({
+            where: { idMessages: req.params.id }
         })
-            .then(app => { res.json(app); })
+            .then(messages => { res.json(messages); })
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.get('/usersFromApp/:applicationName', (req, res) => {
-
-        const applicationName = req.params.applicationName;
-
-        Apps.find({
-            include: [{ model: app.db.models.users }],
-            where: { applicationName: applicationName }
+    app.get('/messagesFromLabel/:label', (req, res) => {
+        //Done
+        Messages.findAll({
+            where: { label: req.params.label }
         })
-            .then(app => { app.getUsers().then(users => { res.json(users); }); })
+            .then(messages => { res.json(messages); })
             .catch(error => { res.status(412).json({ msg: error.message }) });;
     });
 
-    app.post('/app', (req, res) => {
+    app.get('/messagesFromTitle/:title', (req, res) => {
+        //Done
+        Messages.findAll({
+            where: { title: req.params.title }
+        })
+            .then(messages => { res.json(messages); })
+            .catch(error => { res.status(412).json({ msg: error.message }) });;
+    });
 
-        // const applicationName = req.body.applicationName;
-        // const tokenapplication = req.body.tokenapplication;
-
-        Apps.create(req.body)
+    app.post('/message', (req, res) => {
+        //Done
+        Messages.create(req.body)
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });
 
-    app.get('/app/:id', (req, res) => {
-
-        const id = req.params.id;
-
-        Apps.find({
-
-            where: { idapplication: id }
-        })
-            .then(app => { res.json(app); })
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
-
-    app.put("/app/:applicationName", (req, res, next) => {
-
-        const applicationName = req.params.applicationName;
-        const applicationNameNew = req.body.applicationName;
-        const tokenapplication = req.body.tokenapplication;
-
-        console.log(req.body);
-
-
-        Apps.update(
-            {
-                nameapplication: applicationNameNew,
-                tokenapplication: tokenapplication
-            },
-
-            { where: { applicationName: applicationName } })
-
+    app.put("/message/:id", (req, res, next) => {
+        //Done
+        Messages.update(
+            req.body,
+            { where: { idMessages: req.params.id } })
             .then(rowsUpdated => { res.json(rowsUpdated); })
-
             .catch(next);
     });
 
-    app.delete('/app/:applicationName', (req, res) => {
-
-        const applicationName = req.params.applicationName;
-
-        Apps.destroy(
-
-            { where: { applicationName: applicationName } })
-
+    app.delete('/message/:id', (req, res) => {
+        //Done
+        Messages.destroy(
+            { where: { idMessages: req.params.id } })
             .then(app => { res.json(app); })
-
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataType) => {
             }
         });
     Message.associate = (models) => {
-        Message.belongsToMany(models.applications, { through: 'messagesapplications', foreignKey: 'ApplicationID' });
+        Message.belongsToMany(models.applications, { through: 'messagesapplications', foreignKey: 'MessageID' });
         Message.hasMany(models.notifications, { foreignKey: 'messageID', sourceKey: 'idMessages' });
         Message.belongsToMany(models.topics, { through: 'topicmessages', foreignKey: 'messageID' });
         Message.belongsToMany(models.admins, { through: 'adminmessages', foreignKey: 'messageID' });

@@ -2,18 +2,71 @@ module.exports = app => {
 
     const TokenNotifications = app.db.models.tokennotifications;
 
-    app.get('/tokennotifications', (req, res) => {
-
+    app.get('/tokenNotifications', (req, res) => {
+        //Done
         TokenNotifications.findAll()
             .then(result => res.json(result))
             .catch(error => { res.status(412).json({ msg: error.message }); });
-
     });
 
+    app.get('/tokenNotificationsFromUser/:id', (req, res) => {
+        //Done
+        TokenNotifications.findAll({
+            where: { userID: req.params.id }
+        })
+            .then(result => res.json(result))
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+    app.get('/tokenNotificationsFromApplication/:id', (req, res) => {
+        //Done
+        TokenNotifications.findAll({
+            where: { applicationID: req.params.id }
+        })
+            .then(result => res.json(result))
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+    app.get('/tokenNotificationsFromDevice/:token', (req, res) => {
+        //Done
+        TokenNotifications.findAll({
+            where: { deviceToken: req.params.token }
+        })
+            .then(result => res.json(result))
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+    app.get('/tokenNotificationsFromNotification/:id', (req, res) => {
+        //Done
+        TokenNotifications.findAll({
+            where: { notificationID: req.params.id }
+        })
+            .then(result => res.json(result))
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+    app.get('/tokenNotificationsFromNotificationSucceeded/:id', (req, res) => {
+        //Done
+        TokenNotifications.findAll({
+            where: {
+                notificationID: req.params.id,
+                success: 1
+            }
+        })
+            .then(result => res.json(result))
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+    app.get('/tokenNotificationsFromNotificationFailed/:id', (req, res) => {
+        //Done
+        TokenNotifications.findAll({
+            where: {
+                notificationID: req.params.id,
+                success: 0
+            }
+        })
+            .then(result => res.json(result))
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
 
     app.get('/appsAndMessages', (req, res) => {
-
-        Messages.findAll({
+        //Done
+        TokenNotifications.findAll({
             include: [{ model: app.db.models.applications }]
         })
             .then(result => res.json(result))
@@ -22,8 +75,8 @@ module.exports = app => {
     });
 
     app.get('/notificationsAndMessages', (req, res) => {
-
-        Messages.findAll({
+        //Done
+        TokenNotifications.findAll({
             include: [{ model: app.db.models.notifications }]
         })
             .then(result => res.json(result))
@@ -32,8 +85,8 @@ module.exports = app => {
     });
 
     app.get('/topicsAndMessages', (req, res) => {
-
-        Messages.findAll({
+        //Done
+        TokenNotifications.findAll({
             include: [{ model: app.db.models.topics }]
         })
             .then(result => res.json(result))
@@ -41,85 +94,39 @@ module.exports = app => {
 
     });
 
-    app.get('/app/:id', (req, res) => {
-
-        const id = req.params.id;
-
-        Apps.find({
-
-            where: { idapplication: id }
-        })
-            .then(app => { res.json(app); })
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
-
-    app.get('/usersFromApp/:applicationName', (req, res) => {
-
-        const applicationName = req.params.applicationName;
-
-        Apps.find({
-            include: [{ model: app.db.models.users }],
-            where: { applicationName: applicationName }
-        })
-            .then(app => { app.getUsers().then(users => { res.json(users); }); })
-            .catch(error => { res.status(412).json({ msg: error.message }) });;
-    });
-
-    app.post('/app', (req, res) => {
-
-        // const applicationName = req.body.applicationName;
-        // const tokenapplication = req.body.tokenapplication;
-
-        Apps.create(req.body)
+    app.post('/tokenNotification', (req, res) => {
+        //Done
+        TokenNotifications.create(req.body)
             .then(app => { res.json(app); })
             .catch(error => { res.status(412).json({ msg: error.message }) });
-
     });
 
-    app.get('/app/:id', (req, res) => {
-
-        const id = req.params.id;
-
-        Apps.find({
-
-            where: { idapplication: id }
-        })
-            .then(app => { res.json(app); })
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
-
-    app.put("/app/:applicationName", (req, res, next) => {
-
-        const applicationName = req.params.applicationName;
-        const applicationNameNew = req.body.applicationName;
-        const tokenapplication = req.body.tokenapplication;
-
-        console.log(req.body);
-
-
-        Apps.update(
+    app.put("/tokenNotification/:applicationID/:deviceToken/:notificationID", (req, res, next) => {
+        //Done
+        TokenNotifications.update(
+            req.body,
             {
-                nameapplication: applicationNameNew,
-                tokenapplication: tokenapplication
-            },
-
-            { where: { applicationName: applicationName } })
-
+                where: {
+                    applicationID: req.params.applicationID,
+                    deviceToken: req.params.deviceToken,
+                    notificationID: req.params.notificationID
+                }
+            })
             .then(rowsUpdated => { res.json(rowsUpdated); })
-
             .catch(next);
     });
 
-    app.delete('/app/:applicationName', (req, res) => {
-
-        const applicationName = req.params.applicationName;
-
-        Apps.destroy(
-
-            { where: { applicationName: applicationName } })
-
+    app.delete('/tokenNotification/:applicationID/:deviceToken/:notificationID', (req, res) => {
+        //Done
+        TokenNotifications.destroy(
+            {
+                where: {
+                    applicationID: req.params.applicationID,
+                    deviceToken: req.params.deviceToken,
+                    notificationID: req.params.notificationID
+                }
+            })
             .then(app => { res.json(app); })
-
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
