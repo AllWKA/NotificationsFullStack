@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `adminmessages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `adminmessages` (
-  `AdminID` int(11) NOT NULL,
-  `MessageID` int(11) NOT NULL,
+  `adminID` int(11) NOT NULL,
+  `messageID` int(11) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`AdminID`,`MessageID`),
+  PRIMARY KEY (`adminID`,`messageID`),
   UNIQUE KEY `updatedAt_UNIQUE` (`updatedAt`),
-  KEY `FK_messageID_admin_idx` (`MessageID`),
-  CONSTRAINT `FK_adminID_message` FOREIGN KEY (`AdminID`) REFERENCES `admins` (`idAdmin`),
-  CONSTRAINT `FK_messageID_admin` FOREIGN KEY (`MessageID`) REFERENCES `messages` (`idMessages`)
+  KEY `FK_messageID_admin_idx` (`messageID`),
+  CONSTRAINT `FK_messageID_admin` FOREIGN KEY (`messageID`) REFERENCES `messages` (`idMessages`),
+  CONSTRAINT `fk_admin_message` FOREIGN KEY (`adminID`) REFERENCES `admins` (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,6 +41,7 @@ CREATE TABLE `adminmessages` (
 
 LOCK TABLES `adminmessages` WRITE;
 /*!40000 ALTER TABLE `adminmessages` DISABLE KEYS */;
+INSERT INTO `adminmessages` VALUES (2,1,NULL,NULL);
 /*!40000 ALTER TABLE `adminmessages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:35
+-- Dump completed on 2019-03-26  8:23:28

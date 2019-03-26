@@ -23,17 +23,17 @@ DROP TABLE IF EXISTS `notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `notifications` (
-  `idNotifications` int(11) NOT NULL,
+  `notificationID` int(11) NOT NULL AUTO_INCREMENT,
   `messageID` int(11) NOT NULL,
   `ttl` int(11) DEFAULT NULL,
   `icon` varchar(45) DEFAULT NULL,
-  `badge` int(11) NOT NULL,
+  `badge` int(11) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`idNotifications`,`messageID`),
+  PRIMARY KEY (`notificationID`,`messageID`),
   KEY `fk_messag_notification_idx` (`messageID`),
   CONSTRAINT `fk_messag_notification` FOREIGN KEY (`messageID`) REFERENCES `messages` (`idMessages`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+INSERT INTO `notifications` VALUES (1,1,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:42
+-- Dump completed on 2019-03-26  8:23:40

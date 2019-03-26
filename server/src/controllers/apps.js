@@ -61,6 +61,37 @@ module.exports.updateApp = (app, req, res) => {
         .catch(error => { res.status(412).json({ msg: error.message }); });
 }
 
+module.exports.deleteApp = (app, req, res) => {
+
+    app.db.models.applications.destroy(
+
+        { where: { applicationName: req.params.applicationName } })
+
+        .then(app => { res.json(app); })
+
+        .catch(error => { res.status(412).json({ msg: error.message }); });
+}
+
+module.exports.addAdmins = (app, req, res) => {
+
+    var promesa = new Promise(function (resolve, reject) {
+        var sucsess = 0;
+        for (let index = 0; index < req.body.admins.length; index++) {
+            if (addAdmin(app, req.params.applicationName, req.body.admins[index]) == true) {
+                sucsess++;
+            }
+        }
+        resolve(sucsess);
+
+    })
+
+    promesa.then(function (resultado) {
+
+        res.json("hecho");
+
+    })
+}
+
 function addAdmin(app, applicationName, adminEmail) {
     app.db.models.applications.find({
         where: { applicationName: applicationName }
@@ -69,9 +100,11 @@ function addAdmin(app, applicationName, adminEmail) {
             app.db.models.admins.find({
                 where: { email: adminEmail }
             })
-                .then(admin => { application.addAdmin(admin); })
+                .then(admin => {
+                    application.addAdmin(admin);
+                    return true;
+                })
                 .catch(error => console.log(error.message));
         })
         .catch(error => console.log(error.message));
-
 }

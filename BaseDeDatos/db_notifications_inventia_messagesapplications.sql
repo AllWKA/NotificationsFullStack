@@ -16,29 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tokentopics`
+-- Table structure for table `messagesapplications`
 --
 
-DROP TABLE IF EXISTS `tokentopics`;
+DROP TABLE IF EXISTS `messagesapplications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tokentopics` (
-  `userID` int(11) NOT NULL,
-  `applicationID` int(11) NOT NULL,
-  `topicID` int(11) NOT NULL,
-  PRIMARY KEY (`userID`,`applicationID`,`topicID`),
-  KEY `fk_topic_token_idx` (`topicID`) /*!80000 INVISIBLE */,
-  CONSTRAINT `fk_topic_token` FOREIGN KEY (`topicID`) REFERENCES `topics` (`idTopics`)
+CREATE TABLE `messagesapplications` (
+  `MessegeID` int(11) NOT NULL,
+  `ApplicationID` int(11) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`MessegeID`,`ApplicationID`),
+  KEY `fk_application_message_idx` (`ApplicationID`),
+  CONSTRAINT `fk_application_message` FOREIGN KEY (`ApplicationID`) REFERENCES `applications` (`idApplication`),
+  CONSTRAINT `fk_message_application` FOREIGN KEY (`MessegeID`) REFERENCES `messages` (`idMessages`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tokentopics`
+-- Dumping data for table `messagesapplications`
 --
 
-LOCK TABLES `tokentopics` WRITE;
-/*!40000 ALTER TABLE `tokentopics` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tokentopics` ENABLE KEYS */;
+LOCK TABLES `messagesapplications` WRITE;
+/*!40000 ALTER TABLE `messagesapplications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messagesapplications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:41
+-- Dump completed on 2019-03-26  8:23:37

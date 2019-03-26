@@ -31,8 +31,8 @@ CREATE TABLE `tokennotifications` (
   `updatedAt` datetime DEFAULT NULL,
   `success` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`userID`,`aplicationID`,`deviceToken`,`notificationID`),
-  KEY `fk_token_notification_idx` (`notificationID`),
-  CONSTRAINT `fk_token_notification` FOREIGN KEY (`notificationID`) REFERENCES `notifications` (`idNotifications`),
+  KEY `fk_token_notifications_idx` (`notificationID`),
+  CONSTRAINT `fk_token_notifications` FOREIGN KEY (`notificationID`) REFERENCES `notifications` (`notificationID`),
   CONSTRAINT `fk_token_user_application` FOREIGN KEY (`userID`, `aplicationID`, `deviceToken`) REFERENCES `devicetokens` (`userID`, `applicationID`, `deviceToken`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:41
+-- Dump completed on 2019-03-26  8:23:30

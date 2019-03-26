@@ -1,4 +1,4 @@
-import { getAllApps, appsAndUsers, getApp, usersFromApp, createApp, updateApp } from "../controllers/apps";
+import { getAllApps, appsAndUsers, getApp, usersFromApp, createApp, updateApp, deleteApp, addAdmins } from "../controllers/apps";
 module.exports = app => {
 
     const Apps = app.db.models.applications;
@@ -20,23 +20,12 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
+    app.post('/addAdmins/:applicationName', (req, res) => addAdmins(app, req, res));
+
     app.post('/app', (req, res) => createApp(app, req, res));
-
-
 
     app.put("/app/:applicationName", (req, res, next) => updateApp(app, req, res));
 
-    app.delete('/app/:applicationName', (req, res) => {
-
-        const applicationName = req.params.applicationName;
-
-        Apps.destroy(
-
-            { where: { applicationName: applicationName } })
-
-            .then(app => { res.json(app); })
-
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
+    app.delete('/app/:applicationName', (req, res) => deleteApp(app, req, res));
 
 }

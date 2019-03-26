@@ -23,10 +23,12 @@ DROP TABLE IF EXISTS `topics`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `topics` (
-  `idTopics` int(11) NOT NULL,
+  `idTopics` int(11) NOT NULL AUTO_INCREMENT,
   `topic` varchar(100) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`idTopics`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +37,7 @@ CREATE TABLE `topics` (
 
 LOCK TABLES `topics` WRITE;
 /*!40000 ALTER TABLE `topics` DISABLE KEYS */;
+INSERT INTO `topics` VALUES (1,'feliz cumpleaños',NULL,NULL);
 /*!40000 ALTER TABLE `topics` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:36
+-- Dump completed on 2019-03-26  8:23:29

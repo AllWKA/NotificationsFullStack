@@ -25,6 +25,8 @@ DROP TABLE IF EXISTS `topicmessages`;
 CREATE TABLE `topicmessages` (
   `messageID` int(11) NOT NULL,
   `topicID` int(11) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`messageID`,`topicID`),
   KEY `fk_topic_message_idx` (`topicID`),
   CONSTRAINT `fk_message_topic` FOREIGN KEY (`messageID`) REFERENCES `messages` (`idMessages`),
@@ -38,6 +40,7 @@ CREATE TABLE `topicmessages` (
 
 LOCK TABLES `topicmessages` WRITE;
 /*!40000 ALTER TABLE `topicmessages` DISABLE KEYS */;
+INSERT INTO `topicmessages` VALUES (1,1,NULL,NULL);
 /*!40000 ALTER TABLE `topicmessages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:39
+-- Dump completed on 2019-03-26  8:23:34

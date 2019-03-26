@@ -26,9 +26,11 @@ CREATE TABLE `analytics` (
   `idanalytics` int(11) NOT NULL,
   `notificationID` int(11) NOT NULL,
   `messageID` int(11) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`idanalytics`,`notificationID`,`messageID`),
-  KEY `fk_analytics_notifications1_idx` (`notificationID`,`messageID`),
-  CONSTRAINT `fk_analytics_notifications1` FOREIGN KEY (`notificationID`, `messageID`) REFERENCES `notifications` (`idNotifications`, `messageID`)
+  KEY `fk_analytic_notification_idx` (`notificationID`),
+  CONSTRAINT `fk_analytic_notification` FOREIGN KEY (`notificationID`) REFERENCES `notifications` (`notificationID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-21 13:49:34
+-- Dump completed on 2019-03-26  8:23:27
