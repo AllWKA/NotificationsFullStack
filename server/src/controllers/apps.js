@@ -12,7 +12,7 @@ module.exports.appsAndUsers = (app, req, res) => {
 }
 
 module.exports.getApp = (app, req, res) => {
-    app.db.models.applications.find({
+    app.db.models.applications.findOne({
 
         where: { applicationName: req.params.applicationName }
     })
