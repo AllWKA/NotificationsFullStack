@@ -16,35 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `useraplications`
+-- Table structure for table `adminapplications`
 --
 
-DROP TABLE IF EXISTS `useraplications`;
+DROP TABLE IF EXISTS `adminapplications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `useraplications` (
-  `userID` int(10) NOT NULL,
-  `aplicationID` int(10) NOT NULL,
-  `deviceToken` varchar(100) NOT NULL,
-  `so` enum('android','ios','web') NOT NULL,
+CREATE TABLE `adminapplications` (
+  `adminID` int(10) NOT NULL,
+  `applicationID` int(10) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`userID`,`aplicationID`,`deviceToken`),
-  KEY `FK_userID` (`userID`),
-  KEY `FK_AplicacionID` (`aplicationID`),
-  CONSTRAINT `FK_AplicacionID` FOREIGN KEY (`aplicationID`) REFERENCES `aplications` (`idAplication`) ON UPDATE RESTRICT,
-  CONSTRAINT `FK_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`idUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`adminID`,`applicationID`),
+  KEY `FK_AplicationID_Adm_idx` (`applicationID`),
+  CONSTRAINT `FK_AplicationID_Adm` FOREIGN KEY (`applicationID`) REFERENCES `applications` (`idApplication`) ON DELETE CASCADE,
+  CONSTRAINT `fk_admin_application` FOREIGN KEY (`adminID`) REFERENCES `admins` (`idAdmin`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `useraplications`
+-- Dumping data for table `adminapplications`
 --
 
-LOCK TABLES `useraplications` WRITE;
-/*!40000 ALTER TABLE `useraplications` DISABLE KEYS */;
-INSERT INTO `useraplications` VALUES (2,1,'newDeviceToken','android','2019-02-25 23:17:05','2019-03-14 15:51:31');
-/*!40000 ALTER TABLE `useraplications` ENABLE KEYS */;
+LOCK TABLES `adminapplications` WRITE;
+/*!40000 ALTER TABLE `adminapplications` DISABLE KEYS */;
+INSERT INTO `adminapplications` VALUES (2,1,'2019-03-25 13:37:32','2019-03-25 13:37:32'),(2,7,'2019-03-25 15:08:21','2019-03-25 15:08:21'),(2,9,'2019-03-25 15:11:13','2019-03-25 15:11:13'),(25,1,'2019-03-25 15:21:51','2019-03-25 15:21:51');
+/*!40000 ALTER TABLE `adminapplications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-18 16:13:24
+-- Dump completed on 2019-03-26  8:23:33

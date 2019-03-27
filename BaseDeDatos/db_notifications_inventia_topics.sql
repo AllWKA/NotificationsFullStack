@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `topics`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `topics`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `users` (
-  `idUser` int(11) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(30) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
+CREATE TABLE `topics` (
+  `idTopics` int(11) NOT NULL AUTO_INCREMENT,
+  `topic` varchar(100) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idTopics`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `topics`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'bryan','bryanjbj1@gmail.com','123465',NULL,NULL),(3,'Bryan','bryan@gmail.com','$2a$10$bBC79wTTkWuFZF49kwLH8O99AqObYAPlj5VsnEd7jnUCXj4/3IYxC','2019-03-21 14:59:02','2019-03-21 14:59:02'),(4,'Bryan','bryan@gmail.com','$2a$10$OZqZo3Zeg5hjbGUQLpvfk.u/UtdbLc8kEtKPOz5mt6dOYdkMifGl2','2019-03-21 15:00:38','2019-03-21 15:00:38');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `topics` WRITE;
+/*!40000 ALTER TABLE `topics` DISABLE KEYS */;
+INSERT INTO `topics` VALUES (1,'feliz cumpleaños',NULL,NULL);
+/*!40000 ALTER TABLE `topics` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-26  8:23:26
+-- Dump completed on 2019-03-26  8:23:29

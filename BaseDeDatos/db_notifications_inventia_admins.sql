@@ -25,13 +25,14 @@ DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins` (
   `idAdmin` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(45) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `discriminator` int(11) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `discriminator` int(11) DEFAULT '0',
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`idAdmin`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idAdmin`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (2,'Carlos','$2a$10$TbpqE4xhYGUwC4W/svCqw.FkRZwFz5cSepwpz/EVBsMfSJNA0CZMm',0,'CCarlos@gmail.com','2019-02-22 17:36:48','2019-02-25 05:22:00'),(3,'root','$2a$10$ws3pvQ2tWtNCYj6fsKTPCOYRM9BpIA1Ik4wIImzT.42Td7ip5vssq',0,'root@gmail.com','2019-02-25 05:20:30','2019-02-25 05:20:30');
+INSERT INTO `admins` VALUES (2,'root','root@gmail.com','$2a$10$JiCzDEqJR8pLP9umfuOvi.0.Ci2zqnGdJbqWRUJKFxkgqzoWk2w8e',0,'2019-03-22 15:58:57','2019-03-22 15:58:57'),(25,'root2','root2@gmail.com','$2a$10$p4nRT8HmuekuZXdqEcbfjunbXJ3H7feloL1svKi/KKZpjQuh4yjS2',0,'2019-03-25 15:21:49','2019-03-25 15:21:49');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-18 16:13:24
+-- Dump completed on 2019-03-26  8:23:36

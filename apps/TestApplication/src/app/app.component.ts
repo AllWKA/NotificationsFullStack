@@ -24,27 +24,31 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-    //   this.fcm.getToken()
-    //     .then(token => { Statics.token = token; })
-    //     .catch(error => { console.error(error); });
+      this.fcm.getToken()
+        .then(token => {
+          Statics.token = token;
+          console.log("token getToken---> ", token);
 
-    //   this.fcm.onTokenRefresh().subscribe(
-    //     (token: string) => {
-    //       console.log("ontokenRefresh: " + token);
-          
-    //       this.rest.postUser(2,1,"newDeviceToken",token).subscribe(
-    //         res => {Statics.token = res+"";}
-    //       );
-    //     },
-    //     error => console.error(error)
-    //   );
+        })
+        .catch(error => { console.error(error); });
 
-    //   this.fcm.onNotification().subscribe(
-    //     (data: NotificationData) => {
-    //       if (data.wasTapped) {
-    //         console.log("Received in background", JSON.stringify(data))
-    //       } else { console.log("Received in foreground", JSON.stringify(data)) }
-    //     }, error => { console.error("Error in notification", error) });
+      this.fcm.onTokenRefresh().subscribe(
+        (token: string) => {
+          console.log("ontokenRefresh---> " + token);
+
+          // this.rest.postUser(2, 1, "newDeviceToken", token).subscribe(
+          //   res => { Statics.token = res + ""; }
+          // );
+        },
+        error => console.error(error)
+      );
+
+      //   this.fcm.onNotification().subscribe(
+      //     (data: NotificationData) => {
+      //       if (data.wasTapped) {
+      //         console.log("Received in background", JSON.stringify(data))
+      //       } else { console.log("Received in foreground", JSON.stringify(data)) }
+      //     }, error => { console.error("Error in notification", error) });
     });
   }
 }

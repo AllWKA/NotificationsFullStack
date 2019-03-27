@@ -16,31 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `aplications`
+-- Table structure for table `devicetokens`
 --
 
-DROP TABLE IF EXISTS `aplications`;
+DROP TABLE IF EXISTS `devicetokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `aplications` (
-  `idAplication` int(11) NOT NULL AUTO_INCREMENT,
-  `aplicationName` varchar(30) NOT NULL,
-  `tokenAplication` varchar(30) NOT NULL,
+CREATE TABLE `devicetokens` (
+  `userID` int(10) NOT NULL,
+  `applicationID` int(10) NOT NULL,
+  `deviceToken` varchar(500) NOT NULL,
+  `so` enum('android','ios','web') NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`idAplication`),
-  UNIQUE KEY `aplicationName_UNIQUE` (`aplicationName`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`userID`,`applicationID`,`deviceToken`),
+  KEY `FK_AplicacionID_idx` (`applicationID`),
+  CONSTRAINT `FK_AplicacionID` FOREIGN KEY (`applicationID`) REFERENCES `applications` (`idApplication`),
+  CONSTRAINT `FK_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`idUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aplications`
+-- Dumping data for table `devicetokens`
 --
 
-LOCK TABLES `aplications` WRITE;
-/*!40000 ALTER TABLE `aplications` DISABLE KEYS */;
-INSERT INTO `aplications` VALUES (1,'lpaPark','ajdjsdsad',NULL,'2019-02-25 04:52:03'),(8,'ale','ajdjsdsad','2019-02-25 18:31:36','2019-02-25 19:11:34');
-/*!40000 ALTER TABLE `aplications` ENABLE KEYS */;
+LOCK TABLES `devicetokens` WRITE;
+/*!40000 ALTER TABLE `devicetokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `devicetokens` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-18 16:13:23
+-- Dump completed on 2019-03-26  8:23:25
