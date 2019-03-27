@@ -50,7 +50,6 @@ function packageNotifications(devices) {
                 start += 100;
             }
         }
-
         if (numUsers % 100 == 1 || numUsers == 1) {
             console.log("Enviando al usuario: " + (devices[numUsers - 1].deviceToken));
             sendNotificationToTokens(devices[numUsers - 1].deviceToken);
@@ -69,12 +68,8 @@ function packageNotifications(devices) {
 
 function getTokensFromRange(start, end, devices) {
     var tokens = [];
-    for (let index = start; index < end; index++) {
-        tokens.push(devices[index].deviceToken);
-    }
-    console.log("tokens del rango: " + tokens);
+    for (let index = start; index < end; index++) { tokens.push(devices[index].deviceToken); }
     sendNotificationToTokens(tokens);
-
 }
 
 function sendNotificationToTokens(tokens) {
