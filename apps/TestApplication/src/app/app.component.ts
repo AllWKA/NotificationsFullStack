@@ -24,17 +24,21 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+      console.log("tiburcio antes");
+
       this.fcm.getToken()
         .then(token => {
           Statics.token = token;
-          console.log("token getToken---> ", token);
+          console.log("token getToken tiburcio---> ", token);
 
         })
         .catch(error => { console.error(error); });
 
+      console.log("tiburcio medio");
+
       this.fcm.onTokenRefresh().subscribe(
         (token: string) => {
-          console.log("ontokenRefresh---> " + token);
+          console.log("nuevo token tiburcio---> " + token);
 
           // this.rest.postUser(2, 1, "newDeviceToken", token).subscribe(
           //   res => { Statics.token = res + ""; }
@@ -43,6 +47,7 @@ export class MyApp {
         error => console.error(error)
       );
 
+      console.log("tiburcio después");
       //   this.fcm.onNotification().subscribe(
       //     (data: NotificationData) => {
       //       if (data.wasTapped) {

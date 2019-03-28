@@ -114,6 +114,113 @@
                     </div>
 
                     <div class="card-body">
+                        <!-- modal para modificar al admin -->
+                        <div class="modal fade" id="showAdmin" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="adminNameModal"></h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="">
+                                            <div class="tab">
+                                                <button class="tablinks" onclick="showNewTab(event, 'info')"
+                                                    id="defaultOpen">Admin
+                                                    Information</button>
+                                                <button class="tablinks"
+                                                    onclick="showNewTab(event, 'Paris')">Applications</button>
+                                                <button class="tablinks"
+                                                    onclick="showNewTab(event, 'Tokyo')">Stats</button>
+                                            </div>
+                                            <div id="info" class="tabcontent">
+                                                <div class="container">
+                                                    <form id="form-registro">
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail3"
+                                                                class="col-sm-2 col-form-label">Email</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="email" id="inputEmail" class="form-control"
+                                                                    placeholder="Email address" required="required"
+                                                                    autofocus="autofocus">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail3"
+                                                                class="col-sm-2 col-form-label">User
+                                                                Name</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="email" id="userNameInput"
+                                                                    class="form-control" placeholder="Email address"
+                                                                    required="required" autofocus="autofocus">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputPassword3"
+                                                                class="col-sm-2 col-form-label">Password</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="password" class="form-control"
+                                                                    id="inputPassword" placeholder="Password"
+                                                                    required="required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="deliveyDate"
+                                                                class="col-sm-2 col-form-label">Root</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" id="applications">
+                                                                    <option>True</option>
+                                                                    <option>False</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="offset-sm-2 col-sm-10">
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    onclick="updateAdmin()">Update</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    onclick="deleteAdmin()">Delete</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div id="Paris" class="tabcontent">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                                        <!-- Aquí iria la informacion -->
+                                                        <thead>
+                                                            <tr>
+                                                                <th>application Name</th>
+                                                                <th>Token Application</th>
+                                                                <th>Created At</th>
+                                                                <th>Updated At</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="applicationAdminTable" data-toggle="modal"
+                                                            data-target="#showAdmin"> </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div id="Tokyo" class="tabcontent">
+                                                <h3>Tokyo</h3>
+                                                <p>Tokyo is the capital of Japan.</p>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <!-- Aquí iria la informacion -->
@@ -127,107 +234,83 @@
                                         <th>Updated At</th>
                                     </tr>
                                 </thead>
-                                <!-- modal para modificar al admin -->
-                                <tbody id="dataTable" data-toggle="modal" data-target="#showAdmin"></tbody>
-                                <div class="modal fade" id="showAdmin" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="adminNameModal"></h5>
-                                                <button class="close" type="button" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="">
-                                                    <div class="tab">
-                                                        <button class="tablinks"
-                                                            onclick="showNewTab(event, 'info')">Admin
-                                                            Information</button>
-                                                        <button class="tablinks"
-                                                            onclick="showNewTab(event, 'Paris')">Applications</button>
-                                                        <button class="tablinks"
-                                                            onclick="showNewTab(event, 'Tokyo')">Stats</button>
-                                                    </div>
-                                                    <div id="info" class="tabcontent">
-                                                        <div class="container">
-                                                            <form id="form-registro">
-                                                                <div class="form-group row">
-                                                                    <label for="inputEmail3"
-                                                                        class="col-sm-2 col-form-label">Email</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="email" id="inputEmail"
-                                                                            class="form-control"
-                                                                            placeholder="Email address"
-                                                                            required="required" autofocus="autofocus">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="inputEmail3"
-                                                                        class="col-sm-2 col-form-label">User
-                                                                        Name</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="email" id="userNameInput"
-                                                                            class="form-control"
-                                                                            placeholder="Email address"
-                                                                            required="required" autofocus="autofocus">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="inputPassword3"
-                                                                        class="col-sm-2 col-form-label">Password</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="password" class="form-control"
-                                                                            id="inputPassword" placeholder="Password"
-                                                                            required="required">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="deliveyDate"
-                                                                        class="col-sm-2 col-form-label">Root</label>
-                                                                    <div class="col-sm-10">
-                                                                        <select class="form-control" id="applications">
-                                                                            <option>True</option>
-                                                                            <option>False</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <div class="offset-sm-2 col-sm-10">
-                                                                        <button type="submit" class="btn btn-primary"
-                                                                            onclick="updateAdmin()">Actualizar</button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
+
+                                <tbody id="dataTable" data-toggle="modal" data-target="#showAdmin">
+                                </tbody>
+                            </table>
+                            <div class="col-sm-2"><a class="btn btn-primary" href="./addUserPanel.html"
+                                    data-toggle="modal" data-target="#addAdmin">add Admin</a></div>
+                            <!-- modal to create admin -->
+                            <div class="modal fade" id="addAdmin" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Create New Admin</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container">
+                                                <form id="form-registro">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3"
+                                                            class="col-sm-2 col-form-label">Email</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" id="inputEmailNew" class="form-control"
+                                                                placeholder="Email address" required="required"
+                                                                autofocus="autofocus">
                                                         </div>
                                                     </div>
-                                                    <div id="Paris" class="tabcontent">
-                                                        <h3>Paris</h3>
-                                                        <p>Paris is the capital of France.</p>
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">User
+                                                            Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" id="inputUserNameNew"
+                                                                class="form-control" placeholder="User Name"
+                                                                required="required" autofocus="autofocus">
+                                                        </div>
                                                     </div>
-
-                                                    <div id="Tokyo" class="tabcontent">
-                                                        <h3>Tokyo</h3>
-                                                        <p>Tokyo is the capital of Japan.</p>
+                                                    <div class="form-group row">
+                                                        <label for="inputPassword3"
+                                                            class="col-sm-2 col-form-label">Password</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="password" class="form-control"
+                                                                id="inputPasswordNew" placeholder="Password"
+                                                                required="required">
+                                                        </div>
                                                     </div>
-
+                                                    <div class="form-group row">
+                                                        <label for="deliveyDate"
+                                                            class="col-sm-2 col-form-label">Application</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" id="applicationsNewAdmin">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="offset-sm-2 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                onclick="createAdmin(event)">Create</button>
+                                                        </div>
+                                                    </div>
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button"
-                                                    data-dismiss="modal">Cancelar</button>
-                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button"
+                                                data-dismiss="modal">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-
-                            </table>
                         </div>
                     </div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    <div class="card-footer small text-muted">
+                        <div class="col-sm-8">Updated yesterday at 11:59 PM</div>
+                    </div>
                 </div>
 
                 <!-- /.container-fluid -->

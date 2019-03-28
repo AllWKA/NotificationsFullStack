@@ -63,7 +63,7 @@ module.exports.putAdmin = (app, req, res) => {
             app.db.models.admins.update(
                 {
                     userName: userName,
-                    email: email,
+                    email: req.body.email,
                     discriminator: discriminator,
                     password: password
 
