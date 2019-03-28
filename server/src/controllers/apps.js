@@ -13,7 +13,6 @@ module.exports.appsAndUsers = (app, req, res) => {
 
 module.exports.getApp = (app, req, res) => {
     app.db.models.applications.findOne({
-
         where: { applicationName: req.params.applicationName }
     })
         .then(app => { res.json(app); })
@@ -39,20 +38,16 @@ module.exports.createApp = (app, req, res) => {
 }
 
 module.exports.updateApp = (app, req, res) => {
-    const applicationName = req.params.applicationName;
-    const applicationNameNew = req.body.applicationName;
-    const tokenapplication = req.body.tokenapplication;
-
     app.db.models.applications.update(
         {
-            nameapplication: applicationNameNew,
-            tokenapplication: tokenapplication
+            nameapplication: req.body.applicationName,
+            tokenapplication: req.body.tokenapplication
         },
-
-        { where: { applicationName: applicationName } })
+        { where: { applicationName: req.params.applicationName } })
 
         .then(rowsUpdated => {
             res.json(rowsUpdated);
+            //will add all the admins inside admin array in req
             for (let index = 0; index < req.body.admins.length; index++) {
                 addAdmin(app, req.body.applicationName, req.body.admins[index]);
             }
@@ -62,18 +57,13 @@ module.exports.updateApp = (app, req, res) => {
 }
 
 module.exports.deleteApp = (app, req, res) => {
-
     app.db.models.applications.destroy(
-
         { where: { applicationName: req.params.applicationName } })
-
         .then(app => { res.json(app); })
-
         .catch(error => { res.status(412).json({ msg: error.message }); });
 }
 
 module.exports.addAdmins = (app, req, res) => {
-
     var promesa = new Promise(function (resolve, reject) {
         var sucsess = 0;
         for (let index = 0; index < req.body.admins.length; index++) {
@@ -82,17 +72,14 @@ module.exports.addAdmins = (app, req, res) => {
             }
         }
         resolve(sucsess);
-
     })
-
     promesa.then(function (resultado) {
-
         res.json("hecho");
-
     })
 }
 
 function addAdmin(app, applicationName, adminEmail) {
+    //will find the application with the name in params
     app.db.models.applications.find({
         where: { applicationName: applicationName }
     })

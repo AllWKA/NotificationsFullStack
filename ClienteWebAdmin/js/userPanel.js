@@ -11,6 +11,7 @@ function inicializar() {
   userNameInput = document.getElementById("userNameInput");
   inputPassword = document.getElementById("inputPassword");
   applicationsSelect = document.getElementById("applications");
+
   listAllUsers();
   fillApplicationsNewAdmin();
 }
@@ -22,10 +23,7 @@ function createAdmin(event) {
     document.getElementById("inputPasswordNew").value == "") {
     alert("fill all pls")
   } else {
-    console.log("proediendo");
-
     var xhttp = new XMLHttpRequest(), method = "POST", url = "http://localhost:3000/admin";
-
     var newAdmin = {
       "userName": document.getElementById("inputUserNameNew").value,
       "email": document.getElementById("inputEmailNew").value,
@@ -33,8 +31,6 @@ function createAdmin(event) {
       "discriminator": 0,
       "applicationName": document.getElementById("applicationsNewAdmin")[document.getElementById("applicationsNewAdmin").selectedIndex].text
     }
-    console.log(newAdmin);
-
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         admin = JSON.parse(xhttp.responseText);
@@ -46,12 +42,9 @@ function createAdmin(event) {
     };
     xhttp.open(method, url, true);
     xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    console.log("sending");
     xhttp.send(JSON.stringify(newAdmin));
   }
 }
-
-
 
 function fillApplicationsNewAdmin() {
   var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/apps";

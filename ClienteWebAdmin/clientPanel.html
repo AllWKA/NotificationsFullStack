@@ -3,243 +3,392 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Clients Panel</title>
+    <title>SB Admin - Tables</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-  <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
-  <link href="css/notificationPanel.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/notificationPanel.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/clientPanel.css">
-
-  <!-- Custom userPanel.css -->
-  <link href="css/userPanel.css" rel="stylesheet">
+    <!-- Custom userPanel.css -->
+    <link href="css/userPanel.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/tabs.css">
 </head>
 
 <body id="page-top">
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="panel.html">InventiaPlus </a>
+        <a class="navbar-brand mr-1" href="panel.html">InventiaPlus </a>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-    <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="workingOnIt.html">Settings</a>
-          <!-- <a class="dropdown-item" href="workingOnIt.html">Activity Log</a> -->
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navbar -->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-fw"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="workingOnIt.html">Settings</a>
+                    <!-- <a class="dropdown-item" href="workingOnIt.html">Activity Log</a> -->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="panel.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Páginas</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <h6 class="dropdown-header">Login Screens:</h6>
+                    <a class="dropdown-item" href="index.html">Login</a>
+                    <a class="dropdown-item" href="addClientPanel.html">Register</a>
+                    <a class="dropdown-item" href="workingOnIt.html">Forgot Password</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="workingOnIt.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Gráficos</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="workingOnIt.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tablas informativas</span></a>
+            </li>
+        </ul>
+
+        <div id="content-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Breadcrumbs-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="panel.html">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Users
+                    </li>
+                </ol>
+
+                <!-- Table users -->
+                <!-- DataTables Example -->
+                <div class="card mb-3">
+                    <div class="card-header flex-container">
+                        <div>
+                            <i class="fas fa-table"></i> User Table
+                        </div>
+                        <!-- modal para modificar al admin -->
+                        <div class="modal fade" id="showAdmin" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="adminNameModal"></h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="">
+                                            <div class="tab">
+                                                <button class="tablinks" onclick="showNewTab(event, 'info')"
+                                                    id="defaultOpen">Admin
+                                                    Information</button>
+                                                <button class="tablinks"
+                                                    onclick="showNewTab(event, 'Paris')">Applications</button>
+                                                <button class="tablinks"
+                                                    onclick="showNewTab(event, 'Tokyo')">Stats</button>
+                                            </div>
+                                            <div id="info" class="tabcontent">
+                                                <div class="container">
+                                                    <form id="form-registro">
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail3"
+                                                                class="col-sm-2 col-form-label">Email</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="email" id="inputEmail" class="form-control"
+                                                                    placeholder="Email address" required="required"
+                                                                    autofocus="autofocus">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail3"
+                                                                class="col-sm-2 col-form-label">User
+                                                                Name</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="email" id="userNameInput"
+                                                                    class="form-control" placeholder="Email address"
+                                                                    required="required" autofocus="autofocus">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputPassword3"
+                                                                class="col-sm-2 col-form-label">Password</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="password" class="form-control"
+                                                                    id="inputPassword" placeholder="Password"
+                                                                    required="required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="deliveyDate"
+                                                                class="col-sm-2 col-form-label">Root</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" id="applications">
+                                                                    <option>True</option>
+                                                                    <option>False</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="offset-sm-2 col-sm-10">
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    onclick="updateAdmin()">Update</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    onclick="deleteAdmin()">Delete</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div id="Paris" class="tabcontent">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                                        <!-- Aquí iria la informacion -->
+                                                        <thead>
+                                                            <tr>
+                                                                <th>application Name</th>
+                                                                <th>Token Application</th>
+                                                                <th>Created At</th>
+                                                                <th>Updated At</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="applicationAdminTable" data-toggle="modal"
+                                                            data-target="#showAdmin"> </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div id="Tokyo" class="tabcontent">
+                                                <h3>Tokyo</h3>
+                                                <p>Tokyo is the capital of Japan.</p>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal to create admin -->
+                        <div class="modal fade" id="addAdmin" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create New Admin</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <form id="form-registro">
+                                                <div class="form-group row">
+                                                    <label for="inputEmail3"
+                                                        class="col-sm-2 col-form-label">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" id="inputEmailNew" class="form-control"
+                                                            placeholder="Email address" required="required"
+                                                            autofocus="autofocus">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">User
+                                                        Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" id="inputUserNameNew" class="form-control"
+                                                            placeholder="User Name" required="required"
+                                                            autofocus="autofocus">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputPassword3"
+                                                        class="col-sm-2 col-form-label">Password</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control"
+                                                            id="inputPasswordNew" placeholder="Password"
+                                                            required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="deliveyDate"
+                                                        class="col-sm-2 col-form-label">Application</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" id="applicationsNewAdmin">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-primary"
+                                                            onclick="createAdmin(event)">Create</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <!-- Aquí iria la informacion -->
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>User Name</th>
+                                        <th>Password</th>
+                                        <th>Root</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="dataTable" data-toggle="modal" data-target="#showAdmin">
+                                </tbody>
+                            </table>
+                            <div class="col-sm-2"><a class="btn btn-primary" href="./addUserPanel.html"
+                                    data-toggle="modal" data-target="#addAdmin">add Admin</a></div>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted">
+                        <div class="col-sm-8">Updated yesterday at 11:59 PM</div>
+                    </div>
+                </div>
+
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © Your Website 2019</span>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+            <!-- /.content-wrapper -->
+
         </div>
-      </li>
-    </ul>
+        <!-- /#wrapper -->
 
-  </nav>
-
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="panel.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
         </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Páginas</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="index.html">Login</a>
-          <a class="dropdown-item" href="addClientPanel.html">Register</a>
-          <a class="dropdown-item" href="workingOnIt.html">Forgot Password</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="workingOnIt.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Gráficos</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="workingOnIt.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tablas informativas</span></a>
-      </li>
-    </ul>
 
-    <div id="content-wrapper">
+        <!-- Logout Modal Cambiado-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Selecciona "Salir" si quieres cerrar tu sesión.
 
-      <div class="container-fluid">
-
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="panel.html">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">
-            Client
-          </li>
-        </ol>
-        <!-- Table users -->
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header flex-container">
-            <div>
-              <i class="fas fa-table">Clients Table</i>
-            </div>
-            <div class="buttons-fixed">
-              <div class="d-flex flex-row-reverse">
-                <button onclick="location.href='addClientPanel.html'" class="button-fixed btn btn-dark"> add</button>
-                <button onclick="location.href='removeClientPanel.html'"
-                  class="button-fixed btn btn-dark">remove</button>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <!-- Aquí iria la informacion -->
-                <thead>
-                  <tr>
-                    <th>User Name</th>
-                    <th>Gmail</th>
-                    <th>Password</th>
-                  </tr>
-                </thead>
-                <tbody id="form-clientList">
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          <br>
-          <br>
-          <!-- Container de Update -->
-          <div class="card-header flex-container">
-            <div>
-              <i class="fas fa-table">Update Client Table</i>
-            </div>
-          </div>
-          <div class="card-body">
-            <form id="form-updateClient">
-              <div class="form-group row">
-                <label for="inputIdUser" class="col-sm-2 col-form-label">User ID</label>
-                <div class="col-sm-10">
-                  <input type="number" id="inputIdUser" class="form-control"
-                    placeholder="Introduce el id del usuario a actualizar" required="required" autofocus="autofocus">
-
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="index.html">Salir</a>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputName" class="col-sm-2 col-form-label">Nombre del nuevo cliente </label>
-                <div class="col-sm-10">
-                  <input type="text" id="inputName" class="form-control" placeholder="Pon el nombre actualizado"
-                    required="required" minlength="3" autofocus="autofocus">
-
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                  <input type="email" id="inputEmail" class="form-control" placeholder="Email del usuario"
-                    required="required" autofocus="autofocus">
-
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
-                  <button type="submit" class="btn btn-primary">Actualizar</button>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
 
-        <!-- /.container-fluid -->
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
+        <script src="js/userPanel.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAasveqGrHMon5OKuqgvQ8qFEMxrix1qno",
+                authDomain: "proyecto2trimestreiesrincon.firebaseapp.com",
+                databaseURL: "https://proyecto2trimestreiesrincon.firebaseio.com",
+                projectId: "proyecto2trimestreiesrincon",
+                storageBucket: "proyecto2trimestreiesrincon.appspot.com",
+                messagingSenderId: "763431986407"
+            };
+            firebase.initializeApp(config);
+        </script>
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2019</span>
-            </div>
-          </div>
-        </footer>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-      </div>
-      <!-- /.content-wrapper -->
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    </div>
-    <!-- /#wrapper -->
+        <!-- Page level plugin JavaScript-->
+        <script src="vendor/datatables/jquery.dataTables.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin.min.js"></script>
 
-    <!-- Logout Modal Cambiado-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-            <a class="btn btn-primary" href="index.html">Salir</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Custom base de datos -->
-    <script src="js/clientPanel.js"></script>
-    <script src="js/updateClient.js"></script>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-
-    <!-- Demo scripts for this page-->
-    <script src="js/demo/datatables-demo.js"></script>
+        <!-- Demo scripts for this page-->
+        <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

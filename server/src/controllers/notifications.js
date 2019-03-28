@@ -12,7 +12,6 @@ admin.initializeApp({
 });
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
-
     app.db.models.applications.findOne({
         where: { applicationName: req.params.applicationName }
     })
@@ -27,16 +26,12 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
                 .catch(error => { res.status(412).json({ msg: error.message }) });
         })
         .catch(error => { res.status(412).json({ msg: error.message }); });
-
-
 }
 
 function packageNotifications(devices) {
-
     var numUsers = devices.length;
     var start = 0;
     var end;
-
     if (numUsers > 0) {
         if (numUsers == 1) { end = 0 }
         else {
@@ -50,7 +45,6 @@ function packageNotifications(devices) {
                 start += 100;
             }
         }
-
         if (numUsers % 100 == 1 || numUsers == 1) {
             console.log("Enviando al usuario: " + (devices[numUsers - 1].deviceToken));
             sendNotificationToTokens(devices[numUsers - 1].deviceToken);
