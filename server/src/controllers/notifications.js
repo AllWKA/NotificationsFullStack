@@ -23,7 +23,7 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
             })
                 .then(devices => {
                     //sending the devices
-                    packageNotifications(JSON.parse(JSON.stringify(devices)))
+                    packageNotifications(JSON.parse(JSON.stringify(devices)), req.body.notification)
                     res.json("sending your notifications");
                 })
                 .catch(error => { res.status(412).json({ msg: error.message }) });
@@ -31,7 +31,7 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
         .catch(error => { res.status(412).json({ msg: error.message }); });
 }
 
-function packageNotifications(devices) {
+function packageNotifications(devices, notification) {
     var numUsers = devices.length;
     var start = 0;
     var end;
@@ -44,13 +44,13 @@ function packageNotifications(devices) {
         if (numUsers > 1) {
             for (end; 0 <= numUsers - end; end += 100) {
                 console.log("Enviando a los usuarios por el bucle: (" + start + "," + end + ")");
-                getTokensFromRange(start, end, devices);
+                getTokensFromRange(start, end, devices, notification);
                 start += 100;
             }
         }
         if (numUsers % 100 == 1 || numUsers == 1) {
             console.log("Enviando al usuario: " + (devices[numUsers - 1].deviceToken));
-            sendNotificationToTokens(devices[numUsers - 1].deviceToken);
+            sendNotificationToTokens(devices[numUsers - 1].deviceToken, notification);
         }
         else {
             if (numUsers % 100 != 0 && start < numUsers) {
@@ -58,29 +58,28 @@ function packageNotifications(devices) {
                 end = numUsers - 1;
 
                 console.log("Enviando a los usuarios restantes: (" + start + "," + end + ")");
-                getTokensFromRange(start, end, devices);
+                getTokensFromRange(start, end, devices, notification);
             }
         }
     } else { console.log("No hay clientes"); }
 }
 
-function getTokensFromRange(start, end, devices) {
+function getTokensFromRange(start, end, devices, notification) {
     var tokens = [];
     for (let index = start; index < end; index++) {
         tokens.push(devices[index].deviceToken);
     }
     console.log("tokens del rango: " + tokens);
-    sendNotificationToTokens(tokens);
+    sendNotificationToTokens(tokens, notification);
 }
 
-function sendNotificationToTokens(tokens) {
+function sendNotificationToTokens(tokens, notification) {
     console.log("enviando notificiacion a los siguientes tokens: " + tokens);
     //la notificacion
+    console.log(notification);
+
     var payload = {
-        notification: {
-            "body": "Body of Your Notification",
-            "title": "Title of Your Notification"
-        }
+        notification: notification
     }
     //opciones de la notificacion
     var options = {
@@ -91,6 +90,8 @@ function sendNotificationToTokens(tokens) {
     var successCount = 0;
     var failureCount = 0;
 
+    console.log(payload);
+
     admin.messaging().sendToDevice(tokens, payload, options)
         .then(function (response) {
             //añado los datos de la respuesta a las estadisticas
@@ -99,6 +100,7 @@ function sendNotificationToTokens(tokens) {
             //TODO: mandar tokens fallidos y notificationId para modificarlos 
         })
         .catch(function (error) {
-            res.json(error);
+            console.log(error);
+            ;
         });
 }

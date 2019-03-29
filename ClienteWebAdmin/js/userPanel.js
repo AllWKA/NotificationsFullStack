@@ -18,12 +18,10 @@ function inicializar() {
 
 function createAdmin(event) {
   event.preventDefault();
-  if (document.getElementById("inputEmailNew").value == "" ||
-    document.getElementById("inputUserNameNew").value == "" ||
-    document.getElementById("inputPasswordNew").value == "") {
+  if (checkFormCreate()) {
     alert("fill all pls")
   } else {
-    var xhttp = new XMLHttpRequest(), method = "POST", url = "http://localhost:3000/admin";
+    var method = "POST", url = "http://localhost:3000/admin";
     var newAdmin = {
       "userName": document.getElementById("inputUserNameNew").value,
       "email": document.getElementById("inputEmailNew").value,
@@ -31,19 +29,38 @@ function createAdmin(event) {
       "discriminator": 0,
       "applicationName": document.getElementById("applicationsNewAdmin")[document.getElementById("applicationsNewAdmin").selectedIndex].text
     }
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        admin = JSON.parse(xhttp.responseText);
-        if (admin != null) {
-          alert("Admin creado");
-          listAllUsers();
-        }
-      }
-    };
-    xhttp.open(method, url, true);
-    xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhttp.send(JSON.stringify(newAdmin));
+    postPutAdmin(method, url, newAdmin);
   }
+}
+
+function checkFormCreate() {
+  if (document.getElementById("inputEmailNew").value == "" ||
+    document.getElementById("inputUserNameNew").value == "" ||
+    document.getElementById("inputPasswordNew").value == "") {
+    return true;
+  } else { return false; }
+}
+
+function postPutAdmin(method, url, Admin) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      admin = JSON.parse(xhttp.responseText);
+      if (admin != null) {
+        if (method == "POST") {
+          alert("Admin creado");
+          $('#showAdmin').modal('hide');
+        } else {
+          alert("Admin actualizado");
+          $('#showAdmin').modal('hide');
+        }
+        listAllUsers();
+      }
+    }
+  };
+  xhttp.open(method, url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhttp.send(JSON.stringify(Admin));
 }
 
 function fillApplicationsNewAdmin() {
@@ -52,16 +69,20 @@ function fillApplicationsNewAdmin() {
     if (this.readyState == 4 && this.status == 200) {
       applications = JSON.parse(xhttp.responseText);
       if (applications != null) {
-        var apps;
-        for (var i = 0; i < applications.length; i++) {
-          apps += "<option>" + applications[i].applicationName + "</option>";
-        }
-        document.getElementById("applicationsNewAdmin").innerHTML = apps;
+        printApplicationsNewAdmin(applications);
       }
     }
   };
   xhttp.open(method, url, true);
   xhttp.send();
+}
+
+function printApplicationsNewAdmin(applications) {
+  var apps;
+  for (var i = 0; i < applications.length; i++) {
+    apps += "<option>" + applications[i].applicationName + "</option>";
+  }
+  document.getElementById("applicationsNewAdmin").innerHTML = apps;
 }
 
 
@@ -103,11 +124,9 @@ function fillApplicationsFromAdmin() {
         var apps;
         for (var i = 0; i < applications.applications.length; i++) {
           if (i == 0) {
-            apps = "<tr><td>" + applications.applications[i].applicationName + "</td>" + "<td>" + applications.applications[i].tokenApplication + "</td>" +
-              "<td>" + applications.applications[i].createdAt + "</td>" + "<td>" + applications.applications[i].updatedAt + "</td>" + "</tr>";
+            apps = giveFormatApplicationsFromAdmin(applications, i);
           } else {
-            apps += "<tr><td>" + applications.applications[i].applicationName + "</td>" + "<td>" + applications.applications[i].tokenApplication + "</td>" +
-              "<td>" + applications.applications[i].createdAt + "</td>" + "<td>" + applications.applications[i].updatedAt + "</td>" + "</tr>";
+            apps += giveFormatApplicationsFromAdmin(applications, i);
           }
         }
         document.getElementById("applicationAdminTable").innerHTML = apps;
@@ -117,33 +136,33 @@ function fillApplicationsFromAdmin() {
   xhttp.open(method, url, true);
   xhttp.send();
 }
-
-function updateAdmin() {
-
+function giveFormatApplicationsFromAdmin(applications, i) {
+  return "<tr><td>" + applications.applications[i].applicationName + "</td>"
+    + "<td>" + applications.applications[i].tokenApplication.substring(0, 10) + "</td>"
+    + "<td>" + applications.applications[i].createdAt.substring(0, 10) + "</td>"
+    + "<td>" + applications.applications[i].updatedAt.substring(0, 10) + "</td></tr>";
+}
+function checkUpdateadmin() {
+  if (inputEmail.value == "" || userNameInput.value == "" || inputPassword.value == "") {
+    return true;
+  } else { return false; }
+}
+function updateAdmin(event) {
+  event.preventDefault();
   if (inputEmail.value == "" || userNameInput.value == "" || inputPassword.value == "") { alert("fill all inputs please!"); }
   else {
     var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://localhost:3000/admin/" + inputEmail.placeholder;
+
     var root;
     if (applicationsSelect[applicationsSelect.selectedIndex].text == 'True') { root = 1; }
     else { root = 0; }
-    var updatedAdmin = {
+    var newAdmin = {
       "userName": userNameInput.value,
       "email": inputEmail.value,
       "password": inputPassword.value,
       "discriminator": root
     }
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        admin = JSON.parse(xhttp.responseText);
-        if (admin != null) {
-          alert("Admin Actualizada");
-          listAllUsers();
-        }
-      }
-    };
-    xhttp.open(method, url, true);
-    xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhttp.send(JSON.stringify(updatedAdmin));
+    postPutAdmin(method, url, newAdmin);
   }
 
 }
@@ -184,24 +203,21 @@ function printAdmins(adminsResult) {
 
   for (var i = 0; i < adminsResult.length; i++) {
     if (i == 0) {
-      admins = "<tr onclick=fillModalAdmin("
-        + "'" + adminsResult[i].email + "'," + "'" + adminsResult[i].userName + "',"
-        + "'" + adminsResult[i].password + "'," + "'" + adminsResult[i].discriminator + "',"
-        + ")><td>" + adminsResult[i].email + "</td><td>" + adminsResult[i].userName
-        + "</td><td>" + adminsResult[i].password.substring(0, 10) + "...</td>"
-        + "</td><td>" + adminsResult[i].discriminator + "</td>"
-        + "</td><td>" + adminsResult[i].createdAt.substring(0, 10) + "</td>"
-        + "</td><td>" + adminsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
+      admins = giveFormatAdmins(adminsResult, i);
     } else {
-      admins += "<tr onclick=fillModalAdmin("
-        + "'" + adminsResult[i].email + "'," + "'" + adminsResult[i].userName + "',"
-        + "'" + adminsResult[i].password + "'," + "'" + adminsResult[i].discriminator + "',"
-        + ")><td>" + adminsResult[i].email + "</td><td>" + adminsResult[i].userName
-        + "</td><td>" + adminsResult[i].password.substring(0, 10) + "...</td>"
-        + "</td><td>" + adminsResult[i].discriminator + "</td>"
-        + "</td><td>" + adminsResult[i].createdAt.substring(0, 10) + "</td>"
-        + "</td><td>" + adminsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
+      admins += giveFormatAdmins(adminsResult, i);
     }
   }
   formUser.innerHTML = admins;
+}
+
+function giveFormatAdmins(adminsResult, i) {
+  return "<tr onclick=fillModalAdmin("
+    + "'" + adminsResult[i].email + "'," + "'" + adminsResult[i].userName + "',"
+    + "'" + adminsResult[i].password + "'," + "'" + adminsResult[i].discriminator + "',"
+    + ")><td>" + adminsResult[i].email + "</td><td>" + adminsResult[i].userName
+    + "</td><td>" + adminsResult[i].password.substring(0, 10) + "...</td>"
+    + "</td><td>" + adminsResult[i].discriminator + "</td>"
+    + "</td><td>" + adminsResult[i].createdAt.substring(0, 10) + "</td>"
+    + "</td><td>" + adminsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
 }

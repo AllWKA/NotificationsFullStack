@@ -18,30 +18,44 @@ function inicializar() {
 
 function createClient(event) {
   event.preventDefault();
-  if (document.getElementById("inputEmailNew").value == "" ||
-    document.getElementById("inputUserNameNew").value == "" ||
-    document.getElementById("inputPasswordNew").value == "") {
+  if (checkCreateClientFrom()) {
     alert("fill all pls")
   } else {
-    var xhttp = new XMLHttpRequest(), method = "POST", url = "http://localhost:3000/user";
-    var newAdmin = {
+    var method = "POST", url = "http://localhost:3000/user";
+    var newClient = {
       "userName": document.getElementById("inputUserNameNew").value,
       "email": document.getElementById("inputEmailNew").value,
       "password": document.getElementById("inputPasswordNew").value,
       "applicationName": document.getElementById("applicationsNewClient")[document.getElementById("applicationsNewClient").selectedIndex].text
     }
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        client = JSON.parse(xhttp.responseText);
-        if (client != null) {
-          alert("Client created");
-          listAllUsers();
-        }
+    postUpdateClient(method, url, newClient);
+  }
+}
+
+function postUpdateClient(method, url, client) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      client = JSON.parse(xhttp.responseText);
+      if (client != null) {
+        if (method == "PUT") { alert("Client updated") }
+        else { alert("Client created") }
+        listAllUsers();
       }
-    };
-    xhttp.open(method, url, true);
-    xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhttp.send(JSON.stringify(newAdmin));
+    }
+  };
+  xhttp.open(method, url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhttp.send(JSON.stringify(client));
+}
+
+function checkCreateClientFrom() {
+  if (document.getElementById("inputEmailNew").value == "" ||
+    document.getElementById("inputUserNameNew").value == "" ||
+    document.getElementById("inputPasswordNew").value == "") {
+    return true
+  } else {
+    return false;
   }
 }
 
@@ -96,21 +110,10 @@ function fillModalClient(email, userName, password, applicationName) {
 function fillApplicationFromClient() {
   var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/appsFromAdmin/" + inputEmail.placeholder;
   xhttp.onreadystatechange = function () {
-
     if (this.readyState == 4 && this.status == 200) {
       applications = JSON.parse(xhttp.responseText);
       if (applications != null) {
-        var apps;
-        for (var i = 0; i < applications.applications.length; i++) {
-          if (i == 0) {
-            apps = "<tr><td>" + applications.applications[i].applicationName + "</td>" + "<td>" + applications.applications[i].tokenApplication + "</td>" +
-              "<td>" + applications.applications[i].createdAt + "</td>" + "<td>" + applications.applications[i].updatedAt + "</td>" + "</tr>";
-          } else {
-            apps += "<tr><td>" + applications.applications[i].applicationName + "</td>" + "<td>" + applications.applications[i].tokenApplication + "</td>" +
-              "<td>" + applications.applications[i].createdAt + "</td>" + "<td>" + applications.applications[i].updatedAt + "</td>" + "</tr>";
-          }
-        }
-        document.getElementById("applicationAdminTable").innerHTML = apps;
+        printApplicationsFromUser(applications);
       }
     }
   };
@@ -118,29 +121,30 @@ function fillApplicationFromClient() {
   xhttp.send();
 }
 
+function printApplicationsFromUser(applications) {
+  var apps;
+  for (var i = 0; i < applications.applications.length; i++) {
+    if (i == 0) { apps = giveFormatApplicationsFromUser(applications, i); }
+    else { apps += giveFormatApplicationsFromUser(applications, i); }
+  }
+  document.getElementById("applicationAdminTable").innerHTML = apps;
+}
+function giveFormatApplicationsFromUser(applications, i) {
+  return "<tr><td>" + applications.applications[i].applicationName + "</td>" + "<td>" + applications.applications[i].tokenApplication + "</td>" +
+    "<td>" + applications.applications[i].createdAt + "</td>" + "<td>" + applications.applications[i].updatedAt + "</td>" + "</tr>";
+}
 function updateClient(event) {
   event.preventDefault();
   if (inputEmail.value == "" || userNameInput.value == "" || inputPassword.value == "") { alert("fill all inputs please!"); }
   else {
-    var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://localhost:3000/user/"
-      + inputEmail.placeholder + "/" + appFromClient.innerHTML;
+    var method = "PUT"
+    var url = "http://localhost:3000/user/" + inputEmail.placeholder + "/" + appFromClient.innerHTML;
     var updatedClient = {
       "userName": userNameInput.value,
       "email": inputEmail.value,
       "password": inputPassword.value
     }
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        client = JSON.parse(xhttp.responseText);
-        if (client != null) {
-          alert("Cliente Actualizada");
-          listAllUsers();
-        }
-      }
-    };
-    xhttp.open(method, url, true);
-    xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhttp.send(JSON.stringify(updatedClient));
+    postUpdateClient(method, url, updatedClient);
   }
 
 }
@@ -176,25 +180,22 @@ function printAdmins(clientsResult) {
   var clients;
   for (var i = 0; i < clientsResult.length; i++) {
     if (i == 0) {
-      clients = "<tr onclick=fillModalClient("
-        + "'" + clientsResult[i].email + "'," + "'" + clientsResult[i].userName + "',"
-        + "'" + clientsResult[i].password + "'," + "'" + clientsResult[i].applicationName + "',"
-        + ")><td>" + clientsResult[i].email + "</td><td>" + clientsResult[i].userName
-        + "</td><td>" + clientsResult[i].password.substring(0, 10) + "...</td>"
-        + "<td>" + clientsResult[i].applicationName
-        + "</td><td>" + clientsResult[i].createdAt.substring(0, 10) + "</td>"
-        + "</td><td>" + clientsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
+      clients = giveFormatClients(clientsResult, i);
 
     } else {
-      clients += "<tr onclick=fillModalClient("
-        + "'" + clientsResult[i].email + "'," + "'" + clientsResult[i].userName + "',"
-        + "'" + clientsResult[i].password + "'," + "'" + clientsResult[i].applicationName + "',"
-        + ")><td>" + clientsResult[i].email + "</td><td>" + clientsResult[i].userName
-        + "</td><td>" + clientsResult[i].password.substring(0, 10) + "...</td>"
-        + "<td>" + clientsResult[i].applicationName
-        + "</td><td>" + clientsResult[i].createdAt.substring(0, 10) + "</td>"
-        + "</td><td>" + clientsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
+      clients += giveFormatClients(clientsResult, i);
     }
   }
   formUser.innerHTML = clients;
+}
+
+function giveFormatClients(clientsResult, i) {
+  return "<tr onclick=fillModalClient("
+    + "'" + clientsResult[i].email + "'," + "'" + clientsResult[i].userName + "',"
+    + "'" + clientsResult[i].password + "'," + "'" + clientsResult[i].applicationName + "',"
+    + ")><td>" + clientsResult[i].email + "</td><td>" + clientsResult[i].userName
+    + "</td><td>" + clientsResult[i].password.substring(0, 10) + "...</td>"
+    + "<td>" + clientsResult[i].applicationName
+    + "</td><td>" + clientsResult[i].createdAt.substring(0, 10) + "</td>"
+    + "</td><td>" + clientsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
 }
