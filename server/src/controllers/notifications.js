@@ -12,14 +12,17 @@ admin.initializeApp({
 });
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
+    //finding the application
     app.db.models.applications.findOne({
         where: { applicationName: req.params.applicationName }
     })
         .then(application => {
+            //finding the users from applications
             app.db.models.devicetokens.findAll({
                 where: { applicationID: JSON.parse(JSON.stringify(application)).idApplication }
             })
                 .then(devices => {
+                    //sending the devices
                     packageNotifications(JSON.parse(JSON.stringify(devices)))
                     res.json("sending your notifications");
                 })
@@ -68,14 +71,10 @@ function getTokensFromRange(start, end, devices) {
     }
     console.log("tokens del rango: " + tokens);
     sendNotificationToTokens(tokens);
-
 }
 
 function sendNotificationToTokens(tokens) {
-
     console.log("enviando notificiacion a los siguientes tokens: " + tokens);
-
-
     //la notificacion
     var payload = {
         notification: {

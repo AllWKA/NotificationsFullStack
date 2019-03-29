@@ -10,8 +10,8 @@ module.exports = app => {
 
     app.post('/user', (req, res) => postUser(app, req, res));
 
-    app.put("/user/:id", (req, res, next) => updateUser(app, req, res));
+    app.put("/user/:email/:applicationName", (req, res, next) => updateUser(app, req, res));
 
-    app.delete('/user/:id', (req, res) => deleteUser(app, req, res));
+    app.delete('/user/:email/:applicationName', (req, res) => deleteUser(app, req, res));
 
 }

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Tables</title>
+    <title>Client Panel</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -103,20 +103,20 @@
                     </li>
                 </ol>
 
-                <!-- Table users -->
+                <!-- Table clients -->
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header flex-container">
                         <div>
                             <i class="fas fa-table"></i> User Table
                         </div>
-                        <!-- modal para modificar al admin -->
-                        <div class="modal fade" id="showAdmin" tabindex="-1" role="dialog"
+                        <!-- modal para modificar al cliente -->
+                        <div class="modal fade" id="showClient" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="adminNameModal"></h5>
+                                        <h5 class="modal-title" id="clientNameModal"></h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -125,10 +125,7 @@
                                         <form action="">
                                             <div class="tab">
                                                 <button class="tablinks" onclick="showNewTab(event, 'info')"
-                                                    id="defaultOpen">Admin
-                                                    Information</button>
-                                                <button class="tablinks"
-                                                    onclick="showNewTab(event, 'Paris')">Applications</button>
+                                                    id="defaultOpen2">Admin Information</button>
                                                 <button class="tablinks"
                                                     onclick="showNewTab(event, 'Tokyo')">Stats</button>
                                             </div>
@@ -149,7 +146,7 @@
                                                                 class="col-sm-2 col-form-label">User
                                                                 Name</label>
                                                             <div class="col-sm-10">
-                                                                <input type="email" id="userNameInput"
+                                                                <input type="text" id="clientsNameInput"
                                                                     class="form-control" placeholder="Email address"
                                                                     required="required" autofocus="autofocus">
                                                             </div>
@@ -164,45 +161,23 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="deliveyDate"
-                                                                class="col-sm-2 col-form-label">Root</label>
+                                                            <label for="inputPassword3"
+                                                                class="col-sm-2 col-form-label">App</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-control" id="applications">
-                                                                    <option>True</option>
-                                                                    <option>False</option>
-                                                                </select>
+                                                                <h5 id="applicationFromClient"></h5>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="offset-sm-2 col-sm-10">
                                                                 <button type="submit" class="btn btn-primary"
-                                                                    onclick="updateAdmin()">Update</button>
+                                                                    onclick="updateClient(event)">Update</button>
                                                                 <button type="submit" class="btn btn-primary"
-                                                                    onclick="deleteAdmin()">Delete</button>
+                                                                    onclick="deleteClient(event)">Delete</button>
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
-                                            <div id="Paris" class="tabcontent">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered" width="100%" cellspacing="0">
-                                                        <!-- Aquí iria la informacion -->
-                                                        <thead>
-                                                            <tr>
-                                                                <th>application Name</th>
-                                                                <th>Token Application</th>
-                                                                <th>Created At</th>
-                                                                <th>Updated At</th>
-                                                            </tr>
-                                                        </thead>
-
-                                                        <tbody id="applicationAdminTable" data-toggle="modal"
-                                                            data-target="#showAdmin"> </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
                                             <div id="Tokyo" class="tabcontent">
                                                 <h3>Tokyo</h3>
                                                 <p>Tokyo is the capital of Japan.</p>
@@ -217,7 +192,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- modal to create admin -->
+                        <!-- modal to create client -->
                         <div class="modal fade" id="addAdmin" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -262,14 +237,14 @@
                                                     <label for="deliveyDate"
                                                         class="col-sm-2 col-form-label">Application</label>
                                                     <div class="col-sm-10">
-                                                        <select class="form-control" id="applicationsNewAdmin">
+                                                        <select class="form-control" id="applicationsNewClient">
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">
                                                         <button type="submit" class="btn btn-primary"
-                                                            onclick="createAdmin(event)">Create</button>
+                                                            onclick="createClient(event)">Create</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -293,17 +268,17 @@
                                         <th>Email</th>
                                         <th>User Name</th>
                                         <th>Password</th>
-                                        <th>Root</th>
+                                        <th>Application</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>
                                     </tr>
                                 </thead>
 
-                                <tbody id="dataTable" data-toggle="modal" data-target="#showAdmin">
+                                <tbody id="dataTable" data-toggle="modal" data-target="#showClient">
                                 </tbody>
                             </table>
                             <div class="col-sm-2"><a class="btn btn-primary" href="./addUserPanel.html"
-                                    data-toggle="modal" data-target="#addAdmin">add Admin</a></div>
+                                    data-toggle="modal" data-target="#addAdmin">add Client</a></div>
                         </div>
                     </div>
                     <div class="card-footer small text-muted">
@@ -359,7 +334,7 @@
         <!-- Firebase -->
         <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
-        <script src="js/userPanel.js"></script>
+        <script src="js/clientPanel.js"></script>
         <script>
             // Initialize Firebase
             var config = {

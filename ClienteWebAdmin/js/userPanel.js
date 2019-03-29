@@ -136,7 +136,7 @@ function updateAdmin() {
       if (this.readyState == 4 && this.status == 200) {
         admin = JSON.parse(xhttp.responseText);
         if (admin != null) {
-          alert("Aplicación Actualizada");
+          alert("Admin Actualizada");
           listAllUsers();
         }
       }
@@ -190,8 +190,8 @@ function printAdmins(adminsResult) {
         + ")><td>" + adminsResult[i].email + "</td><td>" + adminsResult[i].userName
         + "</td><td>" + adminsResult[i].password.substring(0, 10) + "...</td>"
         + "</td><td>" + adminsResult[i].discriminator + "</td>"
-        + "</td><td>" + adminsResult[i].createdAt + "</td>"
-        + "</td><td>" + adminsResult[i].updatedAt + "</td></tr>";
+        + "</td><td>" + adminsResult[i].createdAt.substring(0, 10) + "</td>"
+        + "</td><td>" + adminsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
     } else {
       admins += "<tr onclick=fillModalAdmin("
         + "'" + adminsResult[i].email + "'," + "'" + adminsResult[i].userName + "',"
@@ -199,8 +199,8 @@ function printAdmins(adminsResult) {
         + ")><td>" + adminsResult[i].email + "</td><td>" + adminsResult[i].userName
         + "</td><td>" + adminsResult[i].password.substring(0, 10) + "...</td>"
         + "</td><td>" + adminsResult[i].discriminator + "</td>"
-        + "</td><td>" + adminsResult[i].createdAt + "</td>"
-        + "</td><td>" + adminsResult[i].updatedAt + "</td></tr>";
+        + "</td><td>" + adminsResult[i].createdAt.substring(0, 10) + "</td>"
+        + "</td><td>" + adminsResult[i].updatedAt.substring(0, 10) + "</td></tr>";
     }
   }
   formUser.innerHTML = admins;

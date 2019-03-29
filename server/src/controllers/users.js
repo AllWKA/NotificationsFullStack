@@ -24,7 +24,8 @@ module.exports.postUser = (app, req, res) => {
             app.db.models.users.create({
                 userName: req.body.userName,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                applicationName: req.body.applicationName
             })
                 .then(user => { res.json(user); })
                 .catch(error => { res.status(412).json({ msg: error.message }); });
@@ -39,8 +40,16 @@ module.exports.updateUser = (app, req, res) => {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: hash
-            }, { where: { idUser: req.params.id } })
-                .then(rowsUpdated => { res.json(rowsUpdated); })
+            }, {
+                    where: {
+                        email: req.params.email,
+                        applicationName: req.params.applicationName
+                    }
+                })
+                .then(rowsUpdated => {
+                    console.log("??");
+                    res.json(rowsUpdated);
+                })
                 .catch(error => { res.status(412).json({ msg: error.message }); });
         });
     });
@@ -48,7 +57,10 @@ module.exports.updateUser = (app, req, res) => {
 
 module.exports.deleteUser = (app, req, res) => {
     app.db.models.users.destroy({
-        where: { idUser: req.params.id }
+        where: {
+            email: req.params.email,
+            applicationName: req.params.applicationName
+        }
     })
         .then(deletedOwner => { res.json(deletedOwner); })
         .catch(error => { res.status(412).json({ msg: error.message }); });
