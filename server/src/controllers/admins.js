@@ -104,4 +104,3 @@ function addApplication(admin, app, applicationName) {
         })
         .catch(error => console.log(error.message));
 }
-

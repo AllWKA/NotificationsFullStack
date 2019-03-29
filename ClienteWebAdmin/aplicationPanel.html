@@ -25,6 +25,7 @@
 
   <!-- Custom userPanel.css -->
   <link href="css/userPanel.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/tabs.css">
 </head>
 
 <body id="page-top">
@@ -109,9 +110,7 @@
                   class="buttons-fixed btn btn-dark">remove</button>
               </div>
             </div>
-
           </div>
-
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -120,123 +119,160 @@
                   <tr>
                     <th>Name</th>
                     <th>Token</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
                   </tr>
                 </thead>
-                <tbody id="form-applicationList">
-
+                <tbody id="form-applicationList" data-toggle="modal" data-target="#updateModal">
                 </tbody>
-
               </table>
             </div>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          <!-- Container de Update -->
-          <div class="card-header flex-container">
-            <div>
-              <i class="fas fa-table">Update Aplications Table</i>
-            </div>
-          </div>
-          <div class="card-body">
-            <form id="form-updateApp">
-              <div class="form-group row">
-                <label for="inputOldName" class="col-sm-2 col-form-label">Nombre de la aplicación actual</label>
-                <div class="col-sm-10">
-                  <input type="text" id="inputOldName" class="form-control"
-                    placeholder="Nombre de la aplicación que deseas cambiar" required="required" minlength="3"
-                    autofocus="autofocus">
 
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputName" class="col-sm-2 col-form-label">Nombre de la nueva aplicación </label>
-                <div class="col-sm-10">
-                  <input type="text" id="inputName" class="form-control" placeholder="Pon el nombre actualizado"
-                    required="required" minlength="3" autofocus="autofocus">
-
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="inputToken" class="col-sm-2 col-form-label">Token de la aplicación actual</label>
-                <div class="col-sm-10">
-                  <input type="text" id="inputToken" class="form-control"
-                    placeholder="Token de la aplicación que deseas cambiar" required="required" minlength="3"
-                    autofocus="autofocus">
-
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
-                  <button type="submit" class="btn btn-primary">Actualizar</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2019</span>
-            </div>
-          </div>
-        </footer>
-
-      </div>
-      <!-- /.content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal Cambiado-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-            <a class="btn btn-primary" href="index.html">Salir</a>
-          </div>
+          </form>
         </div>
       </div>
+
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
     </div>
+    <!-- /.content-wrapper -->
 
-    <!-- Custom base de datos -->
-    <script src="js/aplicationPanel.js"></script>
-    <script src="js/updateAplication.js"></script>
+  </div>
+  <!-- /#wrapper -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- update App Modal-->
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="tab">
+              <button class="tablinks" onclick="showNewTab(event, 'info')" id="defaultOpen3">Admin Information</button>
+              <button class="tablinks" onclick="showNewTab(event, 'Tokyo')">Stats</button>
+            </div>
+            <div id="info" class="tabcontent">
+              <div class="container">
+                <form id="form-registro-aplicaion">
+                  <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="inputName" class="form-control" placeholder="aplication Name"
+                        required="required" minlength="3" autofocus="autofocus">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputToken" class="col-sm-2 col-form-label">Token</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputToken" placeholder="Token" required="required"
+                        minlength="3">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                  </div>
+              </div>
+              <div id="Tokyo" class="tabcontent">
+                <h3>Stats</h3>
+                <p>Tokyo is the capital of Japan.</p>
+              </div>
 
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+          </form>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+        <a class="btn btn-primary" href="index.html">Salir</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- create App Modal-->
+  <div class="modal fade" id="createApp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="index.html">Salir</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Demo scripts for this page-->
-    <script src="js/demo/datatables-demo.js"></script>
+  <!-- Logout Modal Cambiado-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="index.html">Salir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom base de datos -->
+  <script src="js/aplicationPanel.js"></script>
+  <!-- <script src="js/updateAplication.js"></script> -->
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+
+  <!-- Demo scripts for this page-->
+  <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
