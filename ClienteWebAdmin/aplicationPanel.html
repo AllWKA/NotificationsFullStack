@@ -103,53 +103,44 @@
             <div>
               <i class="fas fa-table">Aplications Table</i>
             </div>
-            <div class="buttons-fixed">
-              <div class="d-flex flex-row-reverse">
-                <button onclick="location.href='addClientPanel.html'" class="buttons-fixed btn btn-dark"> add</button>
-                <button onclick="location.href='removeClientPanel.html'"
-                  class="buttons-fixed btn btn-dark">remove</button>
-              </div>
-            </div>
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <!-- Aquí iria la informacion -->
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Token</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                  </tr>
-                </thead>
-                <tbody id="form-applicationList" data-toggle="modal" data-target="#updateModal">
-                </tbody>
-              </table>
-            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <!-- Aquí iria la informacion -->
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Token</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                </tr>
+              </thead>
+              <tbody id="form-applicationList" data-toggle="modal" data-target="#updateModal">
+              </tbody>
+            </table>
+            <button type="button" class="btn btn-dark">Create Application</button>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 
-          </form>
+        </form>
+      </div>
+    </div>
+
+    <!-- /.container-fluid -->
+
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright © Your Website 2019</span>
         </div>
       </div>
-
-      <!-- /.container-fluid -->
-
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
-
-    </div>
-    <!-- /.content-wrapper -->
-
+    </footer>
   </div>
-  <!-- /#wrapper -->
+  </div>
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -170,7 +161,9 @@
         <div class="modal-body">
           <form action="">
             <div class="tab">
-              <button class="tablinks" onclick="showNewTab(event, 'info')" id="defaultOpen3">Admin Information</button>
+              <button class="tablinks" onclick="showNewTab(event, 'info')" id="defaultOpen3">Applications
+                Information</button>
+              <button class="tablinks" onclick="showNewTab(event, 'admins')">Admins</button>
               <button class="tablinks" onclick="showNewTab(event, 'Tokyo')">Stats</button>
             </div>
             <div id="info" class="tabcontent">
@@ -192,17 +185,31 @@
                   </div>
                   <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                      <button type="submit" class="btn btn-primary">Registrar</button>
+                      <button type="submit" class="btn btn-primary" onclick="updateApplication(event)">Update</button>
                     </div>
                   </div>
               </div>
-              <div id="Tokyo" class="tabcontent">
-                <h3>Stats</h3>
-                <p>Tokyo is the capital of Japan.</p>
+              <div id="Paris" class="tabcontent">
+                <div class="table-responsive">
+                  <table class="table table-bordered" width="100%" cellspacing="0">
+                    <!-- Aquí iria la informacion -->
+                    <thead>
+                      <tr>
+                        <th>application Name</th>
+                        <th>Token Application</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="applicationAdminTable" data-toggle="modal" data-target="#showAdmin"> </tbody>
+                  </table>
+                </div>
               </div>
-
+              <div id="Tokyo" class="tabcontent">
+                <h3>Statsssssssssssssssssssssssss</h3>
+              </div>
           </form>
-
           </form>
         </div>
       </div>

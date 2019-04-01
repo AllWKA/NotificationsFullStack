@@ -31,5 +31,5 @@ import { sendNotificationToApplication } from "../controllers/notifications";
 
 
 module.exports = app => {
-  app.post('/sendNotificationToApplication/:applicationName', (req, res) => sendNotificationToApplication(app, req, res));
+  app.post('/sendNotificationToApplication/:applicationName/:bodyMessage', (req, res) => sendNotificationToApplication(app, req, res));
 }

@@ -13,25 +13,60 @@ admin.initializeApp({
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
     //finding the application
+    console.log("sendNotificationToApplication");
+    getMessage(req, app);
+}
+
+function getMessage(req, app) {
+    console.log("getMessage");
+
+    app.db.models.messages.findOne({
+        where: { body: req.params.bodyMessage }
+    }).then(message => {
+        saveNotification(app, message, req);
+        findApp(req, app);
+    }).catch(error => console.log(error))
+}
+
+function findApp(req, app) {
+    console.log("findApp", req.params);
     app.db.models.applications.findOne({
         where: { applicationName: req.params.applicationName }
     })
         .then(application => {
             //finding the users from applications
-            app.db.models.devicetokens.findAll({
-                where: { applicationID: JSON.parse(JSON.stringify(application)).idApplication }
-            })
-                .then(devices => {
-                    //sending the devices
-                    packageNotifications(JSON.parse(JSON.stringify(devices)), req.body.notification)
-                    res.json("sending your notifications");
-                })
-                .catch(error => { res.status(412).json({ msg: error.message }) });
+            findDevices(req, app);
         })
-        .catch(error => { res.status(412).json({ msg: error.message }); });
+        .catch(error => { console.log(error.message); });
+}
+
+function findDevices(req, app) {
+    console.log("findDevices", req.parms);
+
+    app.db.models.devicetokens.findAll({
+        where: { applicationID: JSON.parse(JSON.stringify(application)).idApplication }
+    })
+        .then(devices => {
+            //sending the devices
+            packageNotifications(JSON.parse(JSON.stringify(devices)), req.body.notification)
+
+        })
+        .catch(error => { console.log(error.message) });
+}
+
+function saveNotification(app, message, req) {
+    console.log("saveNotification");
+
+    var newNotification = { messageID: message.idMessages }
+    app.db.models.notifications.create(newNotification)
+        .then(notification => { console.log(notification) })
+        .catch(error => console.log(error));
+
 }
 
 function packageNotifications(devices, notification) {
+    console.log("packageNotifications");
+
     var numUsers = devices.length;
     var start = 0;
     var end;
@@ -43,41 +78,37 @@ function packageNotifications(devices, notification) {
         }
         if (numUsers > 1) {
             for (end; 0 <= numUsers - end; end += 100) {
-                console.log("Enviando a los usuarios por el bucle: (" + start + "," + end + ")");
                 getTokensFromRange(start, end, devices, notification);
                 start += 100;
             }
         }
         if (numUsers % 100 == 1 || numUsers == 1) {
-            console.log("Enviando al usuario: " + (devices[numUsers - 1].deviceToken));
             sendNotificationToTokens(devices[numUsers - 1].deviceToken, notification);
         }
         else {
             if (numUsers % 100 != 0 && start < numUsers) {
                 // end += (numUsers - 1) - end;
                 end = numUsers - 1;
-
-                console.log("Enviando a los usuarios restantes: (" + start + "," + end + ")");
                 getTokensFromRange(start, end, devices, notification);
             }
         }
     } else { console.log("No hay clientes"); }
 }
 
-function getTokensFromRange(start, end, devices, notification) {
+async function getTokensFromRange(start, end, devices, notification) {
+    console.log("getTokensFromRange");
+
     var tokens = [];
     for (let index = start; index < end; index++) {
         tokens.push(devices[index].deviceToken);
     }
-    console.log("tokens del rango: " + tokens);
     sendNotificationToTokens(tokens, notification);
 }
 
-function sendNotificationToTokens(tokens, notification) {
-    console.log("enviando notificiacion a los siguientes tokens: " + tokens);
-    //la notificacion
-    console.log(notification);
+async function sendNotificationToTokens(tokens, notification) {
+    console.log("sendNotificationToTokens");
 
+    //TODO: guardar notifiacion-token
     var payload = {
         notification: notification
     }
@@ -90,17 +121,23 @@ function sendNotificationToTokens(tokens, notification) {
     var successCount = 0;
     var failureCount = 0;
 
-    console.log(payload);
-
     admin.messaging().sendToDevice(tokens, payload, options)
         .then(function (response) {
             //añado los datos de la respuesta a las estadisticas
             successCount += response.successCount;
             failureCount += response.failureCount;
             //TODO: mandar tokens fallidos y notificationId para modificarlos 
+            const Analytics = app.db.models.analytics;
         })
         .catch(function (error) {
             console.log(error);
-            ;
         });
+}
+
+function saveTokensNotification(tokens) {
+
+}
+
+function saveAnalytics(params) {
+
 }

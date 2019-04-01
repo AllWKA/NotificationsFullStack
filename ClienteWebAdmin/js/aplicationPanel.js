@@ -9,6 +9,45 @@ function inicializar() {
   applicationList = document.getElementById("form-applicationList");
   showApplications();
 }
+
+function updateApplication(event) {
+  event.preventDefault();
+  var updatedApp = {
+    applicationName: this.inputName.value,
+    tokenApplication: this.inputToken.value
+  }
+
+  postUpdateApp("PUT", "localhost:3000/app/" + this.inputName.placeholder, updatedApp);
+
+
+}
+
+function postUpdateApp(method, url, application) {
+  console.log(method, url, application);
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    console.log("adios?");
+
+    if (this.readyState == 4 && this.status == 200) {
+      client = JSON.parse(xhttp.responseText);
+      if (client != null) {
+        if (method == "PUT") { alert("Application updated") }
+        else { alert("Application created") }
+        listAllUsers();
+      }
+    } else {
+      console.log("error");
+
+    }
+  };
+  xhttp.open(method, url, true);
+  xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  console.log("hola?");
+
+  xhttp.send(JSON.stringify(application));
+}
+
 //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs
 function showNewTab(evt, cityName) {
   var i, tabcontent, tablinks;
@@ -23,6 +62,7 @@ function showNewTab(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+
 function showApplications() {
   var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/apps";
   xhttp.onreadystatechange = function () {
@@ -42,6 +82,7 @@ function showApplications() {
   xhttp.open(method, url, true);
   xhttp.send();
 }
+
 //"showApplicationModal('SuperApp','AbcDeFg')"
 function showApplicationModal(applicationName, tokenApplication) {
   document.getElementById("defaultOpen3").click();
