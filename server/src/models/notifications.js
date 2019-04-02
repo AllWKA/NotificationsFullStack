@@ -9,15 +9,6 @@ module.exports = (sequelize, DataType) => {
             messageID: {
                 type: DataType.INTEGER,
                 primaryKey: true
-            },
-            ttl: {
-                type: DataType.INTEGER
-            },
-            icon: {
-                type: DataType.STRING
-            },
-            badge: {
-                type: DataType.INTEGER
             }
         });
     Notifications.associate = (models) => {
