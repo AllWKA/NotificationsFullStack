@@ -103,14 +103,14 @@
           <div class="card-header">
 
           </div>
-          <div class="form-group grid-item">
+          <!-- <div class="form-group grid-item">
             <label for="notificationText">Message text</label>
             <input type="text" class="form-control" id="notificationMessege" placeholder="Enter message">
           </div>
           <div class="form-group">
             <label for="notificationLabel">Message label(optional)</label>
             <input type="text" class="form-control" id="notificationLabel" placeholder="Enter message nickname">
-          </div>
+          </div> -->
           <div class="form-group  footer ">
             <label for="deliveyDate">Delivery date</label>
             <select class="form-control" id="deliveyDate">
@@ -138,8 +138,14 @@
               <span class="checkmark"></span>
             </label>
           </div>
-          <div>
+          <div id="selectApplications">
+            <h3 id="tittleApplications">Select Application</h3>
             <select class="form-control" id="applications"></select>
+          </div>
+          <div id="selectMessges">
+            <h3 id="tittleMessages">Select Message</h3>
+            <select class="form-control" id="messageFromApplications"></select>
+            <button class="btn btn-dark" id="addMessage">Add Message</button>
           </div>
           <div>
             <button id="send" class="btn btn-dark">Send</button>

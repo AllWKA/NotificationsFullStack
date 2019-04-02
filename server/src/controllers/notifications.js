@@ -19,15 +19,17 @@ function getMessage(reqAppRes) {
 
     reqAppRes.app.db.models.messages.findOne({
         where: { body: reqAppRes.req.params.bodyMessage }
-    }).then(message => {
-        //solo se guardara la notificacion y se buscaran los dispositivos
-        //si el mensaje esta dentro de la base de datos.
-        findApp(reqAppRes, message);
-    }).catch(error => console.log(error))
+    })
+        .then(message => {
+            //solo se guardara la notificacion y se buscaran los dispositivos
+            //si el mensaje esta dentro de la base de datos.
+            findApp(reqAppRes, message);
+        })
+        .catch(error => { reqAppRes.res.status(412).json({ msg: error.message }) });
 }
 
 function findApp(reqAppRes, message) {
-    console.log("-->findApp", reqAppRes.req.params);
+    console.log("-->findApp");
     reqAppRes.app.db.models.applications.findOne({
         where: { applicationName: reqAppRes.req.params.applicationName }
     })
@@ -38,7 +40,7 @@ function findApp(reqAppRes, message) {
         .catch(error => { reqAppRes.res.status(412).json({ msg: error.message }) });
 }
 
-function findDevices(reqAppRes, application, message, notification) {
+async function findDevices(reqAppRes, application, message, notification) {
     console.log("-->findDevices");
 
     reqAppRes.app.db.models.devicetokens.findAll({
@@ -47,27 +49,28 @@ function findDevices(reqAppRes, application, message, notification) {
         .then(devices => {
             //sending the devices
             //TODO: SAVE TOKENnOTIFICATION
+            console.log("--->findDevicesNotification:", JSON.stringify(notification));
+
             findNotification(reqAppRes, application, message, notification, devices);
             packageNotifications(JSON.parse(JSON.stringify(devices)), reqAppRes.req.body.notification, reqAppRes.res)
         })
-        .catch(error => { console.log("-->findDevices Error:", error.message) });
+        .catch(error => { reqAppRes.res.status(412).json({ msg: error.message }) });
 }
 
-async function findNotification(reqAppRes, application, message, notification, devices) {
-    console.log("finding notification: ", JSON.stringify(application), JSON.stringify(message), JSON.stringify(notification), JSON.stringify(devices));
+async function findNotification(reqAppRes, application, message, createdNotification, devices) {
+    console.log("--->finding notification");
 
     reqAppRes.app.db.models.notifications.findOne({
         where: {
-            createdAt: notification.createdAt,
-            messageID: notification.messagesID
+            createdAt: createdNotification.createdAt,
+            messageID: createdNotification.messageID
         }
-    }).then(notification => {
-        saveTokensNotification(reqAppRes, notification, devices)
-    })
+    }).then(notification => { saveTokensNotification(reqAppRes, notification, devices); })
         .catch(error => { console.log("-->findingNotification Error:", error.message) });
-
 }
-async function saveTokensNotification(reqAppRes, notification, devices) {
+function saveTokensNotification(reqAppRes, notification, devices) {
+    console.log("--->saveTokensNotification");
+
     for (let i = 0; i < devices.length; i++) {
 
         var tokenNotification = {
@@ -123,7 +126,7 @@ function packageNotifications(devices, notification, res) {
                 getTokensFromRange(start, end, devices, notification, res);
             }
         }
-    } else { res.status(412).json({ msg: "-->No hay clientes" }) }
+    } else { res.status(412).json({ msg: "0 clients" }) }
 }
 
 async function getTokensFromRange(start, end, devices, notification, res) {
@@ -158,12 +161,24 @@ async function sendNotificationToTokens(tokens, notification, res) {
             successCount += response.successCount;
             failureCount += response.failureCount;
             res.json(response);
+            changeFailed(response, tokens, notification);
             //TODO: mandar tokens fallidos y notificationId para modificarlos 
             // const Analytics = app.db.models.analytics;
         })
         .catch((error) => { res.status(412).json({ msg: error.message }) });
 }
 
+function changeFailed(response, tokens, notification) {
+    console.log("changeFailed", JSON.stringify(response.results), tokens);
+
+    for (let index = 0; index < response.results.length; index++) {
+        console.log("iteration: ", index, "result: ", response.results[index].messageId);
+
+        if (response.results[index].error) {
+            console.log("changing " + tokens[index] + " from notification" + notification.notificationID);
+        }
+    }
+}
 
 
 function saveAnalytics(params) {

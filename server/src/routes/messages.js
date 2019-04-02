@@ -13,7 +13,6 @@ module.exports = app => {
 
     });
 
-
     app.get('/appsAndMessages', (req, res) => {
         //Done
         Messages.findAll({

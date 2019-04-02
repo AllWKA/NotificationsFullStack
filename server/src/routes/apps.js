@@ -20,6 +20,14 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
+    app.get('/messageFromApp/:applicationName', (req, res) => {
+        Apps.findOne({
+            where: { applicationName: req.params.applicationName }
+        })
+            .then(app => { app.getMessages().then(messages => { res.json(messages); }) })
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+
     app.post('/addAdmins/:applicationName', (req, res) => addAdmins(app, req, res));
 
     app.post('/app', (req, res) => createApp(app, req, res));
