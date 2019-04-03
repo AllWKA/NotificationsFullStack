@@ -10,6 +10,8 @@ function initialize() {
     this.application = document.getElementById("applications");
     this.application.addEventListener("change", fillMessageFromApplication);
     this.messageSelct = document.getElementById("messageFromApplications");
+    document.getElementById("selectApplications").style.visibility = "hidden";
+    document.getElementById("selectMessges").style.visibility = "hidden";
 
     getApplications();
 }
@@ -37,6 +39,7 @@ function sendNotification(event) {
             if (res != null) {
                 alert("Notification done!" + "\n----*----\nsuccess: " + res.successCount
                     + "\nfailure: " + res.failureCount);
+
             }
         }
     };
