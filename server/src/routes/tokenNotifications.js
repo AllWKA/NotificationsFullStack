@@ -1,3 +1,4 @@
+import { tokenNotificationFromApplicationSuccess, tokenNotificationFromApplicationFailed, tokenNotificationFromUser } from "../controllers/tokenNotifications";
 module.exports = app => {
 
     const TokenNotifications = app.db.models.tokennotifications;
@@ -9,22 +10,12 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.get('/tokenNotificationsFromUser/:id', (req, res) => {
-        //Done
-        TokenNotifications.findAll({
-            where: { userID: req.params.id }
-        })
-            .then(result => res.json(result))
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
-    app.get('/tokenNotificationsFromApplication/:id', (req, res) => {
-        //Done
-        TokenNotifications.findAll({
-            where: { applicationID: req.params.id }
-        })
-            .then(result => res.json(result))
-            .catch(error => { res.status(412).json({ msg: error.message }); });
-    });
+    app.get('/tokenNotificationsFromUser/:email/:applicationName', (req, res) => { tokenNotificationFromUser(app, req, res) });
+
+    app.get('/tokenNotificationFromApplicationSuccess/:applicationName', (req, res) => { tokenNotificationFromApplicationSuccess(app, req, res); });
+
+    app.get('/tokenNotificationFromApplicationFailed/:applicationName', (req, res) => { tokenNotificationFromApplicationFailed(app, req, res); });
+
     app.get('/tokenNotificationsFromDevice/:token', (req, res) => {
         //Done
         TokenNotifications.findAll({

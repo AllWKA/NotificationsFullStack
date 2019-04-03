@@ -16,6 +16,19 @@ function inicializar() {
   fillApplicationsNewAdmin();
 }
 
+function generateChart(htmldoc, type, labels, datasets, options) {
+
+  new Chart(htmldoc, {
+    type: type,
+    labels: labels,
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: options
+  });
+}
+
 function createAdmin(event) {
   event.preventDefault();
   if (checkFormCreate()) {

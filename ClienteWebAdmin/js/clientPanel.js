@@ -105,6 +105,75 @@ function fillModalClient(email, userName, password, applicationName) {
   userNameInput.placeholder = userName;
   inputPassword.placeholder = password;
   appFromClient.innerHTML = applicationName;
+  fillStatsFromClient();
+}
+
+function fillStatsFromClient() {
+  getTokensNotifications().then(tokenNotifications => {
+    //will save the number of success and faileds
+    var sortedInformation = [];
+    //will save the dates
+    var labelsToPost = [];
+    //will search in each tokenNotification
+    for (let index = 0; index < tokenNotifications.length; index++) {
+      //jus for th first time adding something or not first time
+      if (labelsToPost.length > 0) {
+        //will say if the date now analizing is inside labels
+        var exist = false;
+        //searching inside labels to find the date now analizing
+        for (let j = 0; j < labelsToPost.length; j++) {
+          //if it exist just add 1 to success or fail
+          if (tokenNotifications[index].createdAt.substring(0, 10) == labelsToPost[j]) {
+            sortedInformation[labelsToPost.indexOf(tokenNotifications[index].createdAt.substring(0, 10))]++;
+            exist = true;
+            break;
+          }
+        }
+        //if the date now analizing is not inside label, will add it and add 1 to the 
+        //success or failed for the first time
+        if (exist == false) {
+          labelsToPost.push(tokenNotifications[index].createdAt.substring(0, 10));
+          sortedInformation[labelsToPost.indexOf(tokenNotifications[index].createdAt.substring(0, 10))] = 1;
+        }
+        exist = false;
+        //if it is the first iteration
+      } else {
+        labelsToPost.push(tokenNotifications[index].createdAt.substring(0, 10));
+        sortedInformation[labelsToPost.indexOf(tokenNotifications[index].createdAt.substring(0, 10))] = 1;
+      }
+
+    }
+    console.log(sortedInformation, labelsToPost);
+  });
+}
+
+function getTokensNotifications() {
+  return new Promise((resolve, reject) => {
+    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/tokenNotificationsFromUser/"
+      + inputEmail.placeholder + "/" + appFromClient.innerHTML;
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        tokenNotification = JSON.parse(xhttp.responseText);
+        if (tokenNotification != null) {
+          resolve(tokenNotification);
+        }
+      }
+    };
+    xhttp.open(method, url, true);
+    xhttp.send();
+  })
+}
+
+function generateChart(htmldoc, type, labels, datasets, options) {
+  new Chart(htmldoc, {
+    type: type,
+    labels: labels,
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: options
+  });
 }
 
 function fillApplicationFromClient() {

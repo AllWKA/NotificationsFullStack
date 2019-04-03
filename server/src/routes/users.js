@@ -6,7 +6,7 @@ module.exports = app => {
 
     app.get('/users', (req, res) => getUsers(app, req, res));
 
-    app.get('/user/:idUser', (req, res) => getUser(app, req, res));
+    app.get('/user/:email/:applicationName', (req, res) => getUser(app, req, res));
 
     app.post('/user', (req, res) => postUser(app, req, res));
 

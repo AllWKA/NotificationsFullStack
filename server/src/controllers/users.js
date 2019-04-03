@@ -11,9 +11,12 @@ module.exports.getUsers = (app, req, res) => {
 module.exports.getUser = (app, req, res) => {
     app.db.models.users.find({
         include: [{ model: app.db.models.applications, as: 'devices' }],
-        where: { idUser: req.params.idUser }
+        where: {
+            email: req.params.email,
+            applicationName: req.params.applicationName
+        }
     })
-        .then(owner => { res.json(owner); })
+        .then(user => { res.json(user); })
         .catch(error => { res.status(412).json({ msg: error.message }); });
 
 }
