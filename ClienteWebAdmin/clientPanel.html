@@ -13,10 +13,11 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./css/common.css">
 
     <!-- Page level plugin CSS-->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-
+    <script src="./vendor/Chart.js-2.8.0/dist/Chart.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/notificationPanel.css" rel="stylesheet">
@@ -111,7 +112,7 @@
                             <i class="fas fa-table"></i> User Table
                         </div>
                         <!-- modal para modificar al cliente -->
-                        <div class="modal fade" id="showClient" tabindex="-1" role="dialog"
+                        <div class="modal fade modal-fixed" id="showClient" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -125,7 +126,7 @@
                                         <form action="">
                                             <div class="tab">
                                                 <button class="tablinks" onclick="showNewTab(event, 'info')"
-                                                    id="defaultOpen2">Admin Information</button>
+                                                    id="defaultOpen2">Client Information</button>
                                                 <button class="tablinks"
                                                     onclick="showNewTab(event, 'Tokyo')">Stats</button>
                                             </div>
@@ -179,10 +180,8 @@
                                                 </div>
                                             </div>
                                             <div id="Tokyo" class="tabcontent">
-                                                <canvas id="myCanvas" style="border:1px solid #000000;">
-                                                </canvas>
+                                                <canvas id="myCanvas" style="border:1px solid #000000;"> </canvas>
                                             </div>
-
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -198,7 +197,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Create New Admin</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Create New Client</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>

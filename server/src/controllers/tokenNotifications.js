@@ -5,8 +5,12 @@ module.exports.tokenNotificationFromUser = (app, req, res) => {
                 where: {
                     userID: user.idUser,
                     applicationID: application.idApplication
-                }
-            }).then(tokenNotifications => { res.json(tokenNotifications); })
+                },
+                order: ['createdAt']
+            }).then(tokenNotifications => {
+                console.log("---->", JSON.stringify(tokenNotifications));
+                res.json(tokenNotifications);
+            })
                 .catch(error => { res.status(412).json({ msg: error.message }); });
         })
     })

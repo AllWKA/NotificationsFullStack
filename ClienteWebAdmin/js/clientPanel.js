@@ -143,7 +143,7 @@ function fillStatsFromClient() {
       }
 
     }
-    console.log(sortedInformation, labelsToPost);
+    generateChart(document.getElementById("myCanvas").getContext('2d'), 'line', labelsToPost, [{ label: "Notification recived", data: sortedInformation }], {})
   });
 }
 
@@ -164,13 +164,14 @@ function getTokensNotifications() {
   })
 }
 
-function generateChart(htmldoc, type, labels, datasets, options) {
+function generateChart(htmldoc, type, labels, Sorteddata, options) {
+  Sorteddata[0].backgroundColor = ['#0453b2'];
   new Chart(htmldoc, {
     type: type,
     labels: labels,
     data: {
       labels: labels,
-      datasets: datasets
+      datasets: Sorteddata
     },
     options: options
   });
