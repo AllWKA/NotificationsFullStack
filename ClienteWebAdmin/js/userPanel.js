@@ -34,7 +34,7 @@ function createAdmin(event) {
   if (checkFormCreate()) {
     alert("fill all pls")
   } else {
-    var method = "POST", url = "http://localhost:3000/admin";
+    var method = "POST", url = "http://192.168.1.111:3000/admin";
     var newAdmin = {
       "userName": document.getElementById("inputUserNameNew").value,
       "email": document.getElementById("inputEmailNew").value,
@@ -77,7 +77,7 @@ function postPutAdmin(method, url, Admin) {
 }
 
 function fillApplicationsNewAdmin() {
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/apps";
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/apps";
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       applications = JSON.parse(xhttp.responseText);
@@ -100,7 +100,7 @@ function printApplicationsNewAdmin(applications) {
 
 
 function deleteAdmin() {
-  var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://localhost:3000/admin/" + inputEmail.placeholder;
+  var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.111:3000/admin/" + inputEmail.placeholder;
   xhttp.onreadystatechange = function () {
 
     if (this.readyState == 4 && this.status == 200) {
@@ -128,7 +128,7 @@ function fillModalAdmin(email, userName, password, discriminator) {
 }
 
 function fillApplicationsFromAdmin() {
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/appsFromAdmin/" + inputEmail.placeholder;
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/appsFromAdmin/" + inputEmail.placeholder;
   xhttp.onreadystatechange = function () {
 
     if (this.readyState == 4 && this.status == 200) {
@@ -164,7 +164,7 @@ function updateAdmin(event) {
   event.preventDefault();
   if (inputEmail.value == "" || userNameInput.value == "" || inputPassword.value == "") { alert("fill all inputs please!"); }
   else {
-    var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://localhost:3000/admin/" + inputEmail.placeholder;
+    var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://192.168.1.111:3000/admin/" + inputEmail.placeholder;
 
     var root;
     if (applicationsSelect[applicationsSelect.selectedIndex].text == 'True') { root = 1; }
@@ -197,7 +197,7 @@ function showNewTab(evt, cityName) {
 
 function listAllUsers() {
 
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/admins";
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/admins";
 
   xhttp.onreadystatechange = function () {
 

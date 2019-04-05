@@ -10,7 +10,35 @@
     padding: 2px 16px;
 }
 
-button-fixed{
-    margin-top: 10%;
+.button-fixed{
+    margin-top: 2%;
 }
 
+.fixed-body {
+  padding: 20px;
+}
+
+.fixed-ul {
+  /* position: absolute; */
+  overflow: scroll;
+  height: 150px;
+  min-width: 100%;
+  width: 100%;
+  border: 2px solid #ccc;
+  
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  
+  -webkit-overflow-scrolling: touch;
+}
+
+li{
+  font-size: 14px;
+}
+
+audio{
+    visibility: hidden;
+}
+.selectedMessage{
+  margin-left: 3%;
+}

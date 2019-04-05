@@ -49,10 +49,7 @@ module.exports.updateUser = (app, req, res) => {
                         applicationName: req.params.applicationName
                     }
                 })
-                .then(rowsUpdated => {
-                    console.log("??");
-                    res.json(rowsUpdated);
-                })
+                .then(rowsUpdated => { res.json(rowsUpdated); })
                 .catch(error => { res.status(412).json({ msg: error.message }); });
         });
     });

@@ -103,14 +103,6 @@
           <div class="card-header">
 
           </div>
-          <!-- <div class="form-group grid-item">
-            <label for="notificationText">Message text</label>
-            <input type="text" class="form-control" id="notificationMessege" placeholder="Enter message">
-          </div>
-          <div class="form-group">
-            <label for="notificationLabel">Message label(optional)</label>
-            <input type="text" class="form-control" id="notificationLabel" placeholder="Enter message nickname">
-          </div> -->
           <div class="form-group  footer ">
             <label for="deliveyDate">Delivery date</label>
             <select class="form-control" id="deliveyDate">
@@ -145,10 +137,15 @@
           <div id="selectMessges">
             <h3 id="tittleMessages">Select Message</h3>
             <select class="form-control" id="messageFromApplications"></select>
-            <button class="btn btn-dark" id="addMessage">Add Message</button>
+            <button class="btn btn-dark button-fixed" id="addMessage" data-toggle="modal" data-target="#addMessageModal"
+              onclick="event.preventDefault()">Add
+              Message</button>
+            <audio controls id="shopAudio">
+              <source src="./multimedia/music.wav" type="audio/wav">
+            </audio>
           </div>
           <div>
-            <button id="send" class="btn btn-dark">Send</button>
+            <button id="send" class="btn btn-dark button-fixed">Send</button>
           </div>
         </form>
         <!-- /.container-fluid -->
@@ -172,6 +169,42 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
+    <!-- add Message Modal -->
+    <div class="modal fade" id="addMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message Shop</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>Select your message</h4>
+            <div class="col-md-6 fixed-body fixed-ul">
+
+              <ul class="list-group">
+                <li class="list-group-item " onclick="selectMessageToAdd(this)">Chocolate</li>
+                <li class="list-group-item " onclick="selectMessageToAdd(this)">Vanilla</li>
+                <li class="list-group-item " onclick="selectMessageToAdd(this)">Mermelada</li>
+                <li class="list-group-item " onclick="selectMessageToAdd(this)">pepejuaan</li>
+                <li class="list-group-item " onclick="selectMessageToAdd(this)">hola que hace</li>
+                <li class="list-group-item " onclick="selectMessageToAdd(this)">jaja saludos</li>
+              </ul>
+            </div>
+            <h4>Selected messages</h4>
+            <div class="col-md-6 fixed-ul" id="selectedMessageToAdd">
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button">Add</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Logout Modal Cambiado-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

@@ -21,7 +21,7 @@ function UpdateClient(event) {
   console.log(JSON.stringify(app));
 
 
-  var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://localhost:3000/user/" + idUser;
+  var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://192.168.1.111:3000/user/" + idUser;
   xhttp.onreadystatechange = function () {
 
     if (this.readyState == 4 && this.status == 200) {

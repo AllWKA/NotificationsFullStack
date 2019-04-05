@@ -10,15 +10,11 @@ admin.initializeApp({
 });
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
-    //finding the application
-    console.log("-->sendNotificationToApplication");
     var reqAppRes = { req, app, res };
     getMessage(reqAppRes);
 }
 
 function getMessage(reqAppRes) {
-    console.log("-->getMessage");
-
     reqAppRes.app.db.models.messages.findOne({
         where: { body: reqAppRes.req.params.bodyMessage }
     })
@@ -43,18 +39,10 @@ function findApp(reqAppRes, message) {
 }
 
 async function findDevices(reqAppRes, application, message, notification) {
-    console.log("-->findDevices");
-
     reqAppRes.app.db.models.devicetokens.findAll({
         where: { applicationID: JSON.parse(JSON.stringify(application)).idApplication }
     })
-        .then(devices => {
-            //sending the devices
-            //TODO: SAVE TOKENnOTIFICATION
-            console.log("--->findDevicesNotification:", JSON.stringify(notification));
-
-            findNotification(reqAppRes, notification, devices);
-        })
+        .then(devices => { findNotification(reqAppRes, notification, devices); })
         .catch(error => { reqAppRes.res.status(412).json({ msg: error.message }) });
 }
 
@@ -73,10 +61,7 @@ async function findNotification(reqAppRes, createdNotification, devices) {
         .catch(error => { console.log("-->findingNotification Error:", error.message) });
 }
 function saveTokensNotification(reqAppRes, notification, devices) {
-    console.log("--->saveTokensNotification");
-
     for (let i = 0; i < devices.length; i++) {
-
         var tokenNotification = {
             userID: devices[i].userID,
             applicationID: devices[i].applicationID,
@@ -87,24 +72,16 @@ function saveTokensNotification(reqAppRes, notification, devices) {
             .then(tokenNotification => console.log("saved"))
             .catch(error => { console.log("-->saveTokenNotification Error:", error.message, tokenNotification) });
     }
-
-
 }
-
 function saveNotification(reqAppRes, message, application) {
-    console.log("-->saveNotification");
     //save tokenNotification
     var newNotification = { messageID: message.idMessages }
     reqAppRes.app.db.models.notifications.create(newNotification)
-        .then(notification => {
-            findDevices(reqAppRes, application, message, notification);
-        })
+        .then(notification => { findDevices(reqAppRes, application, message, notification); })
         .catch(error => reqAppRes.res.status(412).json({ msg: error.message }));
 }
 
 function packageNotifications(devices, notification, notificationSaved, reqAppRes) {
-    console.log("-->packageNotifications");
-
     var numUsers = devices.length;
     var start = 0;
     var end;
@@ -134,8 +111,6 @@ function packageNotifications(devices, notification, notificationSaved, reqAppRe
 }
 
 async function getTokensFromRange(start, end, devices, notification, notificationSaved, reqAppRes) {
-    console.log("-->getTokensFromRange");
-
     var tokens = [];
     for (let index = start; index < end; index++) {
         tokens.push(devices[index].deviceToken);
@@ -144,8 +119,6 @@ async function getTokensFromRange(start, end, devices, notification, notificatio
 }
 
 async function sendNotificationToTokens(tokens, notification, notificationSaved, reqAppRes) {
-    console.log("-->sendNotificationToTokens");
-
     //TODO: guardar notifiacion-token
     var payload = {
         notification: notification
@@ -155,9 +128,6 @@ async function sendNotificationToTokens(tokens, notification, notificationSaved,
         priority: "high",
         timeToLive: 60 * 60 * 24
     }
-    //estadisticas de exito y fallo
-    var successCount = 0;
-    var failureCount = 0;
 
     admin.messaging().sendToDevice(tokens, payload, options)
         .then(function (response) {

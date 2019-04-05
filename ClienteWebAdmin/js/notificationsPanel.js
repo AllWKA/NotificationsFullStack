@@ -3,27 +3,71 @@ window.onload = initialize;
 var notificationMessege, notificationLabel, notificationDate, applicationSelected, applications, messageSelct, messages;
 
 function initialize() {
+
     this.notificationMessege = document.getElementById("notificationMessege");
     this.notificationLabel = document.getElementById("notificationLabel");
+
     this.applicationSelected = document.getElementById("applicationSelected");
     document.getElementById("send").addEventListener("click", sendNotification);
+
     this.application = document.getElementById("applications");
     this.application.addEventListener("change", fillMessageFromApplication);
+
     this.messageSelct = document.getElementById("messageFromApplications");
+
     document.getElementById("selectApplications").style.visibility = "hidden";
     document.getElementById("selectMessges").style.visibility = "hidden";
 
+    document.getElementById("addMessageModal").addEventListener("focus", messageShop)
+    document.getElementById("addMessageModal").addEventListener("focusout", stopMusic);
+
     getApplications();
+}
+function selectMessageToAdd(docElement) {
+    var selectedMessages = document.getElementById("selectedMessageToAdd");
+    if (docElement.className.includes('active')) {
+        docElement.className = docElement.className.substring(0, 15);
+        for (let index = 1; index < selectedMessages.childNodes.length; index++) {
+            if (selectedMessages.childNodes[index].childNodes[0].innerHTML == docElement.innerHTML) {
+                var newSelectedMessages = document.createElement('div');
+                newSelectedMessages.id = "selectedMessageToAdd";
+                newSelectedMessages.className = "col-md-6 fixed-ul";
+                for (let j = 0; j < selectedMessages.childNodes.length; j++) {
+                    if (j != index) {
+                        newSelectedMessages.appendChild(selectedMessages.childNodes[index]);
+                    }
+                }
+                selectedMessages = newSelectedMessages;
+                break;
+            }
+        }
+    } else {
+        docElement.className += ' active';
+        document.getElementById("selectedMessageToAdd").innerHTML +=
+            "<li><i class='far fa-times-circle' >" + docElement.innerHTML + "</i></li >";
+    }
+
+
+}
+function stopMusic() {
+    document.getElementById("shopAudio").pause();
+}
+function messageShop() {
+    var audio = document.getElementById("shopAudio");
+    audio.addEventListener('ended', function () {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+    audio.play();
 }
 
 function sendNotification(event) {
     event.preventDefault();
 
-
     var notification = {};
     var app = application[application.selectedIndex].value;
     var xhttp = new XMLHttpRequest(), method = "POST"
-    var url = "http://localhost:3000/sendNotificationToApplication/" + app + "/" + messages[messageSelct.selectedIndex].body;
+    var url = "http://192.168.1.111:3000/sendNotificationToApplication/" + app + "/" + messages[messageSelct.selectedIndex].body;
     //creo el json de la notificacin con los valores del formulario
     console.log(url);
 
@@ -65,8 +109,7 @@ function showApplications() {
 }
 
 function fillMessageFromApplication() {
-    console.log(application[application.selectedIndex].value);
-    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/messageFromApp/"
+    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/messageFromApp/"
         + application[application.selectedIndex].value;
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -98,7 +141,7 @@ function printMessages(messages) {
 }
 
 function getApplications() {
-    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://localhost:3000/apps";
+    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/apps";
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:

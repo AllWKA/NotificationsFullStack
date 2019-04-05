@@ -34,7 +34,6 @@ module.exports.updateDevice = (app, req, res) => {
                 userID: req.params.userID,
                 applicationID: req.params.applicationID,
                 deviceToken: req.params.deviceToken
-
             }
         }
     )
