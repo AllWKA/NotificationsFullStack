@@ -104,144 +104,131 @@
 
           </div>
           <div class="form-group  footer ">
-            <label for="deliveyDate">Delivery date</label>
-            <select class="form-control" id="deliveyDate">
-              <option>SEND NOW</option>
-              <option>SCHEDULE</option> <!-- Programar un día -->
-              <option>Diariamente</option>
-              <option>Personalizar</option>
-            </select>
+            <h3>Fill the Notification</h3>
+
+            <form id="form-registro">
+              <div>
+                <h5>Target</h5>
+              </div>
+              <div class="d-flex">
+                <label class="container">Select Application
+                  <input type="radio" onclick="showApplications()" name="radio" id="applicationSelected">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Topic
+                  <input type="radio" onclick="showApplications()" name="radio">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Single Device
+                  <input type="radio" onclick="showApplications()" name="radio">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10">
+                    <input type="email" id="title" class="form-control" placeholder="" required="required"
+                      autofocus="autofocus">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Label</label>
+                  <div class="col-sm-10">
+                    <input type="text" id="label" class="form-control" placeholder="" required="required"
+                      autofocus="autofocus">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Body</label>
+                  <div class="col-sm-10">
+                    <textarea type="text" class="form-control" id="body" placeholder="" required="required">
+
+                    </textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="deliveyDate" class="col-sm-2 col-form-label">Delivery date</label>
+                  <div class="col-sm-10">
+                    <select class="form-control " id="deliveyDate">
+                      <option>SEND NOW</option>
+                      <option>SCHEDULE</option> <!-- Programar un día -->
+                      <option>Diariamente</option>
+                      <option>Personalizar</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row" id="fillFromMessage">
+                  <label for="deliveyDate" class="col-sm-2 col-form-label">Application</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="applications"></select>
+                  </div>
+                </div>
+                <button id="send" class="btn btn-dark button-fixed btn-lg btn-block">Send</button>
+            </form>
           </div>
           <div class="prueba-footer" id="lineaF"></div>
-          <div>
-            <h4>Target</h4>
-          </div>
-          <div class="d-flex">
-            <label class="container">Select Application
-              <input type="radio" onclick="showApplications()" name="radio" id="applicationSelected">
-              <span class="checkmark"></span>
-            </label>
-            <label class="container">Topic
-              <input type="radio" onclick="showApplications()" name="radio">
-              <span class="checkmark"></span>
-            </label>
-            <label class="container">Single Device
-              <input type="radio" onclick="showApplications()" name="radio">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div id="selectApplications">
-            <h3 id="tittleApplications">Select Application</h3>
-            <select class="form-control" id="applications"></select>
-          </div>
-          <div id="selectMessges">
-            <h3 id="tittleMessages">Select Message</h3>
-            <select class="form-control" id="messageFromApplications"></select>
-            <button class="btn btn-dark button-fixed" id="addMessage" data-toggle="modal" data-target="#addMessageModal"
-              onclick="event.preventDefault()">Add
-              Message</button>
-            <audio controls id="shopAudio">
-              <source src="./multimedia/music.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div>
-            <button id="send" class="btn btn-dark button-fixed">Send</button>
-          </div>
-        </form>
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © InventiaPlus 2018-2019</span>
-            </div>
-          </div>
-        </footer>
 
       </div>
-      <!-- /.content-wrapper -->
+      </form>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © InventiaPlus 2018-2019</span>
+          </div>
+        </div>
+      </footer>
 
     </div>
-    <!-- /#wrapper -->
+    <!-- /.content-wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-    <!-- add Message Modal -->
-    <div class="modal fade" id="addMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Message Shop</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h4>Select your message</h4>
-            <div class="col-md-6 fixed-body fixed-ul">
+  </div>
+  <!-- /#wrapper -->
 
-              <ul class="list-group">
-                <li class="list-group-item " onclick="selectMessageToAdd(this)">Chocolate</li>
-                <li class="list-group-item " onclick="selectMessageToAdd(this)">Vanilla</li>
-                <li class="list-group-item " onclick="selectMessageToAdd(this)">Mermelada</li>
-                <li class="list-group-item " onclick="selectMessageToAdd(this)">pepejuaan</li>
-                <li class="list-group-item " onclick="selectMessageToAdd(this)">hola que hace</li>
-                <li class="list-group-item " onclick="selectMessageToAdd(this)">jaja saludos</li>
-              </ul>
-            </div>
-            <h4>Selected messages</h4>
-            <div class="col-md-6 fixed-ul" id="selectedMessageToAdd">
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button">Add</button>
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          </div>
+  <!-- Logout Modal Cambiado-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="index.html">Salir</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Logout Modal Cambiado-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-            <a class="btn btn-primary" href="index.html">Salir</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-
-    <!-- Demo scripts for this page-->
-    <script src="js/demo/datatables-demo.js"></script>
+  <!-- Demo scripts for this page-->
+  <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

@@ -30,9 +30,7 @@ CREATE TABLE `devicetokens` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`userID`,`applicationID`,`deviceToken`),
-  KEY `FK_AplicacionID_idx` (`applicationID`),
-  CONSTRAINT `FK_AplicacionID` FOREIGN KEY (`applicationID`) REFERENCES `applications` (`idApplication`),
-  CONSTRAINT `FK_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`idUser`)
+  KEY `FK_AplicacionID_idx` (`applicationID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,6 +40,7 @@ CREATE TABLE `devicetokens` (
 
 LOCK TABLES `devicetokens` WRITE;
 /*!40000 ALTER TABLE `devicetokens` DISABLE KEYS */;
+INSERT INTO `devicetokens` VALUES (12,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay','android',NULL,NULL),(17,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay','android',NULL,NULL),(18,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay','android',NULL,NULL),(19,1,'q','android',NULL,NULL),(20,1,'sdf','android',NULL,NULL),(21,1,'sdffsdfff','android',NULL,NULL);
 /*!40000 ALTER TABLE `devicetokens` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-26  8:23:25
+-- Dump completed on 2019-04-07 16:10:31

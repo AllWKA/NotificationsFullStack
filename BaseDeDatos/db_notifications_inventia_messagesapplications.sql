@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `messagesapplications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `messagesapplications` (
-  `MessegeID` int(11) NOT NULL,
+  `MessageID` int(11) NOT NULL,
   `ApplicationID` int(11) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`MessegeID`,`ApplicationID`),
+  PRIMARY KEY (`MessageID`,`ApplicationID`),
   KEY `fk_application_message_idx` (`ApplicationID`),
-  CONSTRAINT `fk_application_message` FOREIGN KEY (`ApplicationID`) REFERENCES `applications` (`idApplication`),
-  CONSTRAINT `fk_message_application` FOREIGN KEY (`MessegeID`) REFERENCES `messages` (`idMessages`)
+  CONSTRAINT `fk_application_message` FOREIGN KEY (`ApplicationID`) REFERENCES `applications` (`idApplication`) ON DELETE CASCADE,
+  CONSTRAINT `fk_message_application` FOREIGN KEY (`MessageID`) REFERENCES `messages` (`idMessages`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,6 +40,7 @@ CREATE TABLE `messagesapplications` (
 
 LOCK TABLES `messagesapplications` WRITE;
 /*!40000 ALTER TABLE `messagesapplications` DISABLE KEYS */;
+INSERT INTO `messagesapplications` VALUES (1,1,NULL,NULL),(1,3,NULL,NULL);
 /*!40000 ALTER TABLE `messagesapplications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-26  8:23:37
+-- Dump completed on 2019-04-07 16:10:39

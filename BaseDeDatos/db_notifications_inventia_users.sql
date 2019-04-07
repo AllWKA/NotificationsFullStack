@@ -24,13 +24,17 @@ DROP TABLE IF EXISTS `users`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
   `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `applicationName` varchar(45) NOT NULL,
   `userName` varchar(30) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idUser`,`email`,`applicationName`),
+  KEY `fk_applicationName_idx` (`applicationName`),
+  KEY `fk_application_user_idx` (`applicationName`),
+  CONSTRAINT `fk_application_user` FOREIGN KEY (`applicationName`) REFERENCES `applications` (`applicationName`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +43,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'bryan','bryanjbj1@gmail.com','123465',NULL,NULL),(3,'Bryan','bryan@gmail.com','$2a$10$bBC79wTTkWuFZF49kwLH8O99AqObYAPlj5VsnEd7jnUCXj4/3IYxC','2019-03-21 14:59:02','2019-03-21 14:59:02'),(4,'Bryan','bryan@gmail.com','$2a$10$OZqZo3Zeg5hjbGUQLpvfk.u/UtdbLc8kEtKPOz5mt6dOYdkMifGl2','2019-03-21 15:00:38','2019-03-21 15:00:38');
+INSERT INTO `users` VALUES (12,'bryan@gmail.com','SuperApp','bryan','$2a$10$EjebcxXW0sAqWRwNxBTNB.qihNxzob93mqr5lS0izcmOApbAJI/Ce','2019-03-29 09:46:24','2019-03-29 12:17:08'),(17,'bryan@gmail.com','SuperApp','bryan','$2a$10$EjebcxXW0sAqWRwNxBTNB.qihNxzob93mqr5lS0izcmOApbAJI/Ce','2019-03-29 12:09:58','2019-03-29 12:17:08'),(19,'fallo1@gmail.com','SuperApp','fallo1','$2a$10$XR1Uu/14VubZBpKp3/kVT.tnIY8SNeWQtUWI/xRuRkHAzkyFBmDzC','2019-04-02 13:30:52','2019-04-02 13:30:52'),(20,'fallo2@gmail.com','SuperApp','fallo2','$2a$10$w10GEsuK9RLQtV9JfjMYReVb2RHW.SMO/6qpGq8fR2nflCgyWnrdi','2019-04-02 13:30:57','2019-04-02 13:30:57'),(21,'fallo3@gmail.com','SuperApp','fallo3','$2a$10$f4IFaeXoQKYostLUpHChkOOM1SpHrmTiQhB/XTuhHC4xWnz93MpZm','2019-04-02 13:31:02','2019-04-02 13:31:02');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-26  8:23:26
+-- Dump completed on 2019-04-07 16:10:32
