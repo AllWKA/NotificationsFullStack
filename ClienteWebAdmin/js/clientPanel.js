@@ -21,7 +21,7 @@ function createClient(event) {
   if (checkCreateClientFrom()) {
     alert("fill all pls")
   } else {
-    var method = "POST", url = "http://192.168.1.111:3000/user";
+    var method = "POST", url = "http://192.168.1.137:3000/user";
     var newClient = {
       "userName": document.getElementById("inputUserNameNew").value,
       "email": document.getElementById("inputEmailNew").value,
@@ -60,7 +60,7 @@ function checkCreateClientFrom() {
 }
 
 function fillApplicationsNewAdmin() {
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/apps";
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/apps";
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       applications = JSON.parse(xhttp.responseText);
@@ -80,7 +80,7 @@ function fillApplicationsNewAdmin() {
 
 function deleteClient(event) {
   event.preventDefault();
-  var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.111:3000/user/"
+  var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.137:3000/user/"
     + inputEmail.placeholder + "/" + appFromClient.innerHTML
   xhttp.onreadystatechange = function () {
 
@@ -149,7 +149,7 @@ function fillStatsFromClient() {
 
 function getTokensNotifications() {
   return new Promise((resolve, reject) => {
-    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/tokenNotificationsFromUser/"
+    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/tokenNotificationsFromUser/"
       + inputEmail.placeholder + "/" + appFromClient.innerHTML;
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -178,7 +178,7 @@ function generateChart(htmldoc, type, labels, Sorteddata, options) {
 }
 
 function fillApplicationFromClient() {
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/appsFromAdmin/" + inputEmail.placeholder;
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/appsFromAdmin/" + inputEmail.placeholder;
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       applications = JSON.parse(xhttp.responseText);
@@ -208,7 +208,7 @@ function updateClient(event) {
   if (inputEmail.value == "" || userNameInput.value == "" || inputPassword.value == "") { alert("fill all inputs please!"); }
   else {
     var method = "PUT"
-    var url = "http://192.168.1.111:3000/user/" + inputEmail.placeholder + "/" + appFromClient.innerHTML;
+    var url = "http://192.168.1.137:3000/user/" + inputEmail.placeholder + "/" + appFromClient.innerHTML;
     var updatedClient = {
       "userName": userNameInput.value,
       "email": inputEmail.value,
@@ -235,7 +235,7 @@ function showNewTab(evt, cityName) {
 }
 
 function listAllUsers() {
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/users";
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/users";
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       clients = JSON.parse(xhttp.responseText);

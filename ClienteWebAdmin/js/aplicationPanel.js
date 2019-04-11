@@ -17,7 +17,7 @@ function updateApplication(event) {
     tokenApplication: this.inputToken.value
   }
 
-  postUpdateApp("PUT", "192.168.1.111:3000/app/" + this.inputName.placeholder, updatedApp);
+  postUpdateApp("PUT", "192.168.1.137:3000/app/" + this.inputName.placeholder, updatedApp);
 
 
 }
@@ -64,7 +64,7 @@ function showNewTab(evt, cityName) {
 }
 
 function showApplications() {
-  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/apps";
+  var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/apps";
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:

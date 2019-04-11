@@ -18,7 +18,7 @@ function registrarApp(event) {
   console.log(JSON.stringify(app));
 
 
-  var xhttp = new XMLHttpRequest(), method = "POST", url = "http://192.168.1.111:3000/app";
+  var xhttp = new XMLHttpRequest(), method = "POST", url = "http://192.168.1.137:3000/app";
   xhttp.onreadystatechange = function () {
 
     if (this.readyState == 4 && this.status == 200) {

@@ -31,7 +31,7 @@ function sendNotification(event) {
     var notification = {};
     var app = application[application.selectedIndex].value;
     var xhttp = new XMLHttpRequest(), method = "POST"
-    var url = "http://192.168.1.111:3000/sendNotificationToApplication/"
+    var url = "http://192.168.1.137:3000/sendNotificationToApplication/"
         + app + "/" + messages[messageSelct.selectedIndex].body;
 
     notification.notification = {
@@ -86,7 +86,7 @@ function printMessages(messages) {
 }
 
 function getApplications() {
-    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.111:3000/apps";
+    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/apps";
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:

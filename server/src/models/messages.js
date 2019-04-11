@@ -7,13 +7,16 @@ module.exports = (sequelize, DataType) => {
                 primaryKey: true
             },
             body: {
-                type: DataType.STRING
+                type: DataType.STRING,
+                primaryKey: true
             },
             title: {
-                type: DataType.STRING
+                type: DataType.STRING,
+                primaryKey: true
             },
             label: {
-                type: DataType.STRING
+                type: DataType.STRING,
+                primaryKey: true
             }
         });
     Message.associate = (models) => {

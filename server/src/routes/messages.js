@@ -1,6 +1,5 @@
-/* Enviar un mensaje a un topico no distinguira entre appliciones,
-las applicaions deberan gestionar solas los topics a los que estan subcritos sus clentes
-si se manda a una applicacion, nodjs se encargara de recopilar los tokens de los clientes de la app especificada y lanzar las notificaciones*/
+/* Enviar un mensaje a un topico no distinguira entre appliciones*/
+
 module.exports = app => {
 
     const Messages = app.db.models.messages;
@@ -46,7 +45,23 @@ module.exports = app => {
     app.get('/message/:id', (req, res) => {
         //Done
         Messages.find({
-            where: { idMessages: req.params.id }
+            where: {
+                idMessages: req.params.id
+            }
+        })
+            .then(messages => { res.json(messages); })
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+    });
+
+    app.get('/messageWithParams/:body/:title/:label/:createdAt', (req, res) => {
+        //Done
+        Messages.find({
+            where: {
+                body: req.params.body,
+                title: req.params.title,
+                label: req.params.label,
+                createdAt: req.params.createdAt,
+            }
         })
             .then(messages => { res.json(messages); })
             .catch(error => { res.status(412).json({ msg: error.message }); });

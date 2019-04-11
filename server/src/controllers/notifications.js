@@ -1,5 +1,6 @@
 import * as admin from "firebase-admin";
 import Sequelize from 'sequelize';
+import { resolve } from "dns";
 const Op = Sequelize.Op;
 //ruta al sdk admin
 var serviceAccount = require("../../notifications-fullstack-firebase-adminsdk-art9c-ee1c9b68d3.json");
@@ -11,8 +12,9 @@ admin.initializeApp({
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
     var reqAppRes = { req, app, res };
-    getMessage(reqAppRes)
+    postMessage(reqAppRes)
         .then(message => {
+            console.log("-->",JSON.stringify(message));
             findApp(reqAppRes, message)
                 .then(application => {
                     saveNotification(reqAppRes, message, application)
@@ -22,7 +24,7 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
                                     findNotification(reqAppRes, notification, devices).then(notification => {
                                         saveTokensNotification(reqAppRes, notification, devices);
                                         packageNotifications(JSON.parse(JSON.stringify(devices)),
-                                            reqAppRes.req.body.notification, notification, reqAppRes)
+                                            reqAppRes.req.body.message, notification, reqAppRes)
                                             .then(response => res.json(response))
                                             .catch(error => res.status(412).json({ msg: error.message }))
                                     })
@@ -37,13 +39,11 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
         .catch(error => res.status(412).json({ msg: error.message }));
 }
 
-function getMessage(reqAppRes) {
+function postMessage(reqAppRes) {
     return new Promise((resolve, reject) => {
-        reqAppRes.app.db.models.messages.findOne({
-            where: { body: reqAppRes.req.params.bodyMessage }
-        })
+        reqAppRes.app.db.models.messages.create(reqAppRes.req.body.message)
             .then(message => { resolve(message) })
-            .catch(error => { reject(error.message) });
+            .catch(error => { reject(error.message); });
     });
 }
 
@@ -92,12 +92,38 @@ function saveTokensNotification(reqAppRes, notification, devices) {
     }
 }
 function saveNotification(reqAppRes, message, application) {
+    console.log("saveNotification-->",JSON.stringify(message));
+    
     return new Promise((resolve, reject) => {
-        var newNotification = { messageID: message.idMessages }
-        reqAppRes.app.db.models.notifications.create(newNotification)
-            .then(notification => { resolve(notification) })
-            .catch(error => reject(error.message));
+        findMessage(reqAppRes, message)
+        .then(messageID=>{
+            console.log("MENSAJE -->:",messageID);
+            
+            var newNotification = { messageID: messageID.idMessages }
+            reqAppRes.app.db.models.notifications.create(newNotification)
+                .then(notification => { resolve(notification) })
+                .catch(error => reject(error.message));
+        })
+        .catch(error=>reject(error.message))        
     });
+}
+
+function findMessage(reqAppRes,message) {
+    messageToFind = {
+
+    }
+    return new Promise((resolve,reject)=>{
+        reqAppRes.app.db.models.messages.find({
+            where: {
+                body: message.body,
+                title: message.title,
+                label: message.label,
+                createdAt: message.createdAt,
+            }
+        })
+            .then(message => resolve(message))
+            .catch(error => reject(error.message))
+    })
 }
 
 function packageNotifications(devices, notification, notificationSaved, reqAppRes) {
