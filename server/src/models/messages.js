@@ -4,7 +4,8 @@ module.exports = (sequelize, DataType) => {
         'messages', {
             idMessages: {
                 type: DataType.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             body: {
                 type: DataType.STRING,

@@ -4,7 +4,8 @@ module.exports = (sequelize, DataType) => {
         'analytics', {
             idanalytics: {
                 type: DataType.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             notificationID: {
                 type: DataType.INTEGER,

@@ -4,7 +4,8 @@ module.exports = (sequelize, DataType) => {
         'admins', {
             idAdmin: {
                 type: DataType.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             userName: {
                 type: DataType.STRING

@@ -87,8 +87,16 @@ module.exports = app => {
 
     app.post('/message', (req, res) => {
         //Done
+        // var a = Messages.build(req.body)
+        // console.log(JSON.stringify(a));
+        // a.save().then(a=>console.log(JSON.stringify(a)))
+        // a.update().then(a=>console.log(JSON.stringify(a)))
+        
+
         Messages.create(req.body)
-            .then(app => { res.json(app); })
+            .then(app => { 
+                res.json(app); 
+            })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
     });

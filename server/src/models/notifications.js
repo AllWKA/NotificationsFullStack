@@ -4,7 +4,8 @@ module.exports = (sequelize, DataType) => {
         'notifications', {
             notificationID: {
                 type: DataType.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             messageID: {
                 type: DataType.INTEGER,

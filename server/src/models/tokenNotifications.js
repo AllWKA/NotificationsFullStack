@@ -4,7 +4,8 @@ module.exports = (sequelize, DataType) => {
         'tokennotifications', {
             userID: {
                 type: DataType.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             applicationID: {
                 type: DataType.INTEGER,
