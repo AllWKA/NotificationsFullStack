@@ -32,7 +32,7 @@ module.exports.createApp = (app, req, res) => {
     app.db.models.applications.create(req.body)
         .then(application => {
             addAdmin(app, application.dataValues.applicationName, 'root@gmail.com');
-            res.json(app);
+            res.json(application);
         })
         .catch(error => { res.status(412).json({ msg: error.message }) });
 }

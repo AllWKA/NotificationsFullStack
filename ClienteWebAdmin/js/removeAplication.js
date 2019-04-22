@@ -10,7 +10,7 @@ function remove(event) {
     var aplicationName = event.target.inputName.value;
 
 
-    var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.137:3000/app/" + aplicationName;
+    var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.125:3000/app/" + aplicationName;
     xhttp.onreadystatechange = function () {
 
         if (this.readyState == 4 && this.status == 200) {

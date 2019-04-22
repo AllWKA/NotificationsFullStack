@@ -12,7 +12,7 @@ function removeClient(event) {
     var idUser = event.target.inputIdClient.value;
 
 
-    var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.137:3000/user/" + idUser;
+    var xhttp = new XMLHttpRequest(), method = "DELETE", url = "http://192.168.1.125:3000/user/" + idUser;
     xhttp.onreadystatechange = function () {
 
         if (this.readyState == 4 && this.status == 200) {

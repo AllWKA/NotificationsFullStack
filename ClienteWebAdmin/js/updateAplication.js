@@ -19,7 +19,7 @@ function UpdateApp(event) {
   console.log(JSON.stringify(app));
 
 
-  var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://192.168.1.137:3000/app/" + aplicationOldName;
+  var xhttp = new XMLHttpRequest(), method = "PUT", url = "http://192.168.1.125:3000/app/" + aplicationOldName;
   xhttp.onreadystatechange = function () {
 
     if (this.readyState == 4 && this.status == 200) {

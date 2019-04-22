@@ -4,7 +4,7 @@ var applicationList;
 
 function inicializar() { applicationList = document.getElementById("form-applicationList"); }
 
-var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/apps";
+var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.125:3000/apps";
 xhttp.onreadystatechange = function () {
 
   if (this.readyState == 4 && this.status == 200) {

@@ -28,7 +28,7 @@ function generateChart(htmldoc, type, labels, datasets, options) {
 getSuccessFromApplication();
 function getSuccessFromApplication() {
     var xhttp = new XMLHttpRequest(), method = "GET",
-        url = "http://192.168.1.137:3000/tokenNotificationFromApplicationSuccess/superApp";
+        url = "http://192.168.1.125:3000/tokenNotificationFromApplicationSuccess/superApp";
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
@@ -56,7 +56,7 @@ function getSuccessFromApplication() {
 
 function getFailedFromApplication() {
     var xhttp = new XMLHttpRequest(), method = "GET",
-        url = "http://192.168.1.137:3000/tokenNotificationFromApplicationFailed/superApp";
+        url = "http://192.168.1.125:3000/tokenNotificationFromApplicationFailed/superApp";
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:

@@ -6,3 +6,25 @@
     height: 1000px;
     width: 1000px;
 }
+.center{
+    text-align: center;
+}
+
+.form-graph{
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+.graph-fixed{
+    background-color: #A5B9CC;
+    color: rgb(28, 41, 54);
+    border: 1px solid #3B3A4D;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+.input-graph{
+    /* background-color: #486A8C; */
+    /* color: #B0C4D9; */
+}

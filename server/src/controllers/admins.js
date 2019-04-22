@@ -94,13 +94,6 @@ function addApplication(admin, app, applicationName) {
     app.db.models.applications.find({
         where: { applicationName: applicationName }
     })
-        .then(appToAdd => {
-            app.db.models.admins.find({
-                where: { email: admin.dataValues.email }
-            })
-                //Using addApplication to add the found application to the table between admin-application
-                .then(admin => { admin.addApplications([appToAdd]); })
-                .catch(error => { res.status(412).json({ msg: error.message }) });
-        })
-        .catch(error => console.log(error.message));
+        .then(appToAdd => {admin.addApplications([appToAdd]);})
+        .catch(error => res.status(412).json({ msg: error.message }));
 }

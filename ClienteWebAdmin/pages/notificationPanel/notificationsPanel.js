@@ -24,7 +24,7 @@ function sendNotification(tokens) {
 
     var notification = {};
 
-    var xhttp = new XMLHttpRequest(), method = "POST", url = "http://192.168.1.137:3000/sendNotification";
+    var xhttp = new XMLHttpRequest(), method = "POST", url = "http://192.168.1.125:3000/sendNotification";
     //creo el json de la notificacin con los valores del formulario
     notification.notification = {
         "body": document.getElementById("notificationMessege").value,
@@ -52,7 +52,7 @@ function getTokens(event) {
     event.preventDefault();
 
     if (applicationSelected.checked == true) {
-        var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/usersFromApp/" + document.getElementById("applications").value;
+        var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.125:3000/usersFromApp/" + document.getElementById("applications").value;
 
         xhttp.onreadystatechange = function () {
 
@@ -84,7 +84,7 @@ function showApplications() {
 
 function getApplications() {
 
-    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.137:3000/apps";
+    var xhttp = new XMLHttpRequest(), method = "GET", url = "http://192.168.1.125:3000/apps";
     xhttp.onreadystatechange = function () {
 
         if (this.readyState == 4 && this.status == 200) {
