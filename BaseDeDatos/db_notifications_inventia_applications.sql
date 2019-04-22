@@ -30,7 +30,7 @@ CREATE TABLE `applications` (
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`idApplication`,`applicationName`,`tokenApplication`),
   UNIQUE KEY `applicationName_UNIQUE` (`applicationName`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `applications` (
 
 LOCK TABLES `applications` WRITE;
 /*!40000 ALTER TABLE `applications` DISABLE KEYS */;
-INSERT INTO `applications` VALUES (1,'SuperApp','AbcDeFg','2019-03-21 14:52:21','2019-03-21 14:53:32'),(3,'pepejuan','AbcDeFg','2019-03-25 15:04:54','2019-03-25 15:04:54'),(4,'definitiveEdition','AbcDeFg','2019-03-25 15:05:33','2019-03-25 15:05:33'),(10,'askdhasdajsasdassdasddhkasjdhk','AbcDeFg','2019-03-26 13:03:04','2019-03-26 13:03:04'),(11,'aversiseañadealroot','AbcDeFg','2019-03-28 11:18:26','2019-03-28 11:18:26');
+INSERT INTO `applications` VALUES (1,'SuperApp','AbcDeFg','2019-03-21 14:52:21','2019-03-21 14:53:32'),(3,'pepejuan','AbcDeFg','2019-03-25 15:04:54','2019-03-25 15:04:54'),(4,'definitiveEdition','AbcDeFg','2019-03-25 15:05:33','2019-03-25 15:05:33'),(10,'askdhasdajsasdassdasddhkasjdhk','AbcDeFg','2019-03-26 13:03:04','2019-03-26 13:03:04'),(11,'aversiseañadealroot','AbcDeFg','2019-03-28 11:18:26','2019-03-28 11:18:26'),(12,'testingPromises','AbcDeFg','2019-04-11 10:36:24','2019-04-11 10:36:24'),(14,'testingPromiddses','AbcDeFg','2019-04-11 10:38:17','2019-04-11 10:38:17'),(16,'testingPasdromiddses','AbcDeFg','2019-04-11 10:38:46','2019-04-11 10:38:46');
 /*!40000 ALTER TABLE `applications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-07 16:10:37
+-- Dump completed on 2019-04-22 15:54:48

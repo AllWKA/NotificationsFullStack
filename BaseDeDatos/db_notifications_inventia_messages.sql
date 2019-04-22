@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `idMessages` int(11) NOT NULL AUTO_INCREMENT,
   `body` varchar(150) NOT NULL,
-  `title` varchar(45) NOT NULL,
-  `label` varchar(45) NOT NULL,
+  `title` varchar(45) NOT NULL DEFAULT 'Notification',
+  `label` varchar(45) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`idMessages`,`body`,`createdAt`,`label`,`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idMessages`,`body`,`createdAt`,`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,'mensaje de prueba','pruebita','equisdeActualizado','2019-03-26 12:11:15','2019-03-26 13:03:09'),(3,'pruebita desde postman no mas.','asd','asd','2019-03-26 12:11:15','2019-03-26 12:11:15');
+INSERT INTO `messages` VALUES (51,'prubea','',NULL,'2019-04-11 14:36:57','2019-04-11 14:36:57'),(52,'prubea','',NULL,'2019-04-11 14:39:12','2019-04-11 14:39:12'),(53,'prubea','',NULL,'2019-04-11 14:40:02','2019-04-11 14:40:02'),(54,'prubea','',NULL,'2019-04-11 14:41:48','2019-04-11 14:41:48'),(55,'prubea','',NULL,'2019-04-11 14:48:40','2019-04-11 14:48:40'),(56,'                    aaaaa','',NULL,'2019-04-11 14:50:42','2019-04-11 14:50:42');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-07 16:10:35
+-- Dump completed on 2019-04-22 15:54:46
