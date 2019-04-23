@@ -14,6 +14,8 @@
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="./css/graphs.css">
+
     <!-- Page level plugin CSS-->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
@@ -94,48 +96,11 @@
                     <li class="breadcrumb-item active">graphs</li>
                 </ol>
             </div>
-            <div class="container center graph-fixed ">
-                <div class="row">
-                    <p>Select Data To See</p>
-                    <select class="form-control input-graph" id="dataToSee">
-                        <option>messages</option>
-                        <option>notifications</option>
-                        <option>tokens</option>
-                        <option>applications</option>
-                    </select>
-                    <p>Select Application</p>
-                    <select class="form-control input-graph" id="selectApplication">
-                        <option>All</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Search body</p>
-                        <input type="text">
-                    </div>
-                    <div class="col-sm-4">
-                        <p>Search tittle</p>
-                        <input type="text">
-                    </div>
-                    <div class="col-sm-4">
-                        <p>Search label</p>
-                        <input type="text">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h5>From</h5>
-                        <input class="form-control input-graph" type="date" id="example-date-input">
-                    </div>
-                    <div class="col-sm-6">
-                        <h5>To</h5>
-                        <input class="form-control input-graph" type="date" id="example-date-input">
-                    </div>
-                </div>
-                <button class="btn btn-dark">Refresh</button>
-            </div>
 
-            <div class="row">
+
+            <div class="container">
+                <button id="changeData" data-toggle="modal" data-target="#data" class="btn btn-dark">Change
+                    data</button>
                 <canvas id="myCanvas" class="graph-fixed"></canvas>
             </div>
             <script src="./js/graphs.js"></script>
@@ -154,41 +119,98 @@
         <!-- /.content-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal Cambiado-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- change parameters modal -->
+    <div class="modal fade center" id="data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Data</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <h3>What you want to see?</h3>
+                            <select id="dataToSee" class="form-control input-graph">
+                                <option>Message</option>
+                                <option>Notification</option>
+                                <option>Application</option>
+                                <option>Topics</option>
+                            </select>
+                            <h3>Select your options</h3>
+                        </div>
+                        <div class="row">
+                            <p>Select Application</p>
+                            <select class="form-control input-graph" id="selectApplication">
+                                <option>All</option>
+                                <option>All1</option>
+                                <option>All2</option>
+                            </select>
+                        </div>
+                        <div class="row ">
+                            <p>Select token from application</p>
+                            <select class="scroll-select form-control input-graph" id="selectTokenFromApplication">
+                                <option>All</option>
+                                <option>2019-04-11 14:36:57</option>
+                                <option>2019-04-11 14:36:59</option>
+                            </select>
+                        </div>
+                        <div class="row ">
+                            <p>Select topic</p>
+                            <select class="scroll-select form-control input-graph" id="selectTopic">
+                                <option>All</option>
+                                <option>El marca</option>
+                                <option>2019-04-11 14:36:57</option>
+                            </select>
+                        </div>
+                        <div class="row ">
+                            <p>Select Message</p>
+                            <select class="scroll-select form-control input-graph" id="selectMessage">
+                                <option>All</option>
+                                <option>2019-04-11 14:36:57</option>
+                                <option>2019-04-11 14:36:57</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="index.html">Salir</a>
+                    <button id="refresh" class="btn btn-dark" type="button">Refresh</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Logout Modal Cambiado-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Realmente quieres salir?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecciona "Salir" si quieres cerrar tu sesión.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="index.html">Salir</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin.min.js"></script>
 
 </body>
 

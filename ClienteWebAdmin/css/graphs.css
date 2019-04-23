@@ -1,0 +1,36 @@
+.form-graph{
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+.graph-fixed{
+    /* background-color: rgb(219, 236, 253); */
+    color: rgb(28, 41, 54);
+    /* border: 3px solid rgb(0, 0, 0); */
+    margin-bottom: 5%;
+    margin-top: 5%;
+    font-size: 20px;
+}
+.input-graph{
+    margin-bottom: 5%;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    /* max-width: 100%; */
+}
+
+.scroll-select{
+    width:100px;
+}
+
+.data-form-hide{
+    visibility: hidden;
+}
+
+.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}

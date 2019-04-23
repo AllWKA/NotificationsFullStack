@@ -67,35 +67,28 @@ module.exports = app => {
             .catch(error => { res.status(412).json({ msg: error.message }); });
     });
 
-    app.get('/messagesFromLabel/:label', (req, res) => {
-        //Done
-        Messages.findAll({
-            where: { label: req.params.label }
-        })
-            .then(messages => { res.json(messages); })
-            .catch(error => { res.status(412).json({ msg: error.message }) });;
-    });
+    // app.get('/messagesFromLabel/:label', (req, res) => {
+    //     //Done
+    //     Messages.findAll({
+    //         where: { label: req.params.label }
+    //     })
+    //         .then(messages => { res.json(messages); })
+    //         .catch(error => { res.status(412).json({ msg: error.message }) });;
+    // });
 
-    app.get('/messagesFromTitle/:title', (req, res) => {
-        //Done
-        Messages.findAll({
-            where: { title: req.params.title }
-        })
-            .then(messages => { res.json(messages); })
-            .catch(error => { res.status(412).json({ msg: error.message }) });;
-    });
+    // app.get('/messagesFromTitle/:title', (req, res) => {
+    //     //Done
+    //     Messages.findAll({
+    //         where: { title: req.params.title }
+    //     })
+    //         .then(messages => { res.json(messages); })
+    //         .catch(error => { res.status(412).json({ msg: error.message }) });;
+    // });
 
     app.post('/message', (req, res) => {
-        //Done
-        // var a = Messages.build(req.body)
-        // console.log(JSON.stringify(a));
-        // a.save().then(a=>console.log(JSON.stringify(a)))
-        // a.update().then(a=>console.log(JSON.stringify(a)))
-        
-
         Messages.create(req.body)
-            .then(app => { 
-                res.json(app); 
+            .then(app => {
+                res.json(app);
             })
             .catch(error => { res.status(412).json({ msg: error.message }) });
 
