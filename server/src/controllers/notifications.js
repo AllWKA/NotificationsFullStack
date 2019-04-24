@@ -25,8 +25,8 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
                                         reqAppRes.req.body, notification, reqAppRes)
                                         .then(response => res.json(response))
                                         .catch(error => res.status(412).json({ msg: error.message }))
-                                    
-                                    })
+
+                                })
                                 .catch(error => res.status(412).json({ msg: error.message }));
                         })
                         .catch(error => res.status(412).json({ msg: error.message }));
@@ -44,14 +44,14 @@ function postMessage(reqAppRes) {
     });
 }
 
-function findApp(reqAppRes,message) {
+function findApp(reqAppRes, message) {
     return new Promise((resolve, reject) => {
         reqAppRes.app.db.models.applications.findOne({
             where: { applicationName: reqAppRes.req.params.applicationName }
         })
-            .then(application => { 
+            .then(application => {
                 application.addMessage(message);
-                resolve(application); 
+                resolve(application);
             })
             .catch(error => { reject(error.message) });
     })
@@ -85,7 +85,7 @@ function saveNotification(reqAppRes, message) {
         var newNotification = { messageID: message.idMessages }
         reqAppRes.app.db.models.notifications.create(newNotification)
             .then(notification => { resolve(notification) })
-            .catch(error => reject(error.message));        
+            .catch(error => reject(error.message));
     });
 }
 
@@ -157,22 +157,22 @@ async function getTokensFromRange(start, end, devices) {
 }
 
 async function sendNotificationToTokens(tokens, notification) {
-    console.log("EN sEND NOTIFICATION:",notification);
-    
+    console.log("EN sEND NOTIFICATION:", notification);
+
     return new Promise((resolve, reject) => {
         //TODO: guardar notifiacion-token
-        var payload = {notification: notification}
+        var payload = { notification: notification }
         //opciones de la notificacion
         var options = {
             priority: "high",
             timeToLive: 60 * 60 * 24
         }
-        
+
         admin.messaging().sendToDevice(tokens, payload, options)
-            .then((response) => { 
-                console.log(response);
-                
-                resolve(response); })
+            .then((response) => {
+
+                resolve(response);
+            })
             .catch((error) => { reject(error.message) });
     });
 }
@@ -181,21 +181,30 @@ function changeFailed(response, tokens, notificationSaved, reqAppRes) {
     return new Promise((resolve, reject) => {
         var failedTokens = [];
         for (let index = 0; index < response.results.length; index++) {
-            if (response.results[index].error) { 
-                console.log(JSON.stringify(response.results[index].error));
-                
-                failedTokens.push(tokens[index]); 
+            if (response.results[index].error) {
+                console.log("\n\n\n\nFallo:", JSON.stringify(response.results[index].error.code));
+
+                failedTokens.push(tokens[index]);
+                // switch (key) {
+                //     case value:
+
+                //         break;
+
+                //     default:
+                //         break;
+                // }
             }
         }
         reqAppRes.app.db.models.tokennotifications.update({ success: 0 },
-            {where: {
+            {
+                where: {
                     notificationID: notificationSaved.notificationID,
                     deviceToken: { [Op.or]: failedTokens }
                 }
             }
         )
-        .then((response) => { resolve("failed:", failedTokens.length); })
-        .catch((error) => { reject("errrrrror:", error.message) });
+            .then((response) => { resolve("failed:", failedTokens.length); })
+            .catch((error) => { reject("errrrrror:", error.message) });
     });
 }
 
