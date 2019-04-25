@@ -12,28 +12,29 @@ admin.initializeApp({
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
     var reqAppRes = { req, app, res };
+    //guardar el mensaje
     postMessage(reqAppRes)
         .then(message => {
+            //busco la applicacion a la que se quiere enviar el mensaje
             findApp(reqAppRes, message)
                 .then(application => {
+                    //guardo las notificaciones que van a ser enviadas
                     saveNotification(reqAppRes, message)
                         .then(notification => {
+                            //busco los dispositivos activos de la applicacion
                             findDevices(reqAppRes, application)
                                 .then(devices => {
+                                    //guardo la relacion entre los dispositivos y las notificaciones
                                     saveTokensNotification(reqAppRes, notification, devices);
+                                    //empiezo el procedimiento para enviar las notificaciones
                                     packageNotifications(JSON.parse(JSON.stringify(devices)),
                                         reqAppRes.req.body, notification, reqAppRes)
                                         .then(response => res.json(response))
                                         .catch(error => res.status(412).json({ msg: error.message }))
-
-                                })
-                                .catch(error => res.status(412).json({ msg: error.message }));
-                        })
-                        .catch(error => res.status(412).json({ msg: error.message }));
-                })
-                .catch(error => res.status(412).json({ msg: error.message }));
-        })
-        .catch(error => res.status(412).json({ msg: error.message }));
+                                }).catch(error => res.status(412).json({ msg: error.message }));
+                        }).catch(error => res.status(412).json({ msg: error.message }));
+                }).catch(error => res.status(412).json({ msg: error.message }));
+        }).catch(error => res.status(412).json({ msg: error.message }));
 }
 
 function postMessage(reqAppRes) {
@@ -50,6 +51,7 @@ function findApp(reqAppRes, message) {
             where: { applicationName: reqAppRes.req.params.applicationName }
         })
             .then(application => {
+                //añado la relacion entre la applicaciony el mensaje que se envia a esta
                 application.addMessage(message);
                 resolve(application);
             })
@@ -79,8 +81,8 @@ function saveTokensNotification(reqAppRes, notification, devices) {
             notificationID: notification.notificationID,
         };
         reqAppRes.app.db.models.tokennotifications.create(tokenNotification)
-            .then(tokenNotification => console.log("Notification Saved"))
-            .catch(error => { console.log("-->saveTokenNotification Error:", error.message, tokenNotification) });
+            .then(tokenNotification => console.log("Notification Saved", tokenNotification))
+            .catch(error => { console.log("saveTokenNotification Error:", error.message, tokenNotification) });
     }
 }
 function saveNotification(reqAppRes, message) {
@@ -91,15 +93,19 @@ function saveNotification(reqAppRes, message) {
             .catch(error => reject(error.message));
     });
 }
-
+//esta funcion dividira, si es necesario, a los usuarios de 100 en 100
+//cada notificacion tendra como maximo 100 dispositivos(tokens).
 function packageNotifications(devices, notification, notificationSaved, reqAppRes) {
     return new Promise((resolve, reject) => {
         var numUsers = devices.length;
         var start = 0;
         var end;
+        //compruebo que la applicacion tenga usuarios
         if (numUsers > 0) {
+            //si solo hay uno
             if (numUsers == 1) { end = 0 }
             else {
+                //si hay menos de 100 usuarios se envian al num usuarios totales
                 if (numUsers < 100) { end = numUsers; }
                 else { end = 99; }
             }
