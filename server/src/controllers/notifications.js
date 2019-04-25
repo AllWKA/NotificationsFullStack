@@ -60,7 +60,10 @@ function findApp(reqAppRes, message) {
 async function findDevices(reqAppRes, application) {
     return new Promise((resolve, reject) => {
         reqAppRes.app.db.models.devicetokens.findAll({
-            where: { applicationID: JSON.parse(JSON.stringify(application)).idApplication }
+            where: {
+                applicationID: JSON.parse(JSON.stringify(application)).idApplication,
+                active: 1
+            }
         })
             .then(devices => { resolve(devices) })
             .catch(error => { reject(error.message) });
@@ -106,7 +109,7 @@ function packageNotifications(devices, notification, notificationSaved, reqAppRe
                         .then(tokens => {
                             sendNotificationToTokens(tokens, notification)
                                 .then(response => {
-                                    changeFailed(response, tokens, notificationSaved, reqAppRes)
+                                    changeFailed(response, tokens, notificationSaved, reqAppRes, devices)
                                         .then(response => resolve(response))
                                         .catch(error => reject(error.message));
                                 })
@@ -119,7 +122,7 @@ function packageNotifications(devices, notification, notificationSaved, reqAppRe
             if (numUsers % 100 == 1 || numUsers == 1) {
                 sendNotificationToTokens(devices[numUsers - 1].deviceToken, notification)
                     .then(response => {
-                        changeFailed(response, tokens, notificationSaved, reqAppRes)
+                        changeFailed(response, tokens, notificationSaved, reqAppRes, devices)
                             .then(response => resolve(response))
                             .catch(error => reject(error.message));
                     })
@@ -127,13 +130,12 @@ function packageNotifications(devices, notification, notificationSaved, reqAppRe
             }
             else {
                 if (numUsers % 100 != 0 && start < numUsers) {
-                    // end += (numUsers - 1) - end;
                     end = numUsers - 1;
                     getTokensFromRange(start, end, devices)
                         .then(tokens => {
                             sendNotificationToTokens(tokens, notification)
                                 .then(response => {
-                                    changeFailed(response, tokens, notificationSaved, reqAppRes)
+                                    changeFailed(response, tokens, notificationSaved, reqAppRes, devices)
                                         .then(response => resolve(response))
                                         .catch(error => reject(error.message));
                                 })
@@ -157,7 +159,7 @@ async function getTokensFromRange(start, end, devices) {
 }
 
 async function sendNotificationToTokens(tokens, notification) {
-    console.log("EN sEND NOTIFICATION:", notification);
+    console.log(tokens);
 
     return new Promise((resolve, reject) => {
         //TODO: guardar notifiacion-token
@@ -169,46 +171,107 @@ async function sendNotificationToTokens(tokens, notification) {
         }
 
         admin.messaging().sendToDevice(tokens, payload, options)
-            .then((response) => {
-
-                resolve(response);
-            })
-            .catch((error) => { reject(error.message) });
+            .then((response) => resolve(response))
+            .catch((error) => reject(error.message));
     });
 }
 
-function changeFailed(response, tokens, notificationSaved, reqAppRes) {
+function changeFailed(response, tokens, notificationSaved, reqAppRes, devices) {
     return new Promise((resolve, reject) => {
-        var failedTokens = [];
         for (let index = 0; index < response.results.length; index++) {
             if (response.results[index].error) {
-                console.log("\n\n\n\nFallo:", JSON.stringify(response.results[index].error.code));
-
-                failedTokens.push(tokens[index]);
-                // switch (key) {
-                //     case value:
-
-                //         break;
-
-                //     default:
-                //         break;
-                // }
+                switch (response.results[index].error.code) {
+                    case "messaging/invalid-argument":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 2);
+                        break;
+                    case "messaging/invalid-recipient":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 3);
+                        break;
+                    case "messaging/invalid-payload":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 4);
+                        break;
+                    case "messaging/invalid-data-payload-key":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 5);
+                        break;
+                    case "messaging/payload-size-limit-exceeded":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 6);
+                        break;
+                    case "messaging/invalid-options":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 7);
+                        break;
+                    case "messaging/invalid-registration-token":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 8);
+                        break;
+                    case "messaging/registration-token-not-registered":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 9);
+                        break;
+                    case "messaging/invalid-package-name":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 10);
+                        break;
+                    case "messaging/message-rate-exceeded":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 11);
+                        break;
+                    case "messaging/device-message-rate-exceeded":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 12);
+                        break;
+                    case "messaging/topics-message-rate-exceeded":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 13);
+                        break;
+                    case "messaging/too-many-topics":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 14);
+                        break;
+                    case "messaging/invalid-apns-credentials":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 15);
+                        break;
+                    case "messaging/mismatched-credential":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 16);
+                        break;
+                    case "messaging/authentication-error":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 17);
+                        break;
+                    case "messaging/server-unavailable":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 18);
+                        break;
+                    case "messaging/internal-error":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 19);
+                        break;
+                    case "messaging/unknown-error":
+                        saveError(reqAppRes, notificationSaved.notificationID, tokens[index], 20);
+                        break;
+                    default:
+                        break;
+                }
+                console.log("procediendo");
+                disableToken(tokens[index], devices[index], reqAppRes);
             }
         }
-        reqAppRes.app.db.models.tokennotifications.update({ success: 0 },
-            {
-                where: {
-                    notificationID: notificationSaved.notificationID,
-                    deviceToken: { [Op.or]: failedTokens }
-                }
-            }
-        )
-            .then((response) => { resolve("failed:", failedTokens.length); })
-            .catch((error) => { reject("errrrrror:", error.message) });
+        resolve("All Devices done");
+
     });
 }
 
+function disableToken(token, devices, reqAppRes) {
+    reqAppRes.app.db.models.devicetokens.update({ active: 0 },
+        {
+            where: {
+                deviceToken: token,
+                applicationID: devices.applicationID
+            }
+        }
+    )
+        .then((response) => { console.log("\n----------->disable token:", JSON.stringify(response)); })
+        .catch((error) => { console.log("errrrrror:", error.message) });
+}
 
-function saveAnalytics(params) {
-
+function saveError(reqAppRes, notificationID, token, error) {
+    reqAppRes.app.db.models.tokennotifications.update({ success: error },
+        {
+            where: {
+                notificationID: notificationID,
+                deviceToken: token
+            }
+        }
+    )
+        .then((response) => { console.log("\n----------->failed:", JSON.stringify(response)); })
+        .catch((error) => { console.log("errrrrror:", error.message) });
 }
