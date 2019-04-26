@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataType) => {
 
-    const Topics = sequelize.define(
-        'topics', {
+    const topicsMessages = sequelize.define(
+        'topicsmessages', {
             messageID: {
                 type: DataType.INTEGER,
                 primaryKey: true
@@ -9,15 +9,18 @@ module.exports = (sequelize, DataType) => {
             topicID: {
                 type: DataType.INTEGER,
                 primaryKey: true
+            },
+            success: {
+                type: DataType.INTEGER
             }
         }
     );
 
-    Topics.associate = (models) => {
-        Topics.belongsTo(models.messages, { foreignKey: 'messageID' });
-        Topics.belongsTo(models.topics, { foreignKey: 'topicID' })
+    topicsMessages.associate = (models) => {
+        topicsMessages.belongsTo(models.messages, { foreignKey: 'messageID' });
+        topicsMessages.belongsTo(models.topics, { foreignKey: 'topicID' })
     }
 
-    return Topics;
+    return topicsMessages;
 
 }

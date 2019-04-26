@@ -26,6 +26,7 @@ CREATE TABLE `devicetokens` (
   `userID` int(10) NOT NULL,
   `applicationID` int(10) NOT NULL,
   `deviceToken` varchar(500) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   `so` enum('android','ios','web') NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE `devicetokens` (
 
 LOCK TABLES `devicetokens` WRITE;
 /*!40000 ALTER TABLE `devicetokens` DISABLE KEYS */;
-INSERT INTO `devicetokens` VALUES (12,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay','android',NULL,NULL),(17,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay','android',NULL,NULL),(18,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay','android',NULL,NULL),(19,1,'q','android',NULL,NULL),(20,1,'sdf','android',NULL,NULL),(21,1,'sdffsdfff','android',NULL,NULL);
+INSERT INTO `devicetokens` VALUES (12,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay',1,'android',NULL,'2019-04-26 12:32:16'),(17,1,'fbTlox-e91I:APA91bHQ63zuRN8BMmoFggHAQa8XVIyVOt7VDcwZZ8YiDBIXEMSZP-0rmBLx1VBRKjXrE0i0Wt3_GaY77F2sjhVSoRdPlWT2BjmKneCzm94dQLb2WLh8BVuf6sstGnx72eic_oaxoHtF',1,'android',NULL,NULL),(18,1,'cBCeHrzyXVM:APA91bHL187MLbgvAGHZsSsHZkJizDv4Wja9RiYLDzVKNUKVUl37JCLuhkQwGo-Pgy-biEOeLTu3MKTCFqohbg6f34rPTVP8AHw8r-p2ifc5XOTPE4RjISbPh5Q4P6HuUTbG5ZrC_3Ay',1,'android',NULL,'2019-04-26 12:32:16'),(19,1,'q',1,'android',NULL,'2019-04-26 12:32:16'),(20,1,'sdf',1,'android',NULL,'2019-04-26 12:32:16'),(21,1,'sdffsdfff',1,'android',NULL,'2019-04-26 12:32:16');
 /*!40000 ALTER TABLE `devicetokens` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 15:54:42
+-- Dump completed on 2019-04-26 15:09:19

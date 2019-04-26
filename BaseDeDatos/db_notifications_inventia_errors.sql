@@ -24,8 +24,9 @@ DROP TABLE IF EXISTS `errors`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `errors` (
   `iderrors` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(45) NOT NULL,
-  PRIMARY KEY (`iderrors`,`description`)
+  `title` varchar(45) NOT NULL,
+  `desc` varchar(300) NOT NULL,
+  PRIMARY KEY (`iderrors`,`title`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -35,7 +36,7 @@ CREATE TABLE `errors` (
 
 LOCK TABLES `errors` WRITE;
 /*!40000 ALTER TABLE `errors` DISABLE KEYS */;
-INSERT INTO `errors` VALUES (1,'success'),(2,'invalid-argument'),(3,'invalid-recipient'),(4,'invalid-payload'),(5,'invalid-data-payload-key'),(6,'payload-size-limit-exceeded'),(7,'invalid-options'),(8,'invalid-registration-token'),(9,'registration-token-not-registered'),(10,'invalid-package-name'),(11,'message-rate-exceeded'),(12,'device-message-rate-exceeded'),(13,'topics-message-rate-exceeded'),(14,'too-many-topics'),(15,'invalid-apns-credentials'),(16,'mismatched-credential'),(17,'authentication-error'),(18,'server-unavailable 	'),(19,'internal-error'),(20,'unknown-error');
+INSERT INTO `errors` VALUES (1,'success',''),(2,'messaging/invalid-argument',''),(3,'messaging/invalid-recipient',''),(4,'messaging/invalid-payload',''),(5,'messaging/invalid-data-payload-key',''),(6,'messaging/payload-size-limit-exceeded',''),(7,'messaging/invalid-options',''),(8,'messaging/invalid-registration-token',''),(9,'messaging/registration-token-not-registered','The provided registration token is not registered. A previously valid registration token can be unregistered for a variety of reasons. See the error documentation for more details. Remove this registration token and stop using it to send messages.'),(10,'messaging/invalid-package-name',''),(11,'message-rate-exceeded',''),(12,'messaging/device-message-rate-exceeded',''),(13,'messaging/topics-message-rate-exceeded',''),(14,'messaging/too-many-topics',''),(15,'messaging/invalid-apns-credentials',''),(16,'messaging/mismatched-credential',''),(17,'messaging/authentication-error',''),(18,'messaging/server-unavailable',''),(19,'messaging/internal-error',''),(20,'messaging/unknown-error','');
 /*!40000 ALTER TABLE `errors` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 15:54:42
+-- Dump completed on 2019-04-26 15:09:20

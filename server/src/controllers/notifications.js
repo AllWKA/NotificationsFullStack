@@ -10,6 +10,20 @@ admin.initializeApp({
     databaseURL: "https://notifications-fullstack.firebaseio.com"
 });
 
+module.exports.sendNotificationToTopic = (app, req, res) => {
+    var reqAppRes = { req, app, res };
+    var payload = { notification: req.body }
+    //opciones de la notificacion
+    var options = {
+        priority: "high",
+        timeToLive: 60 * 60 * 24
+    }
+
+    admin.messaging().sendToTopic(req.params.topic, payload, options)
+        .then((response) => res.json(response))
+        .catch((error) => res.json(error.message));
+}
+
 module.exports.sendNotificationToApplication = (app, req, res) => {
     var reqAppRes = { req, app, res };
     //guardar el mensaje
@@ -81,8 +95,8 @@ function saveTokensNotification(reqAppRes, notification, devices) {
             notificationID: notification.notificationID,
         };
         reqAppRes.app.db.models.tokennotifications.create(tokenNotification)
-            .then(tokenNotification => console.log("Notification Saved", tokenNotification))
-            .catch(error => { console.log("saveTokenNotification Error:", error.message, tokenNotification) });
+            .then(tokenNotification => console.log("Notification Saved", JSON.stringify(tokenNotification)))
+            .catch(error => { console.log("saveTokenNotification Error:", error.message) });
     }
 }
 function saveNotification(reqAppRes, message) {

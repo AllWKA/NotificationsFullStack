@@ -25,12 +25,15 @@ DROP TABLE IF EXISTS `topicmessages`;
 CREATE TABLE `topicmessages` (
   `messageID` int(11) NOT NULL,
   `topicID` int(11) NOT NULL,
+  `success` int(11) NOT NULL DEFAULT '1',
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`messageID`,`topicID`),
   KEY `fk_topic_message_idx` (`topicID`),
+  KEY `fk_topic_message_success_idx` (`success`),
   CONSTRAINT `fk_message_topic` FOREIGN KEY (`messageID`) REFERENCES `messages` (`idMessages`),
-  CONSTRAINT `fk_topic_message` FOREIGN KEY (`topicID`) REFERENCES `topics` (`idTopics`)
+  CONSTRAINT `fk_topic_message` FOREIGN KEY (`topicID`) REFERENCES `topics` (`idTopics`),
+  CONSTRAINT `fk_topic_message_success` FOREIGN KEY (`success`) REFERENCES `errors` (`iderrors`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 15:54:48
+-- Dump completed on 2019-04-26 15:09:32

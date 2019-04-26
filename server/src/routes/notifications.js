@@ -27,9 +27,10 @@ var message = {
   topic: 'industry-tech'
 };*/
 
-import { sendNotificationToApplication } from "../controllers/notifications";
+import { sendNotificationToApplication, sendNotificationToTopic } from "../controllers/notifications";
 
 
 module.exports = app => {
   app.post('/sendNotificationToApplication/:applicationName', (req, res) => sendNotificationToApplication(app, req, res));
+  app.post('/sendNotificationToTopic/:topic', (req, res) => sendNotificationToTopic(app, req, res));
 }
