@@ -12,16 +12,40 @@ admin.initializeApp({
 
 module.exports.sendNotificationToTopic = (app, req, res) => {
     var reqAppRes = { req, app, res };
-    var payload = { notification: req.body }
-    //opciones de la notificacion
-    var options = {
-        priority: "high",
-        timeToLive: 60 * 60 * 24
-    }
+    postMessage(reqAppRes)
+        .then(message => {
+            findApp(reqAppRes, message)
+                .then(application => {
+                    findTopic(reqAppRes,message)
+                        .then(topic => {
+                            findUsersFromTopic(reqAppRes, topic, application)
+                                .then(usersTopics => {
+                                    findDevicesFromTopic(reqAppRes, application,usersTopics)
+                                        .then(devices =>{
+                                            saveNotification(reqAppRes, message)
+                                            .then(notification => {
+                                                findDevices(reqAppRes, application.idApplication)
+                                                .then(devices => {
+                                                    //guardo la relacion entre los dispositivos y las notificaciones
+                                                    saveTokensNotification(reqAppRes, notification, devices);
+                                                    //empiezo el procedimiento para enviar las notificaciones
+                                                    packageNotifications(JSON.parse(JSON.stringify(devices)),
+                                                        reqAppRes.req.body, notification, reqAppRes)
+                                                        .then(response => res.json(response))
+                                                        .catch(error => res.status(412).json({ msg: error.message }))
+                                                }).catch(error => res.status(412).json({ msg: error.message }));
+                                            })
+                                            .catch(error => res.status(412).json({ msg: error.message }));
+                                        })
+                                        .catch(error => res.status(412).json({ msg: error.message }));
 
-    admin.messaging().sendToTopic(req.params.topic, payload, options)
-        .then((response) => res.json(response))
-        .catch((error) => res.json(error.message));
+                                    
+                                }).catch(error => res.status(412).json({ msg: error.message }));
+                        }).catch(error => res.status(412).json({ msg: error.message }));
+                }).catch(error => res.status(412).json({ msg: error.message }));
+        }).catch(error => res.status(412).json({ msg: error.message }));
+
+
 }
 
 module.exports.sendNotificationToApplication = (app, req, res) => {
@@ -36,7 +60,7 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
                     saveNotification(reqAppRes, message)
                         .then(notification => {
                             //busco los dispositivos activos de la applicacion
-                            findDevices(reqAppRes, application)
+                            findDevices(reqAppRes, application.idApplication)
                                 .then(devices => {
                                     //guardo la relacion entre los dispositivos y las notificaciones
                                     saveTokensNotification(reqAppRes, notification, devices);
@@ -49,6 +73,65 @@ module.exports.sendNotificationToApplication = (app, req, res) => {
                         }).catch(error => res.status(412).json({ msg: error.message }));
                 }).catch(error => res.status(412).json({ msg: error.message }));
         }).catch(error => res.status(412).json({ msg: error.message }));
+}
+
+async function findDevicesFromTopic(reqAppRes, application,usersTopics) {
+    return new Promise((resolve, reject) => {
+        getIdsFromUsersTopics(usersTopics)
+        .then(ids => {
+            reqAppRes.app.db.models.devicetokens.findAll({
+                where: { 
+                    applicationID: application.idApplication,
+                    active:true,
+                    userID:{
+                        [Op.or]: ids
+                    }
+                }
+            })
+                .then(devices => { resolve(devices); })
+                .catch(error => { reject(error.message) });
+        }).catch(error => { reject(error.message) });        
+    });
+}
+
+function getIdsFromUsersTopics(usersTopics) {
+    
+    return new Promise ((resolve,reject)=>{
+        var idUsers=[]
+
+        for (let index = 0; index < usersTopics.length; index++) {
+            idUsers.push(usersTopics[index].userID)
+        }
+        resolve(idUsers);
+    })    
+}
+
+function findTopic(reqAppRes,message) {
+    return new Promise((resolve, reject) => {
+        reqAppRes.app.db.models.topics.findOne({
+            where: {
+                topic: reqAppRes.req.params.topic
+            }
+        })
+            .then(topic => {
+                topic.addMessage(message);
+                resolve(topic)
+                })
+            .catch(error => reject(error))
+    });
+}
+
+function findUsersFromTopic(reqAppRes, topic,application) {
+    return new Promise((resolve, reject) => {
+        reqAppRes.app.db.models.usertopics.findAll({
+            where: {
+                topicID: topic.idTopics,
+                applicationID: application.idApplication
+            }
+        })
+            .then(resp => resolve(resp))
+            .catch(error => reject(error))
+    });
 }
 
 function postMessage(reqAppRes) {
@@ -77,7 +160,7 @@ async function findDevices(reqAppRes, application) {
     return new Promise((resolve, reject) => {
         reqAppRes.app.db.models.devicetokens.findAll({
             where: {
-                applicationID: JSON.parse(JSON.stringify(application)).idApplication,
+                applicationID: application,
                 active: 1
             }
         })

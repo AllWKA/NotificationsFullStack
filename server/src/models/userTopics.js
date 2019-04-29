@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataType) => {
 
-    const Topics = sequelize.define(
+    const UserTopics = sequelize.define(
         'usertopics', {
             userID: {
                 type: DataType.INTEGER,
@@ -17,11 +17,10 @@ module.exports = (sequelize, DataType) => {
         }
     );
 
-    Topics.associate = (models) => {
-        Topics.belongsTo(models.devicetokens, { foreignKey: 'userID', otherKey: 'applicationID' });
-        Topics.belongsTo(models.topics, { foreignKey: 'topicID' })
+    UserTopics.associate = (models) => {
+        UserTopics.belongsTo(models.devicetokens, { foreignKey: 'userID', otherKey: 'applicationID' });
+        UserTopics.belongsTo(models.topics, { foreignKey: 'topicID' })
     }
-
-    return Topics;
+    return UserTopics;
 
 }
