@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <p size=8>{{token}}</p>
+    <button (click)="getToken()">get token</button>
+    <p>ssssssssssss:{{response}}</p>
+    <ion-input placeholder="email"></ion-input>
+    <ion-input placeholder="application name"></ion-input>
+    <button (click)="saveToken()">save token</button>
+  </div>
+</ion-content>

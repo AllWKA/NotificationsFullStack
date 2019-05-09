@@ -1,0 +1,8 @@
+{
+  "name": "InventiaPlusNotificationsTest",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

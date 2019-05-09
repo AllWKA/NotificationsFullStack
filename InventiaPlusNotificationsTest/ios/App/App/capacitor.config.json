@@ -1,0 +1,6 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "InventiaPlusNotificationsTest",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

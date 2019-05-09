@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "912074651218",
+    "firebase_url": "https://notifications-fullstack.firebaseio.com",
+    "project_id": "notifications-fullstack",
+    "storage_bucket": "notifications-fullstack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912074651218:android:c7522b43cc750a84",
+        "android_client_info": {
+          "package_name": "com.inventiaplus.notificationstest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912074651218-doqbkuebtma8qu0680rhbe2qjdkl4165.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoZA6eLiH60LWDhWrkNs5Tc6tGsbmf-qM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912074651218-doqbkuebtma8qu0680rhbe2qjdkl4165.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "912074651218-outmkua5v9jc8cn24tip5mccc2c2c80s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.inventiaplus.notificationstest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

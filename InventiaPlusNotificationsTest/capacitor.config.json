@@ -1,0 +1,6 @@
+{
+  "appId": "com.inventiaplus.notificationstest",
+  "appName": "InventiaPlusNotificationsTest",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
