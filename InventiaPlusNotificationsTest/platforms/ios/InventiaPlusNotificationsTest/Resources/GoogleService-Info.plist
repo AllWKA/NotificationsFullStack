@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>912074651218-outmkua5v9jc8cn24tip5mccc2c2c80s.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.912074651218-outmkua5v9jc8cn24tip5mccc2c2c80s</string>
+	<key>API_KEY</key>
+	<string>AIzaSyChe20FZdGL1IOGXFuKEVFxTJiA2r5GIwU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>912074651218</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.inventiaplus.notificationstest</string>
+	<key>PROJECT_ID</key>
+	<string>notifications-fullstack</string>
+	<key>STORAGE_BUCKET</key>
+	<string>notifications-fullstack.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:912074651218:ios:c7522b43cc750a84</string>
+	<key>DATABASE_URL</key>
+	<string>https://notifications-fullstack.firebaseio.com</string>
+</dict>
+</plist>
