@@ -5,7 +5,7 @@ module.exports = app => {
     const Admin = app.db.models.admins;
 
 
-    app.post('/addApplication/:email', (req, res) => addApplication(app, req, res));
+    app.post('/addApplication/:email/:applicationName', (req, res) => addApplication(app, req, res));
 
     app.get('/admin/:email', (req, res) => getAdmin(app, req, res));
 
