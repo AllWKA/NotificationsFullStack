@@ -220,7 +220,7 @@ function packageNotifications(devices, notification, notificationSaved, reqAppRe
     });
 }
 
-async function getTokensFromRange(start, end, devices) {
+function getTokensFromRange(start, end, devices) {
     return new Promise((resolve, reject) => {
         var tokens = [];
         for (let index = start; index < end; index++) {
@@ -231,7 +231,7 @@ async function getTokensFromRange(start, end, devices) {
 
 }
 
-async function sendNotificationToTokens(tokens, notification) {
+function sendNotificationToTokens(tokens, notification) {
     console.log(tokens);
 
     return new Promise((resolve, reject) => {
