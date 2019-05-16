@@ -10,103 +10,73 @@ admin.initializeApp({
     databaseURL: "https://notifications-fullstack.firebaseio.com"
 });
 
-module.exports.sendNotificationToTopic = (app, req, res) => {
+module.exports.sendNotificationToTopic = async (app, req, res) => {
     var reqAppRes = { req, app, res };
-    postMessage(reqAppRes)
-        .then(message => {
-            findApp(reqAppRes, message)
-                .then(application => {
-                    findTopic(reqAppRes,message)
-                        .then(topic => {
-                            findUsersFromTopic(reqAppRes, topic, application)
-                                .then(usersTopics => {
-                                    findDevicesFromTopic(reqAppRes, application,usersTopics)
-                                        .then(devices =>{
-                                            saveNotification(reqAppRes, message)
-                                            .then(notification => {
-                                                findDevices(reqAppRes, application.idApplication)
-                                                .then(devices => {
-                                                    //guardo la relacion entre los dispositivos y las notificaciones
-                                                    saveTokensNotification(reqAppRes, notification, devices);
-                                                    //empiezo el procedimiento para enviar las notificaciones
-                                                    packageNotifications(JSON.parse(JSON.stringify(devices)),
-                                                        reqAppRes.req.body, notification, reqAppRes)
-                                                        .then(response => res.json(response))
-                                                        .catch(error => res.status(412).json({ msg: error.message }))
-                                                }).catch(error => res.status(412).json({ msg: error.message }));
-                                            })
-                                            .catch(error => res.status(412).json({ msg: error.message }));
-                                        })
-                                        .catch(error => res.status(412).json({ msg: error.message }));
 
-                                    
-                                }).catch(error => res.status(412).json({ msg: error.message }));
-                        }).catch(error => res.status(412).json({ msg: error.message }));
-                }).catch(error => res.status(412).json({ msg: error.message }));
-        }).catch(error => res.status(412).json({ msg: error.message }));
+    var message = await postMessage(reqAppRes);
+    var application = findApp(reqAppRes, message);
+    var topic = findTopic(reqAppRes, message);
+    var notifiacion = saveNotification(reqAppRes, message);
+
+    Promise.all([application, topic, notifiacion]).then(async (values) => {
+        var usersTopics = await findUsersFromTopic(reqAppRes, values[1], values[0]);
+        var devices = await findDevicesFromTopic(reqAppRes, values[0], usersTopics);
+
+        saveTokensNotification(reqAppRes, values[1], devices);
+        packageNotifications(JSON.parse(JSON.stringify(devices)), reqAppRes.req.body, values[2], reqAppRes);
+
+    });
+
+}
+
+module.exports.sendNotificationToApplication = async (app, req, res) => {
+
+    var reqAppRes = { req, app, res };
+    var message = await postMessage(reqAppRes);
+    var application = findApp(reqAppRes, message);
+    var notification = saveNotification(reqAppRes, message);
+
+    Promise.all([application, notification]).then(async (values) => {
+        var devices = await findDevices(reqAppRes, values[0].idApplication);
+        saveTokensNotification(reqAppRes, values[1], devices);
+        packageNotifications(JSON.parse(JSON.stringify(devices)), reqAppRes.req.body, values[1], reqAppRes);
+    });
 
 
 }
 
-module.exports.sendNotificationToApplication = (app, req, res) => {
-    var reqAppRes = { req, app, res };
-    //guardar el mensaje
-    postMessage(reqAppRes)
-        .then(message => {
-            //busco la applicacion a la que se quiere enviar el mensaje
-            findApp(reqAppRes, message)
-                .then(application => {
-                    //guardo las notificaciones que van a ser enviadas
-                    saveNotification(reqAppRes, message)
-                        .then(notification => {
-                            //busco los dispositivos activos de la applicacion
-                            findDevices(reqAppRes, application.idApplication)
-                                .then(devices => {
-                                    //guardo la relacion entre los dispositivos y las notificaciones
-                                    saveTokensNotification(reqAppRes, notification, devices);
-                                    //empiezo el procedimiento para enviar las notificaciones
-                                    packageNotifications(JSON.parse(JSON.stringify(devices)),
-                                        reqAppRes.req.body, notification, reqAppRes)
-                                        .then(response => res.json(response))
-                                        .catch(error => res.status(412).json({ msg: error.message }))
-                                }).catch(error => res.status(412).json({ msg: error.message }));
-                        }).catch(error => res.status(412).json({ msg: error.message }));
-                }).catch(error => res.status(412).json({ msg: error.message }));
-        }).catch(error => res.status(412).json({ msg: error.message }));
-}
-
-async function findDevicesFromTopic(reqAppRes, application,usersTopics) {
+function findDevicesFromTopic(reqAppRes, application, usersTopics) {
     return new Promise((resolve, reject) => {
         getIdsFromUsersTopics(usersTopics)
-        .then(ids => {
-            reqAppRes.app.db.models.devicetokens.findAll({
-                where: { 
-                    applicationID: application.idApplication,
-                    active:true,
-                    userID:{
-                        [Op.or]: ids
+            .then(ids => {
+                reqAppRes.app.db.models.devicetokens.findAll({
+                    where: {
+                        applicationID: application.idApplication,
+                        active: true,
+                        userID: {
+                            [Op.or]: ids
+                        }
                     }
-                }
-            })
-                .then(devices => { resolve(devices); })
-                .catch(error => { reject(error.message) });
-        }).catch(error => { reject(error.message) });        
+                })
+                    .then(devices => { resolve(devices); })
+                    .catch(error => { reject(error.message) });
+            }).catch(error => { reject(error.message) });
     });
 }
 
 function getIdsFromUsersTopics(usersTopics) {
-    
-    return new Promise ((resolve,reject)=>{
-        var idUsers=[]
+
+    return new Promise((resolve, reject) => {
+        var idUsers = []
 
         for (let index = 0; index < usersTopics.length; index++) {
             idUsers.push(usersTopics[index].userID)
         }
         resolve(idUsers);
-    })    
+    })
 }
 
-function findTopic(reqAppRes,message) {
+function findTopic(reqAppRes, message) {
     return new Promise((resolve, reject) => {
         reqAppRes.app.db.models.topics.findOne({
             where: {
@@ -116,12 +86,12 @@ function findTopic(reqAppRes,message) {
             .then(topic => {
                 topic.addMessage(message);
                 resolve(topic)
-                })
+            })
             .catch(error => reject(error))
     });
 }
 
-function findUsersFromTopic(reqAppRes, topic,application) {
+function findUsersFromTopic(reqAppRes, topic, application) {
     return new Promise((resolve, reject) => {
         reqAppRes.app.db.models.usertopics.findAll({
             where: {
@@ -156,7 +126,7 @@ function findApp(reqAppRes, message) {
     })
 }
 
-async function findDevices(reqAppRes, application) {
+function findDevices(reqAppRes, application) {
     return new Promise((resolve, reject) => {
         reqAppRes.app.db.models.devicetokens.findAll({
             where: {
